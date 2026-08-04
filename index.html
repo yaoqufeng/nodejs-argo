@@ -3,235 +3,540 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChronoMap | 专业时空地图可视化平台</title>
+    <title>诸神传说 | Legends of the Gods</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* 继承并微调原样式 */
+        :root {
+            --gold: #b8860b;
+            --paper-dark: #2c1e14;
+            --paper-light: #f4e4bc;
+            --accent: #e2e8f0;
+            --highlight: #d97706;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto+Sans+SC', 'Poppins', sans-serif; line-height: 1.6; color: #333; background-color: #f8fafc; }
-        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        /* 颜色主题更新：使用更深邃的科技蓝 */
-        :root { --primary-color: #0f172a; --accent-color: #38bdf8; --secondary-bg: #f1f5f9; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans CN', serif;
+            background-color: #1a120b;
+            color: var(--accent);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        header { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: fixed; width: 100%; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
-        .logo { display: flex; align-items: center; text-decoration: none; }
-        .logo-icon { color: var(--accent-color); font-size: 28px; margin-right: 10px; }
-        .logo-text { font-size: 24px; font-weight: 700; color: var(--primary-color); }
-        .logo-text span { color: var(--accent-color); }
-        
-        .nav-links { display: flex; list-style: none; }
-        .nav-links li { margin-left: 30px; }
-        .nav-links a { text-decoration: none; color: #475569; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent-color); }
-        
-        .cta-button { background-color: var(--primary-color); color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .cta-button:hover { background-color: #1e293b; transform: translateY(-2px); }
+        .container { max-width: 1500px; margin: 0 auto; padding: 20px; }
 
-        /* Hero Section */
-        .hero { padding: 160px 0 100px; background: radial-gradient(circle at top right, #e0f2fe, #f8fafc); }
-        .hero-content { display: flex; align-items: center; gap: 40px; }
-        .hero-text { flex: 1; }
-        .hero-text h1 { font-size: 44px; margin-bottom: 20px; color: var(--primary-color); line-height: 1.2; }
-        .hero-text h1 span { color: var(--accent-color); }
-        .hero-text p { font-size: 18px; color: #64748b; margin-bottom: 30px; }
-        .hero-buttons { display: flex; gap: 15px; }
-        .secondary-button { background-color: white; color: var(--primary-color); border: 2px solid var(--primary-color); padding: 10px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        
-        .hero-image { flex: 1; position: relative; }
-        .hero-image img { width: 100%; border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); border: 8px solid white; }
+        header { padding: 30px 0; text-align: center; }
+        header h1 { 
+            font-size: 3.5rem; 
+            color: var(--paper-light); 
+            letter-spacing: 12px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: 800;
+        }
+        header h1 span {
+            display: block;
+            font-size: 1.5rem;
+            letter-spacing: 6px;
+            margin-top: 10px;
+            color: var(--gold);
+            font-weight: 300;
+        }
+        header p { opacity: 0.6; font-style: italic; margin-top: 15px; letter-spacing: 1px; font-size: 1rem; }
 
-        /* 特色板块：时间轴+地图 */
-        .features { padding: 100px 0; background: white; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 32px; color: var(--primary-color); margin-bottom: 15px; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-card { padding: 30px; border-radius: 15px; background: #f8fafc; transition: 0.3s; border: 1px solid #e2e8f0; }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-color: var(--accent-color); }
-        .feature-icon { font-size: 30px; color: var(--accent-color); margin-bottom: 20px; }
+        .explorer-layout {
+            display: grid;
+            grid-template-columns: 1.7fr 1.2fr;
+            gap: 25px;
+            margin-top: 10px;
+        }
 
-        /* 价格板块 */
-        .pricing { padding: 100px 0; background-color: #f1f5f9; }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .pricing-card { background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
-        .pricing-card.featured { border: 2px solid var(--accent-color); transform: scale(1.05); }
-        .price { font-size: 40px; font-weight: 700; margin: 20px 0; }
+        .map-wrapper {
+            position: relative;
+            background-image: url('https://thumbs.dreamstime.com/b/%E5%8F%A4%E8%91%A3%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9C%BE%E8%AE%BE%E8%AE%A1%EF%BC%8C%E8%AE%A9%E4%BA%BA%E9%99%B6%E9%86%89%E7%9A%84%E6%8B%BC%E5%9B%BE%E4%BD%93%E9%AA%8C-365690160.jpg?w=992');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            border-radius: 8px;
+            border: 5px solid #3d2b1f;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            aspect-ratio: 992 / 558;
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+        }
 
-        footer { background: var(--primary-color); color: #94a3b8; padding: 80px 0 30px; }
-        footer h3 { color: white; margin-bottom: 20px; }
-        .footer-links { list-style: none; }
-        .footer-links a { color: #94a3b8; text-decoration: none; transition: 0.3s; }
-        .footer-links a:hover { color: var(--accent-color); }
+        .pin {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #ffd700;
+            border: 1.5px solid #000;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            transition: 0.3s;
+            z-index: 10;
+        }
 
-        @media (max-width: 992px) { .hero-content { flex-direction: column; text-align: center; } .hero-buttons { justify-content: center; } }
+        .pin::after {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            background: #ffd700;
+            animation: pulse 2.5s infinite;
+        }
+
+        .pin:hover, .pin.active {
+            background: #fff;
+            transform: translate(-50%, -50%) scale(2.5);
+            box-shadow: 0 0 20px #fff;
+            z-index: 20;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+
+        /* 精准坐标校准 */
+        .p-china    { top: 31%; left: 77.5%; } 
+        .p-nuwa     { top: 34%; left: 81.5%; } 
+        .p-houyi    { top: 37%; left: 83.5%; } 
+        .p-yutaming { top: 41%; left: 80.5%; } 
+        .p-jingwei  { top: 30%; left: 83.2%; } 
+        .p-zhuolu   { top: 31.5%; left: 80.8%; } 
+        .p-tibet    { top: 38%; left: 77%; }   
+        .p-japan    { top: 34%; left: 91%; }
+        .p-india    { top: 51%; left: 74.5%; }
+        .p-meso     { top: 37%; left: 63%; }   
+        .p-persia   { top: 40%; left: 68%; }   
+        .p-seasia   { top: 59%; left: 83%; }   
+        .p-nordic   { top: 16%; left: 53.5%; } 
+        .p-celtic   { top: 26%; left: 49%; }   
+        .p-greece   { top: 34.5%; left: 56.5%; } 
+        .p-slavic   { top: 24%; left: 61.5%; } 
+        .p-egypt    { top: 42%; left: 58.5%; } 
+        .p-yoruba   { top: 59%; left: 52%; }   
+        .p-inuit    { top: 16%; left: 16%; }   
+        .p-iroquois { top: 34%; left: 24.5%; } 
+        .p-maya     { top: 53%; left: 24.5%; } 
+        .p-aztec    { top: 48%; left: 22%; }   
+        .p-inca     { top: 72%; left: 34.5%; } 
+        .p-aboriginal { top: 77%; left: 88.5%; }
+        .p-polynesia  { top: 62%; left: 96%; }
+
+        /* 内容面板 */
+        .detail-panel {
+            background: #2d1e15;
+            border-radius: 12px;
+            padding: 40px;
+            border: 2px solid #4a3225;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+            height: calc(100vh - 150px);
+            overflow-y: auto;
+        }
+
+        .legend-content h2 {
+            color: #f4e4bc;
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            font-family: serif;
+        }
+        .legend-content .en-title {
+            display: block;
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-style: italic;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+
+        .legend-meta {
+            font-size: 0.9rem;
+            color: #bbb;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 20px;
+        }
+        .legend-meta i { color: var(--gold); margin-right: 5px; }
+
+        .section-title {
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 30px;
+            display: block;
+            border-left: 5px solid var(--gold);
+            padding-left: 12px;
+            font-size: 1.2rem;
+        }
+        .section-title span {
+            display: block;
+            font-size: 0.85rem;
+            font-style: italic;
+            font-weight: normal;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .legend-description {
+            font-size: 1rem;
+            color: #e2e8f0;
+            white-space: pre-line;
+            text-align: justify;
+        }
+
+        .en-text {
+            display: block;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-style: italic;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .placeholder {
+            text-align: center;
+            opacity: 0.3;
+            margin-top: 40%;
+        }
+
+        .detail-panel::-webkit-scrollbar { width: 6px; }
+        .detail-panel::-webkit-scrollbar-thumb { background: #5d4037; border-radius: 10px; }
+
+        @media (max-width: 1100px) {
+            .explorer-layout { grid-template-columns: 1fr; }
+            .map-wrapper { position: relative; top: 0; }
+            .detail-panel { height: auto; }
+        }
     </style>
 </head>
 <body>
+
+<div class="container">
     <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">
-                    <div class="logo-icon"><i class="fas fa-history"></i></div>
-                    <div class="logo-text">Chrono<span>Map</span></div>
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#features">核心功能</a></li>
-                    <li><a href="#use-cases">应用场景</a></li>
-                    <li><a href="#pricing">方案价格</a></li>
-                    <li><a href="#">文档中心</a></li>
-                </ul>
-                <button class="cta-button">免费开始</button>
-            </nav>
-        </div>
+        <h1>诸神传说 <span>Legends of the Gods</span></h1>
+        <p>— 25个跨越地理与文明的远古传说深度双语档案 —<br><i>25 Deep Bilingual Archives of Ancient Legends Across Geography and Civilizations</i></p>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>在<span>时间</span>长河中<br>发现地理的演变</h1>
-                    <p>ChronoMap 是新一代时空数据可视化平台。通过动态时间轴连接地理坐标，让您的数据在时空中“动”起来。适用于历史研究、城市发展、物流监控及疫情追踪。</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">创建我的地图</button>
-                        <button class="secondary-button">查看演示</button>
-                    </div>
+    <div class="explorer-layout">
+        <div class="map-wrapper">
+            <!-- 所有25个标点 -->
+            <div class="pin p-china" onclick="showLegend('china', this)"></div>
+            <div class="pin p-nuwa" onclick="showLegend('nuwa', this)"></div>
+            <div class="pin p-houyi" onclick="showLegend('houyi', this)"></div>
+            <div class="pin p-yutaming" onclick="showLegend('yutaming', this)"></div>
+            <div class="pin p-jingwei" onclick="showLegend('jingwei', this)"></div>
+            <div class="pin p-zhuolu" onclick="showLegend('zhuolu', this)"></div>
+            <div class="pin p-tibet" onclick="showLegend('tibet', this)"></div>
+            <div class="pin p-japan" onclick="showLegend('japan', this)"></div>
+            <div class="pin p-india" onclick="showLegend('india', this)"></div>
+            <div class="pin p-meso" onclick="showLegend('meso', this)"></div>
+            <div class="pin p-persia" onclick="showLegend('persia', this)"></div>
+            <div class="pin p-seasia" onclick="showLegend('seasia', this)"></div>
+            <div class="pin p-nordic" onclick="showLegend('nordic', this)"></div>
+            <div class="pin p-celtic" onclick="showLegend('celtic', this)"></div>
+            <div class="pin p-greece" onclick="showLegend('greece', this)"></div>
+            <div class="pin p-slavic" onclick="showLegend('slavic', this)"></div>
+            <div class="pin p-egypt" onclick="showLegend('egypt', this)"></div>
+            <div class="pin p-yoruba" onclick="showLegend('yoruba', this)"></div>
+            <div class="pin p-inuit" onclick="showLegend('inuit', this)"></div>
+            <div class="pin p-iroquois" onclick="showLegend('iroquois', this)"></div>
+            <div class="pin p-maya" onclick="showLegend('maya', this)"></div>
+            <div class="pin p-aztec" onclick="showLegend('aztec', this)"></div>
+            <div class="pin p-inca" onclick="showLegend('inca', this)"></div>
+            <div class="pin p-aboriginal" onclick="showLegend('aboriginal', this)"></div>
+            <div class="pin p-polynesia" onclick="showLegend('polynesia', this)"></div>
+        </div>
+
+        <div class="detail-panel" id="detailPanel">
+            <div class="placeholder" id="placeholder">
+                <i class="fas fa-scroll fa-4x" style="margin-bottom: 20px; color: var(--gold)"></i>
+                <p>点击地图坐标解锁深度双语档案<br><i>Click coordinates to unlock deep bilingual archives.</i></p>
+            </div>
+            <div class="legend-content" id="legendContent" style="display: none;">
+                <h2 id="title"></h2>
+                <span class="en-title" id="titleEn"></span>
+                <div class="legend-meta">
+                    <span id="region"></span>
+                    <span id="era"></span>
                 </div>
-                <div class="hero-image">
-                    <!-- 使用一张更有地图感和时间感的图 -->
-                    <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="时空地图演示">
-                </div>
+                <div class="legend-description" id="description"></div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>为什么选择 ChronoMap？</h2>
-                <p>打破静态地图的局限，赋予地理数据生命力</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-clock"></i></div>
-                    <h3>动态时间滑块</h3>
-                    <p>通过底部交互式时间轴，自由回溯或快进数据。支持秒级到世纪级的时间跨度调节。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
-                    <h3>多维图层叠加</h3>
-                    <p>在同一张地图上叠加不同时期的卫星图、历史测绘图或人口统计热力图。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-route"></i></div>
-                    <h3>轨迹流动分析</h3>
-                    <p>自动生成物体随时间移动的平滑轨迹，支持方向感知与速度可视化。可视化物流和迁徙路径。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-file-import"></i></div>
-                    <h3>智能数据导入</h3>
-                    <p>支持 GeoJSON, CSV, KML。只需包含时间戳列，系统即可自动生成时空模型。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-share-alt"></i></div>
-                    <h3>一键网页嵌入</h3>
-                    <p>生成的动态时间地图可轻松嵌入新闻报道、学术论文或公司仪表盘中。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-mobile-screen"></i></div>
-                    <h3>移动端优化</h3>
-                    <p>在平板和手机上也能流畅操作复杂的时间序列数据，随时随地展示成果。</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+    const legendData = {
+        china: { 
+            title: "昆仑山：众神之乡", 
+            titleEn: "Kunlun Mountain: Home of the Gods",
+            region: "📍 中国西部 | Western China", era: "⏳ 上古时代 | Ancient Era", 
+            description: `<span class='section-title'>传说背景 <span>Background</span></span>昆仑山被视为华夏大地的“万山之祖”，是地界通往天界的枢纽。在汉代史籍与《山海经》中，它是地理实体与神话想象的重合点。
+<span class='en-text'>Kunlun Mountain is regarded as the "Ancestor of Ten Thousand Mountains" in China, serving as the hub between the earthly and heavenly realms. It is the intersection of geography and mythical imagination.</span>
+<span class='section-title'>核心内容 <span>Core Content</span></span>传说西王母居住在昆仑之巅的瑶池，园中种有三千年一结的“蟠桃”，食之可得长生。山中布满了奇珍异兽，如九头虎身的开明兽。它是众神在人间的行宫，黄帝等圣王常在此汲取智慧。
+<span class='en-text'>Legend says Xiwangmu resides at the Jade Pool on Kunlun's peak, where "Flat Peaches" grant immortality. It is home to mythical beasts like the Kaiming Beast and serves as the earthly palace for gods and ancient sage kings.</span>
+<span class='section-title'>文明内涵 <span>Insights</span></span>昆仑神话奠定了东方文明中“天人合一”的思想。象征着人类对超脱平庸、触及神圣境界的永恒渴望。
+<span class='en-text'>The Kunlun myth established the concept of "Unity of Heaven and Man," symbolizing the eternal human desire to transcend the mundane and reach the divine.</span>`
+        },
+        nuwa: { 
+            title: "女娲补天：生命救赎", 
+            titleEn: "Nuwa Mending the Heavens: Redemption of Life",
+            region: "📍 中原 | Central Plains", era: "⏳ 创世时期 | Creation Era", 
+            description: `<span class='section-title'>传说背景 <span>Background</span></span>水神共工与火神祝融激战，共工怒触不周山，导致支撑苍天的柱子断裂，宇宙秩序濒临崩溃。
+<span class='en-text'>The god of water Gonggong and the god of fire Zhurong fought a fierce battle. Gonggong struck Mount Buzhou, breaking the pillar of heaven and bringing the universe to the brink of collapse.</span>
+<span class='section-title'>核心内容 <span>Core Content</span></span>始祖女神女娲目睹众生挣扎，炼制五色石以修补天穹，折断巨鳖之足支撑四极。同时，她还以黄泥捏造人类，并赋予繁衍的本能。
+<span class='en-text'>Nuwa, the mother goddess, smelted five-colored stones to mend the sky and used a giant turtle's legs to support the corners of the world. She also created humans from yellow clay.</span>
+<span class='section-title'>文明内涵 <span>Insights</span></span>体现了母系氏族社会中对女性权力的崇拜。补天象征着中华民族在自然巨灾面前表现出的自发救赎精神与重建毅力。
+<span class='en-text'>Nuwa embodies the worship of female power. Mending the sky symbolizes the Chinese nation's spirit of self-redemption and the will to reconstruct civilization after a catastrophe.</span>`
+        },
+        houyi: { 
+            title: "后羿射日：宇宙秩序", 
+            titleEn: "Houyi Shooting the Suns: Cosmic Order",
+            region: "📍 华东 | Eastern China", era: "⏳ 尧帝时期 | Era of Emperor Yao", 
+            description: `<span class='section-title'>传说背景 <span>Background</span></span>天帝的十个儿子化身为十只金乌（太阳），原本轮流当值。然而有一日，它们决定共同升空，导致大地干旱、百姓民不聊生。
+<span class='en-text'>Ten sons of the Heavenly Emperor turned into ten suns (Golden Crows). One day, they rose together, scorching the earth and bringing misery to the people.</span>
+<span class='section-title'>核心内容 <span>Core Content</span></span>神箭手后羿受命拯救人间。他连射落九只金乌，使天空仅存一轮红日。随后，其妻嫦娥服下不死药独自奔月。
+<span class='en-text'>The divine archer Houyi shot down nine suns to save the world. Later, his wife Chang'e consumed the elixir of immortality and flew to the moon alone.</span>
+<span class='section-title'>文明内涵 <span>Insights</span></span>这是一部人类征服自然的壮丽史诗。它确立了英雄的力量应当服务于苍生存续的民本思想。
+<span class='en-text'>This epic symbolizes humanity's triumph over nature and establishes the idea that heroic power must serve the survival of the people.</span>`
+        },
+        yutaming: { 
+            title: "大禹治水：文明基石", 
+            titleEn: "Yu the Great Taming the Floods",
+            region: "📍 黄河流域 | Yellow River Valley", era: "⏳ 约前21世纪 | c. 21st Century BC", 
+            description: `<span class='section-title'>传说背景 <span>Background</span></span>上古大地遭受长达数十年的洪水灾难，禹的父亲采取“堵截”之策失败。
+<span class='en-text'>The ancient land suffered decades of flooding. Yu's father failed to stop the floods using the "blocking" method.</span>
+<span class='section-title'>核心内容 <span>Core Content</span></span>禹三过家门而不入，耗时13年，改堵为疏，通过凿山导流将洪水引入大海。他亲自搬运土石，腿上的汗毛都被磨光。
+<span class='en-text'>Yu passed his home three times without entering. Over 13 years, he used dredging to guide water into the sea, physical laboring until the hair on his legs was worn away.</span>
+<span class='section-title'>文明内涵 <span>Insights</span></span>治水标志着中国从原始部落向早期国家形态的质变。它塑造了“克己奉公”和“顺应规律”的政治智慧。
+<span class='en-text'>Taming the flood marked the transition from tribes to a state. It shaped the wisdom of self-sacrifice for the public and following natural laws.</span>`
+        },
+        jingwei: { 
+            title: "精卫填海：意志图腾", 
+            titleEn: "Jingwei Filling the Sea",
+            region: "📍 渤海 | Bohai Sea", era: "⏳ 上古时代 | Ancient Times", 
+            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>传说炎帝之女溺亡化作“精卫”鸟。精卫终日衔着树枝与石块，试图填平浩瀚的东海。
+<span class='en-text'>Legend has it that Yandi's daughter drowned and turned into the bird "Jingwei." She carries twigs and stones daily to fill the vast Eastern Sea.</span>
+<span class='section-title'>文明内涵 <span>Insights</span></span>面对不可战胜的大自然力量，精卫展现了“知其不可而为之”的极端意志，是中华民族性格中“坚韧不拔”的最高精神符号。
+<span class='en-text'>In the face of invincible natural forces, Jingwei shows the will to strive against impossible odds, becoming a symbol of Chinese resilience.</span>`
+        },
+        zhuolu: { 
+            title: "诸神之战：融合之源", 
+            titleEn: "Battle of Zhuolu: Source of Integration",
+            region: "📍 华北 | Northern China", era: "⏳ 五帝时期 | Era of Five Emperors", 
+            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>黄帝部与蚩尤部大决战。战场上风云变幻，黄帝发明指南车辨别方位，并请来应龙降雨、最终击败蚩尤。
+<span class='en-text'>The decisive battle between Huangdi and Chiyou. Amidst magic mists, Huangdi used a compass chariot and divine dragons to defeat Chiyou.</span>
+<span class='section-title'>文明内涵 <span>Insights</span></span>此战后炎黄二部走向一统。它奠定了中原文明作为多民族融合核心的地位。
+<span class='en-text'>This battle led to the unification of tribes, establishing the Central Plains as the core of multi-ethnic integration.</span>`
+        },
+        tibet: { 
+            title: "格萨尔王：雄狮之王", 
+            titleEn: "King Gesar: The Lion King",
+            region: "📍 青藏高原 | Tibetan Plateau", era: "⏳ 约11世纪 | c. 11th Century", 
+            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>神子格萨尔降临人间，金戈铁马降伏妖魔。其史诗通过艺人口口相传，字数甚至超过《荷马史诗》。
+<span class='en-text'>The divine son Gesar descended to Earth to conquer demons. His epic, passed down by oral bards, exceeds the Iliad in length.</span>
+<span class='section-title'>文明意义 <span>Significance</span></span>雪域高原民族灵魂的百科全书，保存了高原古代社会的民俗、宗教与哲学。
+<span class='en-text'>An encyclopedia of the Tibetan soul, preserving the ancient folklore, religion, and philosophy of the plateau.</span>`
+        },
+        greece: { 
+            title: "奥林匹斯：众神纠葛", 
+            titleEn: "Olympus: Entanglements of Gods",
+            region: "📍 希腊 | Greece", era: "⏳ 前8世纪 | 8th Century BC", 
+            description: `<span class='section-title'>传说核心 <span>Core Content</span></span>奥林匹斯山之巅居住着以宙斯为首的十二主神。这些神明拥有极强的人格化特征——傲慢、嫉妒、愤怒甚至多情。
+<span class='en-text'>The Twelve Olympians rule from Mount Olympus. These gods are intensely humanized, displaying hubris, jealousy, and passion.</span>
+<span class='section-title'>文明意义 <span>Significance</span></span>探讨了人类存在的悲剧美学。它是西方人文主义的摇篮，强调人类在命运抗争中闪耀的自由意志。
+<span class='en-text'>It explores the tragic aesthetics of existence and serves as the cradle of Western humanism, highlighting free will against destiny.</span>`
+        },
+        nordic: { 
+            title: "世界树：诸神黄昏", 
+            titleEn: "Yggdrasil: Ragnarök",
+            region: "📍 北欧 | Scandinavia", era: "⏳ 8-11世纪 | 8th-11th Century", 
+            description: `<span class='section-title'>传说核心 <span>Core Content</span></span>宇宙是一棵巨大的白蜡树。最独特的预言是“诸神黄昏”：一场无法避免的决战，众神将与巨灵同归于尽。
+<span class='en-text'>The universe is a giant ash tree. The central prophecy is Ragnarök: an inevitable final battle where gods and giants destroy each other.</span>
+<span class='section-title'>生存哲学 <span>Philosophy</span></span>带有强烈的末世观。教导勇士：死亡是宿命，但战斗的过程必须充满光荣。
+<span class='en-text'>A world-view where death is destiny, but the act of fighting must be filled with glory and honor.</span>`
+        },
+        egypt: { 
+            title: "冥界审判：心脏天秤", 
+            titleEn: "Underworld Judgment: Scales of Heart",
+            region: "📍 埃及 | Egypt", era: "⏳ 前3000年 | 3000 BC", 
+            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>亡魂需在冥王前接受审判。阿努比斯取出死者的心脏，放在天秤一端，另一端是象征真理的羽毛。
+<span class='en-text'>The deceased faces judgment before Osiris. Anubis weighs the heart against the Feather of Truth (Maat).</span>
+<span class='section-title'>文明意义 <span>Significance</span></span>心脏轻于羽毛者进入永生。确立了人类历史上最早基于道德行为的审判观。
+<span class='en-text'>A heart lighter than the feather grants eternal life, establishing the earliest moral-based judgment in history.</span>`
+        },
+        maya: { 
+            title: "羽蛇神：时间循环", 
+            titleEn: "Kukulkan: Cycle of Time",
+            region: "📍 中美洲 | Central America", era: "⏳ 250-900年 | 250-900 AD", 
+            description: `<span class='section-title'>传说核心 <span>Core Content</span></span>羽蛇神是文明的带来者。玛雅人认为宇宙不是线性的，而是齿轮一样循环。
+<span class='en-text'>Kukulkan brought civilization. Mayans believed time was not linear but functioned like circular gears.</span>
+<span class='section-title'>文明启示 <span>Insights</span></span>反映了古文明对自然的敬畏，以及在时间洪流中寻求确定性的孤独尝试。
+<span class='en-text'>Reflects ancient reverence for nature and a lonely attempt to find certainty within the flow of time.</span>`
+        },
+        india: { 
+            title: "摩诃婆罗多：轮回史诗", 
+            titleEn: "Mahabharata: Epic of Samsara",
+            region: "📍 印度 | India", era: "⏳ 前4世纪 | 4th Century BC", 
+            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>世界最长的史诗，描述了家族血亲之战。三大主神介入人间，探讨了正义、欲望与业力。
+<span class='en-text'>The world's longest epic detailing a kinship war, where gods intervene to discuss justice, desire, and karma.</span>
+<span class='section-title'>哲学深度 <span>Philosophy</span></span>奠定了“业力”与“轮回”的思想。教导人们应在行动中放下结果，回归正道。
+<span class='en-text'>Established the concepts of Karma and Reincarnation, teaching one to act without attachment to the results.</span>`
+        },
+        japan: { 
+            title: "天岩户：万物有灵", 
+            titleEn: "Amano-Iwato: Animism",
+            region: "📍 日本 | Japan", era: "⏳ 8世纪 | 8th Century AD", 
+            description: `<span class='section-title'>核心传说 <span>Core Content</span></span>太阳女神天照躲入山洞，世界陷入黑暗。众神起舞诱其重现。
+<span class='en-text'>The Sun Goddess Amaterasu hid in a cave, plunging the world into darkness. Gods danced to lure her back out.</span>
+<span class='section-title'>文化色彩 <span>Insights</span></span>体现了神道教中“八百万神明”的观念——大自然的一草一木皆有神灵寄托。
+<span class='en-text'>Emphasizes Shinto's "Eight Million Kami"—the belief that every element of nature houses a spirit.</span>`
+        },
+        meso: { 
+            title: "吉尔伽美什：追寻永生", 
+            titleEn: "Gilgamesh: Quest for Immortality",
+            region: "📍 中东 | Mesopotamia", era: "⏳ 前21世纪 | 2100 BC", 
+            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>英雄王追寻永生失败后，明白永生在于亲手建立的伟大城池和不朽功勋。
+<span class='en-text'>After failing to find immortality, the Hero-King realized that true eternal life lies in his great city and deeds.</span>
+<span class='section-title'>文明回响 <span>Insights</span></span>已知人类最早的文学杰作。揭示了人类文明中英雄虽强，却无法逾越生死。
+<span class='en-text'>The earliest known literary masterpiece, revealing the human struggle between heroic power and mortality.</span>`
+        },
+        celtic: { 
+            title: "达努神族：迷雾仙踪", 
+            titleEn: "Tuatha Dé Danann: Fairy Trails",
+            region: "📍 爱尔兰 | Ireland", era: "⏳ 铁器时代 | Iron Age", 
+            description: `<span class='section-title'>核心传说 <span>Core Content</span></span>超自然神族降临爱尔兰。战败后缩小身形，隐居于地底仙丘。
+<span class='en-text'>A supernatural tribe landed in Ireland. After defeat, they shrank and hid in underground fairy mounds.</span>
+<span class='section-title'>后世影响 <span>Influence</span></span>欧洲奇幻文化的根源。迷雾中的神祇演变成了后世传说中的精灵和巫师。
+<span class='en-text'>The root of European fantasy; these misty gods evolved into the elves and wizards of later folklore.</span>`
+        },
+        aztec: { 
+            title: "第五太阳纪：血之供养", 
+            titleEn: "Fifth Sun: Blood Sacrifice",
+            region: "📍 墨西哥 | Mexico", era: "⏳ 14-16世纪 | 14-16th Century", 
+            description: `<span class='section-title'>传说核心 <span>Core Content</span></span>相信世界已经历过四个纪元毁灭。必须提供祭祀能量，否则黑暗将永久降临。
+<span class='en-text'>Believing four worlds were destroyed, they offered sacrifices to prevent the "Fifth Sun" from falling into darkness.</span>
+<span class='section-title'>文明逻辑 <span>Insights</span></span>反映了对宇宙动力的原始理解——存续必须通过高昂的代价换取。
+<span class='en-text'>Reflects an understanding of cosmic dynamics: survival must be paid for at a high price.</span>`
+        },
+        inca: { 
+            title: "帕查库特克：太阳后裔", 
+            titleEn: "Sons of the Sun",
+            region: "📍 秘鲁 | Peru", era: "⏳ 13-16世纪 | 13-16th Century", 
+            description: `<span class='section-title'>核心传说 <span>Core Content</span></span>印加王自命太阳子孙。在海拔三千米山巅通过巨石建筑复刻星空秩序。
+<span class='en-text'>The Inca King claimed to be the Son of the Sun, building stone cities at 3,000m to mirror cosmic order.</span>
+<span class='section-title'>文化遗迹 <span>Insights</span></span>高度集权的基石。实现了王权与自然法则的完美对齐。
+<span class='en-text'>The foundation of centralized power, aligning royal authority with the laws of nature.</span>`
+        },
+        aboriginal: { 
+            title: "梦幻时代：歌之径", 
+            titleEn: "Dreamtime: Songlines",
+            region: "📍 澳大利亚 | Australia", era: "⏳ 6万年前 | 60,000 Years Ago", 
+            description: `<span class='section-title'>核心概念 <span>Core Content</span></span>祖先神灵歌唱，歌声所及之处诞生岩石河流。每一首歌都是一本地图册。
+<span class='en-text'>Ancestral spirits sang geographical features into existence. Every song is an atlas for navigation.</span>
+<span class='section-title'>生存智慧 <span>Insights</span></span>文化记忆与地理空间结合的最紧密例证。
+<span class='en-text'>The closest example of merging cultural memory with geographical space.</span>`
+        },
+        polynesia: { 
+            title: "毛伊：垂钓岛屿", 
+            titleEn: "Maui: Fishing the Islands",
+            region: "📍 太平洋 | Polynesia", era: "⏳ 史前 | Prehistoric", 
+            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>半神毛伊利用魔法鱼钩从海底钓起群岛，并偷走火种。
+<span class='en-text'>The demigod Maui fished islands up from the sea floor and stole the secret of fire.</span>
+<span class='section-title'>文化精神 <span>Insights</span></span>反映了南极民族惊人的航海精神。体现了对大海既恐惧又亲昵的情感。
+<span class='en-text'>Reflects the voyaging spirit and the complex emotional bond with the vast ocean.</span>`
+        },
+        yoruba: { 
+            title: "奥里莎：西非万神", 
+            titleEn: "Orishas: Pantheon of West Africa",
+            region: "📍 尼日利亚 | Nigeria", era: "⏳ 中世纪 | Middle Ages", 
+            description: `<span class='section-title'>核心体系 <span>Core Content</span></span>神灵拥有强烈个性。这种基因传向美洲，形成了现代灵魂乐、爵士乐的精神根源。
+<span class='en-text'>Gods possess strong personalities. These beliefs spread to the Americas, forming the roots of Jazz and Soul.</span>
+<span class='section-title'>文明流转 <span>Insights</span></span>跨越海域的信仰文化输出。
+<span class='en-text'>A powerful cultural output of faith across vast oceanic distances.</span>`
+        },
+        persia: { 
+            title: "琐罗亚斯德：光明黑暗", 
+            titleEn: "Zoroastrianism: Light and Dark",
+            region: "📍 伊朗 | Iran", era: "⏳ 前10世纪 | 10th Century BC", 
+            description: `<span class='section-title'>核心教义 <span>Core Content</span></span>整个宇宙是善神与恶神间永恒决战。人类自由意志决定宇宙平衡。
+<span class='en-text'>The universe is a battlefield between good and evil. Human free will determines cosmic balance.</span>
+<span class='section-title'>历史意义 <span>Insights</span></span>确立了末日审判、天堂地狱概念。启发了后世一神教文明。
+<span class='en-text'>Established concepts of judgment and afterlife, inspiring later monotheistic civilizations.</span>`
+        },
+        slavic: { 
+            title: "佩伦之怒：橡树雷霆", 
+            titleEn: "Perun: Thunder of the Oak",
+            region: "📍 东欧 | Eastern Europe", era: "⏳ 6-10世纪 | 6-10th Century", 
+            description: `<span class='section-title'>核心神话 <span>Core Content</span></span>雷神佩伦居住在世界树橡树顶端。打雷被视为正追击恶魔。
+<span class='en-text'>Perun resides atop the World Oak. Thunder is the sound of him hunting demons.</span>
+<span class='section-title'>文化底蕴 <span>Insights</span></span>植根于原始森林文明。是东欧民族血脉中正直性格的底色。
+<span class='en-text'>Rooted in forest civilization, representing the honest and fierce character of Slavic nations.</span>`
+        },
+        iroquois: { 
+            title: "海龟岛：背负大陆", 
+            titleEn: "Turtle Island",
+            region: "📍 北美 | North America", era: "⏳ 前殖民 | Pre-Columbian", 
+            description: `<span class='section-title'>传说内容 <span>Core Content</span></span>女神坠落，麝鼠将泥土涂在海龟背上，扩张成了北美大陆。
+<span class='en-text'>A sky goddess fell, and a turtle carried her; mud on its back grew into North America.</span>
+<span class='section-title'>文明契约 <span>Insights</span></span>强调人不是大地主人，而是寄宿房客。确立了早期生态共生哲学。
+<span class='en-text'>Humans are not masters but guests on Earth. Established early ecological symbiosis.</span>`
+        },
+        inuit: { 
+            title: "塞德娜：深海女神", 
+            titleEn: "Sedna: Sea Goddess",
+            region: "📍 北极圈 | Arctic", era: "⏳ 史前 | Prehistoric", 
+            description: `<span class='section-title'>传说内容 <span>Core Content</span></span>少女指头化作海豹与鲸鱼。她现在是深海主宰。
+<span class='en-text'>A girl's fingers turned into seals and whales. She now rules the ocean depths.</span>
+<span class='section-title'>生存启示 <span>Insights</span></span>在极寒环境下，资源提取必须伴随感恩。
+<span class='en-text'>In extreme environments, resource extraction must be accompanied by deep gratitude.</span>`
+        },
+        seasia: { 
+            title: "那伽：水的守护", 
+            titleEn: "Naga: Water Guardian",
+            region: "📍 东南亚 | SE Asia", era: "⏳ 史前 | Prehistoric", 
+            description: `<span class='section-title'>传说内容 <span>Core Content</span></span>湄公河畔的多头蛇神，掌控季风雨露。是连接人间与灵界的彩虹桥。
+<span class='en-text'>Multi-headed serpent gods rule the Mekong, controlling rain and serving as a bridge to the spirit realm.</span>
+<span class='section-title'>文化纽带 <span>Insights</span></span>稻作文明生命线。东南亚土地上最坚韧的繁荣图腾。
+<span class='en-text'>The lifeline of rice civilizations and a resilient totem of prosperity in Southeast Asia.</span>`
+        }
+    };
 
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>灵活的订阅计划</h2>
-                <p>无论是个人的业余研究，还是大型商业项目，都有合适的方案</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3>基础版</h3>
-                    <div class="price">免费</div>
-                    <ul style="list-style:none; margin-bottom: 30px; color: #64748b;">
-                        <li>3 个活跃项目</li>
-                        <li>1,000 个数据点/地图</li>
-                        <li>社区地图公开分享</li>
-                        <li>基础时间轴组件</li>
-                    </ul>
-                    <button class="secondary-button" style="width:100%">立即开始</button>
-                </div>
-                <div class="pricing-card featured">
-                    <h3>专业版</h3>
-                    <div class="price">¥199<span>/月</span></div>
-                    <ul style="list-style:none; margin-bottom: 30px; color: #64748b;">
-                        <li>无限项目数量</li>
-                        <li>100,000 个数据点</li>
-                        <li>私有项目保护</li>
-                        <li>高级动态热力图效果</li>
-                        <li>导出 4K 动态视频</li>
-                    </ul>
-                    <button class="cta-button" style="width:100%">免费试用 14 天</button>
-                </div>
-                <div class="pricing-card">
-                    <h3>企业版</h3>
-                    <div class="price">定制</div>
-                    <ul style="list-style:none; margin-bottom: 30px; color: #64748b;">
-                        <li>私有化部署</li>
-                        <li>实时数据流 API</li>
-                        <li>专属数据顾问服务</li>
-                        <li>SLA 服务等级协议</li>
-                    </ul>
-                    <button class="secondary-button" style="width:100%">联系销售</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    function showLegend(id, el) {
+        document.querySelectorAll('.pin').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
 
-    <footer>
-        <div class="container">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px;">
-                <div>
-                    <h3>ChronoMap</h3>
-                    <p>连接过去、现在与未来的地理数据。让每一张地图都拥有讲述故事的能力。</p>
-                </div>
-                <div>
-                    <h3>产品</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">地图编辑器</a></li>
-                        <li><a href="#">时空 API</a></li>
-                        <li><a href="#">插件市场</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>支持</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">使用教程</a></li>
-                        <li><a href="#">数据规范</a></li>
-                        <li><a href="#">开发者论坛</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div style="text-align: center; padding-top: 30px; border-top: 1px solid #334155;">
-                <p>&copy; 2023 ChronoMap 时空地图科技. 保留所有权利。</p>
-            </div>
-        </div>
-    </footer>
+        const data = legendData[id];
+        const placeholder = document.getElementById('placeholder');
+        const content = document.getElementById('legendContent');
 
-    <script>
-        // 简单的平滑滚动逻辑
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+        placeholder.style.display = 'none';
+        content.style.display = 'block';
+        
+        document.getElementById('title').innerText = data.title;
+        document.getElementById('titleEn').innerText = data.titleEn;
+        document.getElementById('region').innerHTML = "<i>" + data.region + "</i>";
+        document.getElementById('era').innerHTML = "<i>" + data.era + "</i>";
+        document.getElementById('description').innerHTML = data.description;
+        
+        content.style.animation = 'none';
+        content.offsetHeight; 
+        content.style.animation = 'fadeIn 0.6s forwards';
+        
+        document.getElementById('detailPanel').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
 </body>
 </html>
