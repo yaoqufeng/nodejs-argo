@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>世界水果图鉴 | Fruit Atlas</title>
+    <title>太阳系探测档案 | Solar System Deep Atlas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #064e3b; 
-            --accent-color: #fbbf24;  
-            --bg-color: #1a120b;
-            --panel-bg: #ffffff;
-            --gold: #b8860b;
+            --space-blue: #020617;
+            --neon-blue: #38bdf8;
+            --star-gold: #fbbf24;
+            --text-gray: #cbd5e1;
+            --panel-bg: rgba(15, 23, 42, 0.95);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Noto Sans SC', 'Poppins', sans-serif; 
             line-height: 1.6; 
-            color: #334155; 
-            background-color: var(--bg-color); 
+            color: var(--text-gray); 
+            background-color: var(--space-blue); 
             overflow: hidden;
         }
 
+        /* 顶部导航 */
         header { 
-            background-color: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(10px); 
-            box-shadow: 0 2px 20px rgba(0,0,0,0.5); 
+            background-color: rgba(2, 6, 23, 0.85); 
+            backdrop-filter: blur(15px); 
+            border-bottom: 1px solid rgba(56, 189, 248, 0.3);
             position: fixed; 
             width: 100%; 
             z-index: 1000; 
@@ -38,13 +39,14 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            padding: 12px 30px; 
+            padding: 15px 30px; 
         }
         .logo { display: flex; align-items: center; text-decoration: none; }
-        .logo-icon { color: var(--primary-color); font-size: 26px; margin-right: 12px; }
-        .logo-text { font-size: 24px; font-weight: 700; color: var(--primary-color); }
-        .logo-text span { color: var(--gold); font-weight: 400; font-size: 14px; margin-left: 10px; border-left: 1px solid #ccc; padding-left: 10px; }
+        .logo-icon { color: var(--neon-blue); font-size: 26px; margin-right: 12px; }
+        .logo-text { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; }
+        .logo-text span { color: var(--neon-blue); font-size: 14px; margin-left: 10px; }
 
+        /* 主体布局 */
         .main-explorer {
             display: grid;
             grid-template-columns: 1.8fr 1fr;
@@ -55,41 +57,46 @@
             height: 100vh;
         }
 
+        /* 宇宙星图区 */
         .map-container {
             position: relative;
-            background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-image: url('https://m1.aboluowang.com/uploadfile/2025/0531/20250531152456187.webp');
             background-size: 100% 100%;
             background-repeat: no-repeat;
-            border-radius: 15px;
-            border: 8px solid #fff;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            background-position: center;
+            border-radius: 20px;
+            border: 2px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 50px rgba(0,0,0,1);
             overflow: hidden;
         }
 
+        /* 坐标点位 */
         .pin {
             position: absolute;
-            width: 16px;
-            height: 16px;
-            background: var(--accent-color);
-            border: 2px solid white;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border: 3px solid var(--neon-blue);
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
             z-index: 10;
             transition: 0.3s;
+            box-shadow: 0 0 15px var(--neon-blue);
         }
         .pin::after {
             content: '';
             position: absolute;
             width: 100%; height: 100%;
             border-radius: 50%;
-            background: var(--accent-color);
+            background: var(--neon-blue);
             animation: pulse 2.5s infinite;
         }
         .pin:hover, .pin.active {
-            background: white;
-            transform: translate(-50%, -50%) scale(2.2);
-            box-shadow: 0 0 20px var(--accent-color);
+            background: var(--star-gold);
+            border-color: #fff;
+            transform: translate(-50%, -50%) scale(1.6);
+            box-shadow: 0 0 30px var(--star-gold);
             z-index: 100;
         }
 
@@ -98,111 +105,79 @@
             100% { transform: scale(4); opacity: 0; }
         }
 
-        /* 木纹地图精准坐标对齐 */
-        .p-durian    { top: 58%; left: 76%; } 
-        .p-mangosteen{ top: 64%; left: 79%; } 
-        .p-lychee    { top: 40%; left: 77%; } 
-        .p-persimmon { top: 38%; left: 86%; } 
-        .p-mango     { top: 52%; left: 71%; } 
-        .p-kiwi      { top: 84%; left: 90%; } 
-        .p-avocado   { top: 52%; left: 19%; } 
-        .p-pineapple { top: 74%; left: 29%; } 
-        .p-blueberry { top: 22%; left: 16%; } 
-        .p-cranberry { top: 28%; left: 22%; } 
-        .p-olive     { top: 37%; left: 49%; } 
-        .p-lemon     { top: 34%; left: 53%; } 
-        .p-grape     { top: 28%; left: 47%; } 
-        .p-apple     { top: 31%; left: 64%; } 
-        .p-date      { top: 48%; left: 60%; } 
-        .p-watermelon{ top: 80%; left: 56%; } 
-        .p-banana    { top: 60%; left: 46%; } 
-        .p-fig       { top: 39%; left: 43%; } 
-        .p-acai      { top: 66%; left: 34%; } 
-        .p-pitaya    { top: 56%; left: 74%; } 
+        /* --- 严格确定的精准坐标 (L/T) --- */
+        .p-sun      { top: 50%; left: 4%; }
+        .p-mercury  { top: 50%; left: 10%; }
+        .p-venus    { top: 50%; left: 17%; }
+        .p-earth    { top: 50%; left: 25%; }
+        .p-moon     { top: 40%; left: 25%; }
+        .p-mars     { top: 50%; left: 32%; }
+        .p-jupiter  { top: 50%; left: 45%; }
+        .p-saturn   { top: 50%; left: 65%; }
+        .p-uranus   { top: 50%; left: 80%; }
+        .p-neptune  { top: 50%; left: 92%; }
+        .p-pluto    { top: 50%; left: 100%; }
 
+        /* 详情面板 */
         .info-panel {
             background: var(--panel-bg);
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 35px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(56, 189, 248, 0.2);
             overflow-y: auto;
+            backdrop-filter: blur(10px);
         }
 
-        .fruit-header { 
+        .astro-header { 
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 2px solid #f1f5f9; 
+            border-bottom: 1px solid rgba(56, 189, 248, 0.3); 
             padding-bottom: 20px; 
             margin-bottom: 25px; 
         }
-        .fruit-header-text h2 { font-size: 32px; color: var(--primary-color); margin-bottom: 5px; }
-        .fruit-header-text h3 { font-size: 16px; color: #94a3b8; font-weight: 400; font-style: italic; }
+        .astro-header-text h2 { font-size: 36px; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
+        .astro-header-text h3 { font-size: 18px; color: var(--neon-blue); font-weight: 400; font-style: italic; }
         
-        .fruit-thumbnail-container {
+        .astro-thumbnail-container {
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            border: 2px solid var(--neon-blue);
             cursor: zoom-in;
-            background-color: #f1f5f9;
+            background: #000;
         }
-        .fruit-thumbnail {
-            width: 150px;
-            height: 110px;
-            object-fit: cover;
-            display: block;
-            transition: 0.4s;
+        .astro-thumbnail {
+            width: 120px; height: 120px;
+            object-fit: cover; display: block; transition: 0.5s;
         }
-        .thumbnail-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: 0.3s;
-            color: white;
-            font-size: 20px;
-        }
-        .fruit-thumbnail-container:hover .thumbnail-overlay { opacity: 1; }
 
         .content-section { margin-bottom: 25px; }
         .content-section h4 { 
-            color: var(--primary-color); 
+            color: var(--star-gold); 
             margin-bottom: 8px; 
-            border-left: 5px solid var(--accent-color); 
+            border-left: 5px solid var(--neon-blue); 
             padding-left: 12px; 
             font-size: 1.1rem;
         }
-        .content-section p { font-size: 16px; color: #334155; text-align: justify; }
-        .en-text { display: block; font-size: 14px; color: #94a3b8; font-style: italic; margin-top: 6px; line-height: 1.4; }
+        .content-section p { font-size: 16px; color: #e2e8f0; text-align: justify; }
+        .en-text { display: block; font-size: 14px; color: #94a3b8; font-style: italic; margin-top: 8px; line-height: 1.4; }
 
-        .placeholder { text-align: center; margin-top: 40%; opacity: 0.4; }
+        .placeholder { text-align: center; margin-top: 40%; opacity: 0.5; }
 
         #imgModal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            cursor: zoom-out;
+            display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); justify-content: center; align-items: center; cursor: zoom-out;
         }
-        #imgModal img { 
-            max-width: 85%; 
-            max-height: 85%; 
-            border-radius: 10px; 
-            border: 5px solid white;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-        }
+        #imgModal img { max-width: 90%; max-height: 90%; border: 2px solid var(--neon-blue); box-shadow: 0 0 50px var(--neon-blue); }
+
+        .info-panel::-webkit-scrollbar { width: 5px; }
+        .info-panel::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
 
         @media (max-width: 1024px) {
             .main-explorer { grid-template-columns: 1fr; height: auto; }
-            .map-container { aspect-ratio: 16/9; }
+            .map-container { height: 400px; }
         }
     </style>
 </head>
@@ -211,69 +186,60 @@
     <header>
         <nav>
             <a href="#" class="logo">
-                <div class="logo-icon"><i class="fas fa-globe-americas"></i></div>
-                <div class="logo-text">全球水果图鉴 <span>Fruit Atlas | Deep Archives</span></div>
+                <div class="logo-icon"><i class="fas fa-atom"></i></div>
+                <div class="logo-text">太阳系探测档案 <span>Solar System Deep Archives</span></div>
             </a>
-            <div style="font-size: 14px; color: #64748b; font-style: italic;">中英双语深度档案 | Bilingual Insights</div>
+            <div style="font-size: 14px; color: var(--neon-blue); font-family: 'Orbitron';">Mission Status: Deep Space Analysis</div>
         </nav>
     </header>
 
     <main class="main-explorer">
         <div class="map-container">
-            <div class="pin p-durian" onclick="showFruit('durian', this)"></div>
-            <div class="pin p-mangosteen" onclick="showFruit('mangosteen', this)"></div>
-            <div class="pin p-lychee" onclick="showFruit('lychee', this)"></div>
-            <div class="pin p-persimmon" onclick="showFruit('persimmon', this)"></div>
-            <div class="pin p-mango" onclick="showFruit('mango', this)"></div>
-            <div class="pin p-kiwi" onclick="showFruit('kiwi', this)"></div>
-            <div class="pin p-avocado" onclick="showFruit('avocado', this)"></div>
-            <div class="pin p-pineapple" onclick="showFruit('pineapple', this)"></div>
-            <div class="pin p-blueberry" onclick="showFruit('blueberry', this)"></div>
-            <div class="pin p-cranberry" onclick="showFruit('cranberry', this)"></div>
-            <div class="pin p-olive" onclick="showFruit('olive', this)"></div>
-            <div class="pin p-lemon" onclick="showFruit('lemon', this)"></div>
-            <div class="pin p-grape" onclick="showFruit('grape', this)"></div>
-            <div class="pin p-apple" onclick="showFruit('apple', this)"></div>
-            <div class="pin p-date" onclick="showFruit('date', this)"></div>
-            <div class="pin p-watermelon" onclick="showFruit('watermelon', this)"></div>
-            <div class="pin p-banana" onclick="showFruit('banana', this)"></div>
-            <div class="pin p-fig" onclick="showFruit('fig', this)"></div>
-            <div class="pin p-acai" onclick="showFruit('acai', this)"></div>
-            <div class="pin p-pitaya" onclick="showFruit('pitaya', this)"></div>
+            <!-- 严格坐标点位 -->
+            <div class="pin p-sun" onclick="showAstro('sun', this)"></div>
+            <div class="pin p-mercury" onclick="showAstro('mercury', this)"></div>
+            <div class="pin p-venus" onclick="showAstro('venus', this)"></div>
+            <div class="pin p-earth" onclick="showAstro('earth', this)"></div>
+            <div class="pin p-moon" onclick="showAstro('moon', this)"></div>
+            <div class="pin p-mars" onclick="showAstro('mars', this)"></div>
+            <div class="pin p-jupiter" onclick="showAstro('jupiter', this)"></div>
+            <div class="pin p-saturn" onclick="showAstro('saturn', this)"></div>
+            <div class="pin p-uranus" onclick="showAstro('uranus', this)"></div>
+            <div class="pin p-neptune" onclick="showAstro('neptune', this)"></div>
+            <div class="pin p-pluto" onclick="showAstro('pluto', this)"></div>
         </div>
 
         <div class="info-panel" id="infoPanel">
             <div class="placeholder" id="placeholder">
-                <i class="fas fa-scroll fa-4x" style="margin-bottom: 20px; color: var(--gold)"></i>
-                <p>点击航海图上的金色光点解锁深度双语档案<br><i>Click points to unlock deep bilingual archives</i></p>
+                <i class="fas fa-satellite-dish fa-4x" style="color:var(--neon-blue); margin-bottom:20px"></i>
+                <p>正在接收星际信号... 请点击目标解锁档案<br><i>Waiting for signal... Select a celestial body.</i></p>
             </div>
-            <div id="fruitDetail" style="display:none">
-                <div class="fruit-header">
-                    <div class="fruit-header-text">
-                        <h2 id="fName"></h2>
-                        <h3 id="fEnName"></h3>
+            <div id="astroDetail" style="display:none">
+                <div class="astro-header">
+                    <div class="astro-header-text">
+                        <h2 id="aName"></h2>
+                        <h3 id="aEnName"></h3>
                     </div>
-                    <div class="fruit-thumbnail-container" onclick="zoomImage()">
-                        <!-- 这里的 referrerpolicy="no-referrer" 是为了解决防盗链问题 -->
-                        <img id="fImg" src="" alt="Fruit" class="fruit-thumbnail" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400'">
-                        <div class="thumbnail-overlay"><i class="fas fa-expand"></i></div>
+                    <div class="astro-thumbnail-container" onclick="zoomImage()">
+                        <!-- 增加了 referrerpolicy 以确保维基百科链接加载正常 -->
+                        <img id="aImg" src="" alt="Celestial" class="astro-thumbnail" referrerpolicy="no-referrer">
                     </div>
                 </div>
-                <div class="fruit-content">
+                <div class="astro-content">
                     <div class="content-section">
-                        <h4>原产地 Origin</h4>
-                        <p id="fOrigin"></p>
-                        <span class="en-text" id="fOriginEn"></span>
+                        <h4>观测数据 / Parameters</h4>
+                        <p id="aData"></p>
+                        <span class="en-text" id="aDataEn"></span>
                     </div>
                     <div class="content-section">
-                        <h4>特征描述 Description</h4>
-                        <p id="fDesc"></p>
-                        <span class="en-text" id="fDescEn"></span>
+                        <h4>核心档案 / Deep Archive</h4>
+                        <p id="aDesc"></p>
+                        <span class="en-text" id="aDescEn"></span>
                     </div>
                     <div class="content-section">
-                        <h4>地理价值与传说 Geographical Value & Legends</h4>
-                        <p id="fValue"></p>
-                        <span class="en-text" id="fValueEn"></span>
+                        <h4>科学与文化意义 / Significance</h4>
+                        <p id="aValue"></p>
+                        <span class="en-text" id="aValueEn"></span>
                     </div>
                 </div>
             </div>
@@ -285,212 +251,141 @@
     </div>
 
     <script>
-        const fruitData = {
-            // 已更新为您提供的指定图片链接
-            durian: {
-                name: "榴莲", en: "Durian",
-                img: "https://i.epochtimes.com/assets/uploads/2023/05/id14005352-shutterstock_1796168182.jpg",
-                origin: "东南亚 (马来西亚、泰国)", originEn: "Southeast Asia (Malaysia, Thailand)",
-                desc: "气味强烈，外壳布满尖刺，果肉如奶油般丝滑，风味浓郁。",
-                descEn: "Known for its pungent odor and thorn-covered rind. Creamy and rich flesh.",
-                value: "被奉为“水果之王”。是热带雨林气候的地理象征。",
-                valueEn: "Revered as the 'King of Fruits' and a symbol of the rainforest climate."
+        const astroData = {
+            sun: {
+                name: "太阳", en: "The Sun",
+                img: "https://images.unsplash.com/photo-1529788295308-1eace6f67388?auto=format&fit=crop&w=300&q=80",
+                data: "核心温度：1570万K | 质量：占太阳系 99.86%",
+                dataEn: "Core Temp: 15.7M K | Mass: 99.86% of Solar System",
+                desc: "太阳系中心的唯一恒星。其核心通过氢核聚变释放能量，是生命之源。",
+                descEn: "The sole star at our center. Its core fuses hydrogen into helium, releasing energy.",
+                value: "重力锚点。它不仅提供能量，更决定了行星的轨道秩序。",
+                valueEn: "The gravitational anchor and primary energy source."
             },
-            mangosteen: {
-                name: "山竹", en: "Mangosteen",
-                img: "https://zhiwudao.com/wp-content/uploads/2025/03/2025032309201138.jpg",
-                origin: "东南亚 (泰国、马来西亚)", originEn: "Southeast Asia (Thailand, Malaysia)",
-                desc: "雪白嫩滑的果肉包裹在紫色厚皮内，酸甜适口。常与榴莲配食以平衡热气。",
-                descEn: "Sweet, tangy white segments inside a purple rind. Often paired with durian.",
-                value: "被称为“水果皇后”。生长环境要求极高，仅限湿润热带。",
-                valueEn: "Known as the 'Queen of Fruits'. Thrives only in humid tropical regions."
+            mercury: {
+                name: "水星", en: "Mercury",
+                img: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=300&q=80",
+                data: "公转周期：88天 | 昼夜温差冠绝全系",
+                dataEn: "Orbit: 88 Days | Highest temp fluctuations",
+                desc: "最小且最靠近太阳的行星。没有大气层，表面布满了陨石坑。",
+                descEn: "The smallest planet. Lacking atmosphere, its surface is heavily cratered.",
+                value: "行星演化的活化石。通过它了解内太阳系的原始状态。",
+                valueEn: "Crucial for understanding early planetary formation."
             },
-            lychee: {
-                name: "荔枝", en: "Lychee",
-                img: "https://img.ltn.com.tw/Upload/health/page/800/2023/06/16/php8i6Bfj.jpg",
-                origin: "中国南方", originEn: "Southern China",
-                desc: "果皮红如丹砂，肉质晶莹。杨贵妃曾有“一骑红尘妃子笑”之说。",
-                descEn: "Red bumpy skin and translucent, sweet flesh. A prized royal tribute in ancient China.",
-                value: "中国亚热带水果代表。栽培历史超两千年，象征吉祥。",
-                valueEn: "A hallmark of Chinese fruit history, symbolizing wealth and fortune."
+            venus: {
+                name: "金星", en: "Venus",
+                img: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=300&q=80",
+                data: "表面压力：92倍地球 | 表面温度：462℃",
+                dataEn: "Pressure: 92 bar | Surface Temp: 462°C",
+                desc: "拥有极浓厚的二氧化碳大气层，失控的温室效应使其成为地狱。",
+                descEn: "Earth's twin with a runaway greenhouse effect and a crushing atmosphere.",
+                value: "气候研究的警示灯。极端温室效应的典型案例参考。",
+                valueEn: "A planetary warning for extreme climate change."
             },
-            persimmon: {
-                name: "柿子", en: "Persimmon",
-                img: "https://p6.itc.cn/images01/20230925/ea4d486f4fdb40e69a632e10a05d68ad.jpeg",
-                origin: "东亚 (日本、中国)", originEn: "East Asia (Japan, China)",
-                desc: "秋季视觉象征。果皮金红，脱涩后口感绵甜如蜜。",
-                descEn: "A symbol of autumn. Deep orange skin with sweet, rich flesh when ripe.",
-                value: "在东亚文化中具有极高审美价值。常制成柿饼过冬。",
-                valueEn: "Highly aesthetic in East Asia, often preserved as dried fruit for winter."
+            earth: {
+                name: "地球", en: "Earth",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nasa_blue_marble.jpg/960px-Nasa_blue_marble.jpg",
+                data: "表面覆盖：71% 液态水 | 唯一已知生命星球",
+                dataEn: "Surface: 71% Water | Only known life-bearing planet",
+                desc: "完美的磁场、含氧大气和丰富的液态水，构成了生命避风港。",
+                descEn: "Oxygen-rich air, magnetic protection, and liquid water sustain life.",
+                value: "文明的家园。人类在浩瀚宇宙中唯一的母星。",
+                valueEn: "The cradle of civilization and our only home."
             },
-            mango: {
-                name: "芒果", en: "Mango",
-                img: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=800",
-                origin: "印度、东南亚", originEn: "India, Southeast Asia",
-                desc: "热带之王。果肉鲜黄多汁，香气馥郁，是印度的国果。",
-                descEn: "King of tropical fruits. Juicy yellow flesh and intense aroma. India's national fruit.",
-                value: "印度拥有百余品种。频繁出现在南亚宗教典籍中。",
-                valueEn: "Boasts hundreds of varieties and appears frequently in religious texts."
+            moon: {
+                name: "月球", en: "The Moon",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Full_Moon_Luc_Viatour.jpg/960px-Full_Moon_Luc_Viatour.jpg",
+                data: "距离地球：38.4万公里 | 自转：受潮汐锁定",
+                dataEn: "Distance: 384,400km | Rotation: Tidally Locked",
+                desc: "地球唯一的天然卫星。它稳定了地轴偏角，引起海洋潮汐。",
+                descEn: "Our only natural satellite. It stabilizes Earth's tilt and controls tides.",
+                value: "深空前哨。人类第一个登陆的地外星球，未来的深空跳板。",
+                valueEn: "The lunar outpost. The first extraterrestrial world walked upon by humans."
             },
-            kiwi: {
-                name: "奇异果", en: "Kiwi Fruit",
-                img: "https://www.pujiangmihoutao.com/pic/xxl201.jpg",
-                origin: "新西兰 (原产中国)", originEn: "New Zealand (Native to China)",
-                desc: "富含维C，果肉翠绿。20世纪初由中国引入新西兰并发扬光大。",
-                descEn: "High in Vitamin C with vibrant green flesh. Brought from China to NZ in the early 20th century.",
-                value: "新西兰农业现代化标志。全球顶级农业品牌案例。",
-                valueEn: "An icon of modern agriculture and top global branding."
+            mars: {
+                name: "火星", en: "Mars",
+                img: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=300&q=80",
+                data: "最高山峰：奥林匹斯山 | 探测器数量：全系最多",
+                dataEn: "Highest Peak: Olympus Mons | Most Explored Planet",
+                desc: "红色荒漠世界。科学界认为其过去曾拥有温暖湿润的环境。",
+                descEn: "A red desert world. Evidence suggests liquid water flowed in its past.",
+                value: "第二家园。寻找地外生命和建立星际移民的核心目标。",
+                valueEn: "The prime target for future human colonization."
             },
-            avocado: {
-                name: "牛油果", en: "Avocado",
-                img: "https://www.foravo.com/uploads/allimg/190628/1-1Z62Q62103260.png",
-                origin: "墨西哥、中美洲", originEn: "Mexico, Central America",
-                desc: "口感细腻如奶油。富含健康不饱和脂肪，是超级食物引领者。",
-                descEn: "Rich in healthy fats with a smooth, buttery texture. A superfood star.",
-                value: "被誉为墨西哥的“绿色黄金”。是拉美菜肴的核心。",
-                valueEn: "Known as Mexico's 'Green Gold'. Staple of Latin American cuisine."
+            jupiter: {
+                name: "木星", en: "Jupiter",
+                img: "https://images.unsplash.com/photo-1630839437035-dac17da580d0?auto=format&fit=crop&w=300&q=80",
+                data: "卫星数量：95颗 | 大红斑：持续300余年的风暴",
+                dataEn: "Moons: 95 | Great Red Spot: 300+ year storm",
+                desc: "巨大的引力清理了威胁天体。大红斑是比地球还大的风暴。",
+                descEn: "The solar system's vacuum cleaner, protecting the inner planets.",
+                value: "众神之王。木卫二被认为存在地下海洋生命。",
+                valueEn: "The King of Gods; its moon Europa may harbor life."
             },
-            pineapple: {
-                name: "菠萝", en: "Pineapple",
-                img: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=800",
-                origin: "巴西、哥斯达黎加", originEn: "Brazil, Costa Rica",
-                desc: "热带风情代名词。带鳞片外壳，金黄果肉中含凤梨酵素。",
-                descEn: "Icon of the tropics. Scaly exterior with golden, enzyme-rich flesh.",
-                value: "大航海时代传遍全球。哥斯达黎加是目前最大出口国。",
-                valueEn: "Spread globally during the Age of Discovery. A vital export crop."
+            saturn: {
+                name: "土星", en: "Saturn",
+                img: "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=300&q=80",
+                data: "光环跨度：28万公里 | 平均密度：小于水",
+                dataEn: "Ring Width: 280,000km | Density: Less than water",
+                desc: "以宏伟的光环闻名。最扁平的行星，由氢和氦组成。",
+                descEn: "Famous for its magnificent icy rings. A gas giant mostly made of hydrogen.",
+                value: "空间美学极致。光环研究对理解行星形成至关重要。",
+                valueEn: "A masterpiece of mechanics and planetary evolution."
             },
-            blueberry: {
-                name: "蓝莓", en: "Blueberry",
-                img: "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800",
-                origin: "北美 (加拿大、美国)", originEn: "North America",
-                desc: "深蓝色浆果，富含花青素。顶级天然抗氧化食物。",
-                descEn: "Deep blue berries packed with antioxidants. A premier superfood.",
-                value: "北美拥有最成熟商业化体系。深刻影响现代健康饮食。",
-                valueEn: "North America has the most mature commercial cultivation system."
+            uranus: {
+                name: "天王星", en: "Uranus",
+                img: "https://images.unsplash.com/photo-1614732484003-ef9881555dc3?auto=format&fit=crop&w=300&q=80",
+                data: "轴倾角：98度 | 表面温度：最低 -224℃",
+                dataEn: "Axial Tilt: 98° | Temp: Lowest -224°C",
+                desc: "蔚蓝色冰巨星。轴倾角过大使其仿佛在轨道上侧躺滚动。",
+                descEn: "A blue ice giant that rolls along its orbit on its side.",
+                value: "倾斜的异类。其磁场挑战理论，是研究远日行星的关键。",
+                valueEn: "A vital subject for studying outer planetary systems."
             },
-            cranberry: {
-                name: "蔓越莓", en: "Cranberry",
-                img: "https://buybc.gov.bc.ca/app/uploads/sites/386/2024/03/Cranberries_133847855.png",
-                origin: "北美 (加拿大、美国北部)", originEn: "Northern USA, Canada",
-                desc: "红宝石般色泽，口味极酸。北美感恩节传统食物。",
-                descEn: "Ruby-like and very tart. A staple of North American Thanksgiving.",
-                value: "独特“水收”方式采摘，形成红色海洋。具有极高药用价值。",
-                valueEn: "Harvested via 'wet' method, creating stunning crimson bogs."
+            neptune: {
+                name: "海王星", en: "Neptune",
+                img: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=300&q=80",
+                data: "最高风速：2100km/h | 发现方式：数学推算",
+                dataEn: "Wind Speed: 2,100km/h | Found via Calculation",
+                desc: "深蓝色星球。拥有全系风速最高、最活跃的大气环流。",
+                descEn: "The deep blue world. Home to the strongest supersonic winds.",
+                value: "数学逻辑的胜利。第一个未经观测先计算出的行星。",
+                valueEn: "First planet discovered via math rather than observation."
             },
-            olive: {
-                name: "油橄榄", en: "Olive",
-                img: "http://gs.people.com.cn/NMediaFile/2025/0909/LOCAL1757404601574DO9FTNQSP7.jpg",
-                origin: "希腊、地中海沿岸", originEn: "Greece, Mediterranean",
-                desc: "地中海之魂。用于榨取“液体黄金”橄榄油，象征和平。",
-                descEn: "The soul of the Mediterranean diet. Used for 'Liquid Gold' oil.",
-                value: "典型地中海气候产物。栽培史塑造了欧洲烹饪文明基础。",
-                valueEn: "A gift of the Mediterranean climate, shaping European cuisine."
-            },
-            lemon: {
-                name: "柠檬", en: "Lemon",
-                img: "https://images.unsplash.com/photo-1590502593747-42a996133562?w=800",
-                origin: "意大利西西里", originEn: "Sicily, Italy",
-                desc: "极高酸度富含维C。是西餐调味和夏日饮品的灵魂。",
-                descEn: "High acidity and rich in Vit C. Essential for Mediterranean seasoning.",
-                value: "西西里柠檬因充足阳光闻名，是高品质柠檬代名词。",
-                valueEn: "Sicilian lemons are world-renowned due to the intense sun."
-            },
-            grape: {
-                name: "葡萄", en: "Grape",
-                img: "https://www.newsmarket.com.tw/files/2023/07/%E5%B7%A8%E5%B3%B0%E8%91%A1%E8%90%844%E3%80%82%EF%BC%88%E5%9C%96%E7%89%87%E6%8F%90%E4%BE%9B%EF%BC%8F%E8%91%89%E6%96%87%E5%BD%AC%EF%BC%89.jpg",
-                origin: "法国、中亚、东亚", originEn: "France, Central Asia, East Asia",
-                desc: "酿酒之母。人类数千年酒神文化与社交文明的源头。",
-                descEn: "The mother of wine, impacting global Dionysian culture.",
-                value: "全球栽培历史最悠久的水果之一。品种繁多，分布广泛。",
-                valueEn: "One of the oldest fruits. Diverse varieties, widely distributed."
-            },
-            apple: {
-                name: "苹果", en: "Apple",
-                img: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800",
-                origin: "中亚 (哈萨克斯坦)", originEn: "Central Asia",
-                desc: "温带水果典型。脆爽多汁，现育有数千适应各地的品种。",
-                descEn: "The quintessential temperate fruit. Thousands of varieties exist.",
-                value: "祖先为天山野苹果。人类最早驯化的水果，象征健康。",
-                valueEn: "Descended from wild Tianshan apples; among the earliest cultivated."
-            },
-            date: {
-                name: "海枣", en: "Date Palm",
-                img: "https://thumbs.dreamstime.com/b/%E7%BA%A2%E6%9E%A3%E6%9E%9C%E7%94%9C%E9%A3%9F%E5%93%81%E5%81%A5%E5%BA%B7%E6%A3%95%E6%A6%88%E6%A0%91%E6%96%B0%E7%94%9F%E5%AD%A3-%E7%BA%A2%E6%9E%A3%E6%9E%9C%E7%94%9C%E9%A3%9F%E5%93%81%E5%81%A5%E5%BA%B7%E6%A3%95%E6%A6%88%E6%A0%91%E6%96%B0%E5%AD%A3%E8%8A%82%E8%8A%B1%E5%9B%AD%E8%83%8C%E6%99%AF%E5%A2%99%E7%BA%B8-192518928.jpg",
-                origin: "中东、北非", originEn: "Middle East, North Africa",
-                desc: "“沙漠面包”。极高含糖量与能量密度，是商旅生存支柱。",
-                descEn: "Bread of the Desert. High sugar, vital for caravan survival in arid regions.",
-                value: "阿拉伯文明生命之源。在伊斯兰文化中地位神圣且古老。",
-                valueEn: "Source of life for Arab civilization. Sacred in Islamic culture."
-            },
-            watermelon: {
-                name: "西瓜", en: "Watermelon",
-                img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=800",
-                origin: "南部非洲", originEn: "Southern Africa",
-                desc: "消暑极品，含水量超90%。由干旱荒漠苦瓜进化而来。",
-                descEn: "The ultimate summer fruit. Over 90% water; from arid desert ancestors.",
-                value: "通过丝绸之路传播，是大自然提供的完美解渴方案。",
-                valueEn: "Spread via the Silk Road. Nature's perfect thirst-quencher."
-            },
-            banana: {
-                name: "香蕉", en: "Banana",
-                img: "https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=800",
-                origin: "东南亚、西非", originEn: "Southeast Asia, West Africa",
-                desc: "全球贸易量最大。方便剥皮，富含钾，运动员首选。",
-                descEn: "Most traded fruit globally. Convenient and high in potassium.",
-                value: "热带基础口粮。全球食品供应链的基石出口作物。",
-                valueEn: "A dietary staple in the tropics and a cornerstone of global supply."
-            },
-            fig: {
-                name: "无花果", en: "Fig",
-                img: "https://www.watchinese.com/files/article/2020/10/216/216p92_02.jpg",
-                origin: "土耳其、地中海", originEn: "Turkey, Mediterranean",
-                desc: "地中海古老文明活化石。花开果内，口感软糯绵甜。",
-                descEn: "Living fossil of Mediterranean culture. Flowers bloom inside the fruit.",
-                value: "在诸多古代典籍均有记载。土耳其是目前最大生产国。",
-                valueEn: "Recorded in many ancient texts. Turkey is currently the top producer."
-            },
-            acai: {
-                name: "巴西莓", en: "Acai Berry",
-                img: "https://www.newsmarket.com.tw/files/2026/06/11-205957_0.jpg",
-                origin: "亚马逊雨林", originEn: "Amazon Rainforest, Brazil",
-                desc: "生长在棕榈树上的暗紫色浆果。抗氧化能力自然界顶级。",
-                descEn: "Dark purple palm berries with elite antioxidant levels.",
-                value: "亚马逊传统主食。现席卷全球，成为能量补给代名词。",
-                valueEn: "Traditional Amazon staple now a global health food superstar."
-            },
-            pitaya: {
-                name: "火龙果", en: "Dragon Fruit",
-                img: "https://p4.itc.cn/images01/20210406/f8f47be29c15442992bf68f379fa27f2.png",
-                origin: "越南、中美洲", originEn: "Vietnam, Central America",
-                desc: "外观华丽如龙鳞。清甜爽口，富含纤维与矿物质。",
-                descEn: "Stunning scale-like skin. Translucent flesh; refreshing taste.",
-                value: "典型热带攀缘仙人掌。越南将其成功推向全球市场。",
-                valueEn: "A tropical cactus climber. Vietnam successfully globalized it."
+            pluto: {
+                name: "冥王星", en: "Pluto",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Pluto-01_Stern_03_Pluto_Color_TXT.jpg/960px-Pluto-01_Stern_03_Pluto_Color_TXT.jpg",
+                data: "分类：矮行星 | 地貌：拥有巨大心形冰原",
+                dataEn: "Class: Dwarf Planet | Feature: Heart-shaped ice plains",
+                desc: "位于柯伊伯带。2015年新视野号揭示了它表面惊人的复杂地理。",
+                descEn: "Located in the Kuiper Belt. Features complex nitrogen-ice mountains.",
+                value: "冥界之王。理解外太阳系及边缘天体演化的窗口。",
+                valueEn: "A window into the evolution of icy Kuiper Belt objects."
             }
         };
 
         let currentActivePin = null;
 
-        function showFruit(id, el) {
+        function showAstro(id, el) {
             if (currentActivePin) currentActivePin.classList.remove('active');
             el.classList.add('active');
             currentActivePin = el;
 
-            const data = fruitData[id];
+            const data = astroData[id];
             document.getElementById('placeholder').style.display = 'none';
-            document.getElementById('fruitDetail').style.display = 'block';
+            document.getElementById('astroDetail').style.display = 'block';
             
-            document.getElementById('fName').innerText = data.name;
-            document.getElementById('fEnName').innerText = data.en;
-            document.getElementById('fImg').src = data.img;
-            document.getElementById('fOrigin').innerText = data.origin;
-            document.getElementById('fOriginEn').innerText = data.originEn;
-            document.getElementById('fDesc').innerText = data.desc;
-            document.getElementById('fDescEn').innerText = data.descEn;
-            document.getElementById('fValue').innerText = data.value;
-            document.getElementById('fValueEn').innerText = data.valueEn;
+            document.getElementById('aName').innerText = data.name;
+            document.getElementById('aEnName').innerText = data.en;
+            document.getElementById('aImg').src = data.img;
+            document.getElementById('aData').innerText = data.data;
+            document.getElementById('aDataEn').innerText = data.dataEn;
+            document.getElementById('aDesc').innerText = data.desc;
+            document.getElementById('aDescEn').innerText = data.descEn;
+            document.getElementById('aValue').innerText = data.value;
+            document.getElementById('aValueEn').innerText = data.valueEn;
 
-            const detail = document.getElementById('fruitDetail');
+            const detail = document.getElementById('astroDetail');
             detail.style.opacity = 0;
             setTimeout(() => {
                 detail.style.transition = '0.5s ease';
@@ -499,8 +394,7 @@
         }
 
         function zoomImage() {
-            const imgSrc = document.getElementById('fImg').src;
-            if(!imgSrc) return;
+            const imgSrc = document.getElementById('aImg').src;
             const modal = document.getElementById('imgModal');
             const modalImg = document.getElementById('modalImg');
             modalImg.src = imgSrc;
