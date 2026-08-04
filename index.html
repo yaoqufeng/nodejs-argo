@@ -3,95 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>诸神传说 | Legends of the Gods</title>
+    <title>诸神传说：全球水果图鉴 | Fruit Atlas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
+            --primary-color: #064e3b; 
+            --accent-color: #fbbf24;  
+            --bg-color: #1a120b;
+            --panel-bg: #ffffff;
             --gold: #b8860b;
-            --paper-dark: #2c1e14;
-            --paper-light: #f4e4bc;
-            --accent: #e2e8f0;
-            --highlight: #d97706;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans CN', serif;
-            background-color: #1a120b;
-            color: var(--accent);
-            line-height: 1.6;
-            overflow-x: hidden;
+        body { 
+            font-family: 'Noto Sans SC', 'Poppins', sans-serif; 
+            line-height: 1.6; 
+            color: #334155; 
+            background-color: var(--bg-color); 
+            overflow: hidden;
         }
 
-        .container { max-width: 1500px; margin: 0 auto; padding: 20px; }
-
-        header { padding: 30px 0; text-align: center; }
-        header h1 { 
-            font-size: 3.5rem; 
-            color: var(--paper-light); 
-            letter-spacing: 12px; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-weight: 800;
+        header { 
+            background-color: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5); 
+            position: fixed; 
+            width: 100%; 
+            z-index: 1000; 
         }
-        header h1 span {
-            display: block;
-            font-size: 1.5rem;
-            letter-spacing: 6px;
-            margin-top: 10px;
-            color: var(--gold);
-            font-weight: 300;
+        nav { 
+            max-width: 1600px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 12px 30px; 
         }
-        header p { opacity: 0.6; font-style: italic; margin-top: 15px; letter-spacing: 1px; font-size: 1rem; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-icon { color: var(--primary-color); font-size: 26px; margin-right: 12px; }
+        .logo-text { font-size: 24px; font-weight: 700; color: var(--primary-color); }
+        .logo-text span { color: var(--gold); font-weight: 400; font-size: 14px; margin-left: 10px; border-left: 1px solid #ccc; padding-left: 10px; }
 
-        .explorer-layout {
+        .main-explorer {
             display: grid;
-            grid-template-columns: 1.7fr 1.2fr;
+            grid-template-columns: 1.8fr 1fr;
             gap: 25px;
-            margin-top: 10px;
+            padding: 100px 30px 30px;
+            max-width: 1800px;
+            margin: 0 auto;
+            height: 100vh;
         }
 
-        .map-wrapper {
+        .map-container {
             position: relative;
-            background-image: url('https://thumbs.dreamstime.com/b/%E5%8F%A4%E8%91%A3%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9C%BE%E8%AE%BE%E8%AE%A1%EF%BC%8C%E8%AE%A9%E4%BA%BA%E9%99%B6%E9%86%89%E7%9A%84%E6%8B%BC%E5%9B%BE%E4%BD%93%E9%AA%8C-365690160.jpg?w=992');
+            background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             background-size: 100% 100%;
             background-repeat: no-repeat;
-            border-radius: 8px;
-            border: 5px solid #3d2b1f;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-            aspect-ratio: 992 / 558;
+            border-radius: 15px;
+            border: 8px solid #fff;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
             overflow: hidden;
-            position: sticky;
-            top: 20px;
         }
 
         .pin {
             position: absolute;
-            width: 14px;
-            height: 14px;
-            background: #ffd700;
-            border: 1.5px solid #000;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-color);
+            border: 2px solid white;
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
-            transition: 0.3s;
             z-index: 10;
+            transition: 0.3s;
         }
-
         .pin::after {
             content: '';
             position: absolute;
             width: 100%; height: 100%;
             border-radius: 50%;
-            background: #ffd700;
+            background: var(--accent-color);
             animation: pulse 2.5s infinite;
         }
-
         .pin:hover, .pin.active {
-            background: #fff;
-            transform: translate(-50%, -50%) scale(2.5);
-            box-shadow: 0 0 20px #fff;
-            z-index: 20;
+            background: white;
+            transform: translate(-50%, -50%) scale(2.2);
+            box-shadow: 0 0 20px var(--accent-color);
+            z-index: 100;
         }
 
         @keyframes pulse {
@@ -99,444 +98,414 @@
             100% { transform: scale(4); opacity: 0; }
         }
 
-        /* 精准坐标校准 */
-        .p-china    { top: 31%; left: 77.5%; } 
-        .p-nuwa     { top: 34%; left: 81.5%; } 
-        .p-houyi    { top: 37%; left: 83.5%; } 
-        .p-yutaming { top: 41%; left: 80.5%; } 
-        .p-jingwei  { top: 30%; left: 83.2%; } 
-        .p-zhuolu   { top: 31.5%; left: 80.8%; } 
-        .p-tibet    { top: 38%; left: 77%; }   
-        .p-japan    { top: 34%; left: 91%; }
-        .p-india    { top: 51%; left: 74.5%; }
-        .p-meso     { top: 37%; left: 63%; }   
-        .p-persia   { top: 40%; left: 68%; }   
-        .p-seasia   { top: 59%; left: 83%; }   
-        .p-nordic   { top: 16%; left: 53.5%; } 
-        .p-celtic   { top: 26%; left: 49%; }   
-        .p-greece   { top: 34.5%; left: 56.5%; } 
-        .p-slavic   { top: 24%; left: 61.5%; } 
-        .p-egypt    { top: 42%; left: 58.5%; } 
-        .p-yoruba   { top: 59%; left: 52%; }   
-        .p-inuit    { top: 16%; left: 16%; }   
-        .p-iroquois { top: 34%; left: 24.5%; } 
-        .p-maya     { top: 53%; left: 24.5%; } 
-        .p-aztec    { top: 48%; left: 22%; }   
-        .p-inca     { top: 72%; left: 34.5%; } 
-        .p-aboriginal { top: 77%; left: 88.5%; }
-        .p-polynesia  { top: 62%; left: 96%; }
+        /* 木纹地图精准坐标对齐 */
+        .p-durian    { top: 58%; left: 76%; } 
+        .p-mangosteen{ top: 64%; left: 79%; } 
+        .p-lychee    { top: 40%; left: 77%; } 
+        .p-persimmon { top: 38%; left: 86%; } 
+        .p-mango     { top: 52%; left: 71%; } 
+        .p-kiwi      { top: 84%; left: 90%; } 
+        .p-avocado   { top: 52%; left: 19%; } 
+        .p-pineapple { top: 74%; left: 29%; } 
+        .p-blueberry { top: 22%; left: 16%; } 
+        .p-cranberry { top: 28%; left: 22%; } 
+        .p-olive     { top: 37%; left: 49%; } 
+        .p-lemon     { top: 34%; left: 53%; } 
+        .p-grape     { top: 28%; left: 47%; } 
+        .p-apple     { top: 31%; left: 64%; } 
+        .p-date      { top: 48%; left: 60%; } 
+        .p-watermelon{ top: 80%; left: 56%; } 
+        .p-banana    { top: 60%; left: 46%; } 
+        .p-fig       { top: 39%; left: 43%; } 
+        .p-acai      { top: 66%; left: 34%; } 
+        .p-pitaya    { top: 56%; left: 74%; } 
 
-        /* 内容面板 */
-        .detail-panel {
-            background: #2d1e15;
-            border-radius: 12px;
-            padding: 40px;
-            border: 2px solid #4a3225;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
-            height: calc(100vh - 150px);
+        .info-panel {
+            background: var(--panel-bg);
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 1px solid #e2e8f0;
             overflow-y: auto;
         }
 
-        .legend-content h2 {
-            color: #f4e4bc;
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-            font-family: serif;
-        }
-        .legend-content .en-title {
-            display: block;
-            font-size: 1.2rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-            font-style: italic;
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 10px;
-        }
-
-        .legend-meta {
-            font-size: 0.9rem;
-            color: #bbb;
-            margin-bottom: 25px;
+        .fruit-header { 
             display: flex;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #f1f5f9; 
+            padding-bottom: 20px; 
+            margin-bottom: 25px; 
         }
-        .legend-meta i { color: var(--gold); margin-right: 5px; }
-
-        .section-title {
-            color: var(--gold);
-            font-weight: bold;
-            margin-top: 30px;
+        .fruit-header-text h2 { font-size: 32px; color: var(--primary-color); margin-bottom: 5px; }
+        .fruit-header-text h3 { font-size: 16px; color: #94a3b8; font-weight: 400; font-style: italic; }
+        
+        .fruit-thumbnail-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            cursor: zoom-in;
+            background-color: #f1f5f9;
+        }
+        .fruit-thumbnail {
+            width: 150px;
+            height: 110px;
+            object-fit: cover;
             display: block;
-            border-left: 5px solid var(--gold);
-            padding-left: 12px;
-            font-size: 1.2rem;
+            transition: 0.4s;
         }
-        .section-title span {
-            display: block;
-            font-size: 0.85rem;
-            font-style: italic;
-            font-weight: normal;
-            opacity: 0.7;
-            text-transform: uppercase;
+        .thumbnail-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+            color: white;
+            font-size: 20px;
+        }
+        .fruit-thumbnail-container:hover .thumbnail-overlay { opacity: 1; }
+
+        .content-section { margin-bottom: 25px; }
+        .content-section h4 { 
+            color: var(--primary-color); 
+            margin-bottom: 8px; 
+            border-left: 5px solid var(--accent-color); 
+            padding-left: 12px; 
+            font-size: 1.1rem;
+        }
+        .content-section p { font-size: 16px; color: #334155; text-align: justify; }
+        .en-text { display: block; font-size: 14px; color: #94a3b8; font-style: italic; margin-top: 6px; line-height: 1.4; }
+
+        .placeholder { text-align: center; margin-top: 40%; opacity: 0.4; }
+
+        #imgModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        #imgModal img { 
+            max-width: 85%; 
+            max-height: 85%; 
+            border-radius: 10px; 
+            border: 5px solid white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
-        .legend-description {
-            font-size: 1rem;
-            color: #e2e8f0;
-            white-space: pre-line;
-            text-align: justify;
-        }
-
-        .en-text {
-            display: block;
-            font-size: 0.9rem;
-            color: #94a3b8;
-            font-style: italic;
-            margin-top: 8px;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .placeholder {
-            text-align: center;
-            opacity: 0.3;
-            margin-top: 40%;
-        }
-
-        .detail-panel::-webkit-scrollbar { width: 6px; }
-        .detail-panel::-webkit-scrollbar-thumb { background: #5d4037; border-radius: 10px; }
-
-        @media (max-width: 1100px) {
-            .explorer-layout { grid-template-columns: 1fr; }
-            .map-wrapper { position: relative; top: 0; }
-            .detail-panel { height: auto; }
+        @media (max-width: 1024px) {
+            .main-explorer { grid-template-columns: 1fr; height: auto; }
+            .map-container { aspect-ratio: 16/9; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
     <header>
-        <h1>诸神传说 <span>Legends of the Gods</span></h1>
-        <p>— 25个跨越地理与文明的远古传说深度双语档案 —<br><i>25 Deep Bilingual Archives of Ancient Legends Across Geography and Civilizations</i></p>
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fas fa-globe-americas"></i></div>
+                <div class="logo-text">全球水果图鉴 <span>Fruit Atlas | Deep Archives</span></div>
+            </a>
+            <div style="font-size: 14px; color: #64748b; font-style: italic;">中英双语深度档案 | Bilingual Insights</div>
+        </nav>
     </header>
 
-    <div class="explorer-layout">
-        <div class="map-wrapper">
-            <!-- 所有25个标点 -->
-            <div class="pin p-china" onclick="showLegend('china', this)"></div>
-            <div class="pin p-nuwa" onclick="showLegend('nuwa', this)"></div>
-            <div class="pin p-houyi" onclick="showLegend('houyi', this)"></div>
-            <div class="pin p-yutaming" onclick="showLegend('yutaming', this)"></div>
-            <div class="pin p-jingwei" onclick="showLegend('jingwei', this)"></div>
-            <div class="pin p-zhuolu" onclick="showLegend('zhuolu', this)"></div>
-            <div class="pin p-tibet" onclick="showLegend('tibet', this)"></div>
-            <div class="pin p-japan" onclick="showLegend('japan', this)"></div>
-            <div class="pin p-india" onclick="showLegend('india', this)"></div>
-            <div class="pin p-meso" onclick="showLegend('meso', this)"></div>
-            <div class="pin p-persia" onclick="showLegend('persia', this)"></div>
-            <div class="pin p-seasia" onclick="showLegend('seasia', this)"></div>
-            <div class="pin p-nordic" onclick="showLegend('nordic', this)"></div>
-            <div class="pin p-celtic" onclick="showLegend('celtic', this)"></div>
-            <div class="pin p-greece" onclick="showLegend('greece', this)"></div>
-            <div class="pin p-slavic" onclick="showLegend('slavic', this)"></div>
-            <div class="pin p-egypt" onclick="showLegend('egypt', this)"></div>
-            <div class="pin p-yoruba" onclick="showLegend('yoruba', this)"></div>
-            <div class="pin p-inuit" onclick="showLegend('inuit', this)"></div>
-            <div class="pin p-iroquois" onclick="showLegend('iroquois', this)"></div>
-            <div class="pin p-maya" onclick="showLegend('maya', this)"></div>
-            <div class="pin p-aztec" onclick="showLegend('aztec', this)"></div>
-            <div class="pin p-inca" onclick="showLegend('inca', this)"></div>
-            <div class="pin p-aboriginal" onclick="showLegend('aboriginal', this)"></div>
-            <div class="pin p-polynesia" onclick="showLegend('polynesia', this)"></div>
+    <main class="main-explorer">
+        <div class="map-container">
+            <div class="pin p-durian" onclick="showFruit('durian', this)"></div>
+            <div class="pin p-mangosteen" onclick="showFruit('mangosteen', this)"></div>
+            <div class="pin p-lychee" onclick="showFruit('lychee', this)"></div>
+            <div class="pin p-persimmon" onclick="showFruit('persimmon', this)"></div>
+            <div class="pin p-mango" onclick="showFruit('mango', this)"></div>
+            <div class="pin p-kiwi" onclick="showFruit('kiwi', this)"></div>
+            <div class="pin p-avocado" onclick="showFruit('avocado', this)"></div>
+            <div class="pin p-pineapple" onclick="showFruit('pineapple', this)"></div>
+            <div class="pin p-blueberry" onclick="showFruit('blueberry', this)"></div>
+            <div class="pin p-cranberry" onclick="showFruit('cranberry', this)"></div>
+            <div class="pin p-olive" onclick="showFruit('olive', this)"></div>
+            <div class="pin p-lemon" onclick="showFruit('lemon', this)"></div>
+            <div class="pin p-grape" onclick="showFruit('grape', this)"></div>
+            <div class="pin p-apple" onclick="showFruit('apple', this)"></div>
+            <div class="pin p-date" onclick="showFruit('date', this)"></div>
+            <div class="pin p-watermelon" onclick="showFruit('watermelon', this)"></div>
+            <div class="pin p-banana" onclick="showFruit('banana', this)"></div>
+            <div class="pin p-fig" onclick="showFruit('fig', this)"></div>
+            <div class="pin p-acai" onclick="showFruit('acai', this)"></div>
+            <div class="pin p-pitaya" onclick="showFruit('pitaya', this)"></div>
         </div>
 
-        <div class="detail-panel" id="detailPanel">
+        <div class="info-panel" id="infoPanel">
             <div class="placeholder" id="placeholder">
                 <i class="fas fa-scroll fa-4x" style="margin-bottom: 20px; color: var(--gold)"></i>
-                <p>点击地图坐标解锁深度双语档案<br><i>Click coordinates to unlock deep bilingual archives.</i></p>
+                <p>点击航海图上的金色光点解锁深度双语档案<br><i>Click points to unlock deep bilingual archives</i></p>
             </div>
-            <div class="legend-content" id="legendContent" style="display: none;">
-                <h2 id="title"></h2>
-                <span class="en-title" id="titleEn"></span>
-                <div class="legend-meta">
-                    <span id="region"></span>
-                    <span id="era"></span>
+            <div id="fruitDetail" style="display:none">
+                <div class="fruit-header">
+                    <div class="fruit-header-text">
+                        <h2 id="fName"></h2>
+                        <h3 id="fEnName"></h3>
+                    </div>
+                    <div class="fruit-thumbnail-container" onclick="zoomImage()">
+                        <!-- 这里的 referrerpolicy="no-referrer" 是为了解决防盗链问题 -->
+                        <img id="fImg" src="" alt="Fruit" class="fruit-thumbnail" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400'">
+                        <div class="thumbnail-overlay"><i class="fas fa-expand"></i></div>
+                    </div>
                 </div>
-                <div class="legend-description" id="description"></div>
+                <div class="fruit-content">
+                    <div class="content-section">
+                        <h4>原产地 Origin</h4>
+                        <p id="fOrigin"></p>
+                        <span class="en-text" id="fOriginEn"></span>
+                    </div>
+                    <div class="content-section">
+                        <h4>特征描述 Description</h4>
+                        <p id="fDesc"></p>
+                        <span class="en-text" id="fDescEn"></span>
+                    </div>
+                    <div class="content-section">
+                        <h4>地理价值与传说 Geographical Value & Legends</h4>
+                        <p id="fValue"></p>
+                        <span class="en-text" id="fValueEn"></span>
+                    </div>
+                </div>
             </div>
         </div>
+    </main>
+
+    <div id="imgModal" onclick="this.style.display='none'">
+        <img id="modalImg" src="" referrerpolicy="no-referrer">
     </div>
-</div>
 
-<script>
-    const legendData = {
-        china: { 
-            title: "昆仑山：众神之乡", 
-            titleEn: "Kunlun Mountain: Home of the Gods",
-            region: "📍 中国西部 | Western China", era: "⏳ 上古时代 | Ancient Era", 
-            description: `<span class='section-title'>传说背景 <span>Background</span></span>昆仑山被视为华夏大地的“万山之祖”，是地界通往天界的枢纽。在汉代史籍与《山海经》中，它是地理实体与神话想象的重合点。
-<span class='en-text'>Kunlun Mountain is regarded as the "Ancestor of Ten Thousand Mountains" in China, serving as the hub between the earthly and heavenly realms. It is the intersection of geography and mythical imagination.</span>
-<span class='section-title'>核心内容 <span>Core Content</span></span>传说西王母居住在昆仑之巅的瑶池，园中种有三千年一结的“蟠桃”，食之可得长生。山中布满了奇珍异兽，如九头虎身的开明兽。它是众神在人间的行宫，黄帝等圣王常在此汲取智慧。
-<span class='en-text'>Legend says Xiwangmu resides at the Jade Pool on Kunlun's peak, where "Flat Peaches" grant immortality. It is home to mythical beasts like the Kaiming Beast and serves as the earthly palace for gods and ancient sage kings.</span>
-<span class='section-title'>文明内涵 <span>Insights</span></span>昆仑神话奠定了东方文明中“天人合一”的思想。象征着人类对超脱平庸、触及神圣境界的永恒渴望。
-<span class='en-text'>The Kunlun myth established the concept of "Unity of Heaven and Man," symbolizing the eternal human desire to transcend the mundane and reach the divine.</span>`
-        },
-        nuwa: { 
-            title: "女娲补天：生命救赎", 
-            titleEn: "Nuwa Mending the Heavens: Redemption of Life",
-            region: "📍 中原 | Central Plains", era: "⏳ 创世时期 | Creation Era", 
-            description: `<span class='section-title'>传说背景 <span>Background</span></span>水神共工与火神祝融激战，共工怒触不周山，导致支撑苍天的柱子断裂，宇宙秩序濒临崩溃。
-<span class='en-text'>The god of water Gonggong and the god of fire Zhurong fought a fierce battle. Gonggong struck Mount Buzhou, breaking the pillar of heaven and bringing the universe to the brink of collapse.</span>
-<span class='section-title'>核心内容 <span>Core Content</span></span>始祖女神女娲目睹众生挣扎，炼制五色石以修补天穹，折断巨鳖之足支撑四极。同时，她还以黄泥捏造人类，并赋予繁衍的本能。
-<span class='en-text'>Nuwa, the mother goddess, smelted five-colored stones to mend the sky and used a giant turtle's legs to support the corners of the world. She also created humans from yellow clay.</span>
-<span class='section-title'>文明内涵 <span>Insights</span></span>体现了母系氏族社会中对女性权力的崇拜。补天象征着中华民族在自然巨灾面前表现出的自发救赎精神与重建毅力。
-<span class='en-text'>Nuwa embodies the worship of female power. Mending the sky symbolizes the Chinese nation's spirit of self-redemption and the will to reconstruct civilization after a catastrophe.</span>`
-        },
-        houyi: { 
-            title: "后羿射日：宇宙秩序", 
-            titleEn: "Houyi Shooting the Suns: Cosmic Order",
-            region: "📍 华东 | Eastern China", era: "⏳ 尧帝时期 | Era of Emperor Yao", 
-            description: `<span class='section-title'>传说背景 <span>Background</span></span>天帝的十个儿子化身为十只金乌（太阳），原本轮流当值。然而有一日，它们决定共同升空，导致大地干旱、百姓民不聊生。
-<span class='en-text'>Ten sons of the Heavenly Emperor turned into ten suns (Golden Crows). One day, they rose together, scorching the earth and bringing misery to the people.</span>
-<span class='section-title'>核心内容 <span>Core Content</span></span>神箭手后羿受命拯救人间。他连射落九只金乌，使天空仅存一轮红日。随后，其妻嫦娥服下不死药独自奔月。
-<span class='en-text'>The divine archer Houyi shot down nine suns to save the world. Later, his wife Chang'e consumed the elixir of immortality and flew to the moon alone.</span>
-<span class='section-title'>文明内涵 <span>Insights</span></span>这是一部人类征服自然的壮丽史诗。它确立了英雄的力量应当服务于苍生存续的民本思想。
-<span class='en-text'>This epic symbolizes humanity's triumph over nature and establishes the idea that heroic power must serve the survival of the people.</span>`
-        },
-        yutaming: { 
-            title: "大禹治水：文明基石", 
-            titleEn: "Yu the Great Taming the Floods",
-            region: "📍 黄河流域 | Yellow River Valley", era: "⏳ 约前21世纪 | c. 21st Century BC", 
-            description: `<span class='section-title'>传说背景 <span>Background</span></span>上古大地遭受长达数十年的洪水灾难，禹的父亲采取“堵截”之策失败。
-<span class='en-text'>The ancient land suffered decades of flooding. Yu's father failed to stop the floods using the "blocking" method.</span>
-<span class='section-title'>核心内容 <span>Core Content</span></span>禹三过家门而不入，耗时13年，改堵为疏，通过凿山导流将洪水引入大海。他亲自搬运土石，腿上的汗毛都被磨光。
-<span class='en-text'>Yu passed his home three times without entering. Over 13 years, he used dredging to guide water into the sea, physical laboring until the hair on his legs was worn away.</span>
-<span class='section-title'>文明内涵 <span>Insights</span></span>治水标志着中国从原始部落向早期国家形态的质变。它塑造了“克己奉公”和“顺应规律”的政治智慧。
-<span class='en-text'>Taming the flood marked the transition from tribes to a state. It shaped the wisdom of self-sacrifice for the public and following natural laws.</span>`
-        },
-        jingwei: { 
-            title: "精卫填海：意志图腾", 
-            titleEn: "Jingwei Filling the Sea",
-            region: "📍 渤海 | Bohai Sea", era: "⏳ 上古时代 | Ancient Times", 
-            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>传说炎帝之女溺亡化作“精卫”鸟。精卫终日衔着树枝与石块，试图填平浩瀚的东海。
-<span class='en-text'>Legend has it that Yandi's daughter drowned and turned into the bird "Jingwei." She carries twigs and stones daily to fill the vast Eastern Sea.</span>
-<span class='section-title'>文明内涵 <span>Insights</span></span>面对不可战胜的大自然力量，精卫展现了“知其不可而为之”的极端意志，是中华民族性格中“坚韧不拔”的最高精神符号。
-<span class='en-text'>In the face of invincible natural forces, Jingwei shows the will to strive against impossible odds, becoming a symbol of Chinese resilience.</span>`
-        },
-        zhuolu: { 
-            title: "诸神之战：融合之源", 
-            titleEn: "Battle of Zhuolu: Source of Integration",
-            region: "📍 华北 | Northern China", era: "⏳ 五帝时期 | Era of Five Emperors", 
-            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>黄帝部与蚩尤部大决战。战场上风云变幻，黄帝发明指南车辨别方位，并请来应龙降雨、最终击败蚩尤。
-<span class='en-text'>The decisive battle between Huangdi and Chiyou. Amidst magic mists, Huangdi used a compass chariot and divine dragons to defeat Chiyou.</span>
-<span class='section-title'>文明内涵 <span>Insights</span></span>此战后炎黄二部走向一统。它奠定了中原文明作为多民族融合核心的地位。
-<span class='en-text'>This battle led to the unification of tribes, establishing the Central Plains as the core of multi-ethnic integration.</span>`
-        },
-        tibet: { 
-            title: "格萨尔王：雄狮之王", 
-            titleEn: "King Gesar: The Lion King",
-            region: "📍 青藏高原 | Tibetan Plateau", era: "⏳ 约11世纪 | c. 11th Century", 
-            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>神子格萨尔降临人间，金戈铁马降伏妖魔。其史诗通过艺人口口相传，字数甚至超过《荷马史诗》。
-<span class='en-text'>The divine son Gesar descended to Earth to conquer demons. His epic, passed down by oral bards, exceeds the Iliad in length.</span>
-<span class='section-title'>文明意义 <span>Significance</span></span>雪域高原民族灵魂的百科全书，保存了高原古代社会的民俗、宗教与哲学。
-<span class='en-text'>An encyclopedia of the Tibetan soul, preserving the ancient folklore, religion, and philosophy of the plateau.</span>`
-        },
-        greece: { 
-            title: "奥林匹斯：众神纠葛", 
-            titleEn: "Olympus: Entanglements of Gods",
-            region: "📍 希腊 | Greece", era: "⏳ 前8世纪 | 8th Century BC", 
-            description: `<span class='section-title'>传说核心 <span>Core Content</span></span>奥林匹斯山之巅居住着以宙斯为首的十二主神。这些神明拥有极强的人格化特征——傲慢、嫉妒、愤怒甚至多情。
-<span class='en-text'>The Twelve Olympians rule from Mount Olympus. These gods are intensely humanized, displaying hubris, jealousy, and passion.</span>
-<span class='section-title'>文明意义 <span>Significance</span></span>探讨了人类存在的悲剧美学。它是西方人文主义的摇篮，强调人类在命运抗争中闪耀的自由意志。
-<span class='en-text'>It explores the tragic aesthetics of existence and serves as the cradle of Western humanism, highlighting free will against destiny.</span>`
-        },
-        nordic: { 
-            title: "世界树：诸神黄昏", 
-            titleEn: "Yggdrasil: Ragnarök",
-            region: "📍 北欧 | Scandinavia", era: "⏳ 8-11世纪 | 8th-11th Century", 
-            description: `<span class='section-title'>传说核心 <span>Core Content</span></span>宇宙是一棵巨大的白蜡树。最独特的预言是“诸神黄昏”：一场无法避免的决战，众神将与巨灵同归于尽。
-<span class='en-text'>The universe is a giant ash tree. The central prophecy is Ragnarök: an inevitable final battle where gods and giants destroy each other.</span>
-<span class='section-title'>生存哲学 <span>Philosophy</span></span>带有强烈的末世观。教导勇士：死亡是宿命，但战斗的过程必须充满光荣。
-<span class='en-text'>A world-view where death is destiny, but the act of fighting must be filled with glory and honor.</span>`
-        },
-        egypt: { 
-            title: "冥界审判：心脏天秤", 
-            titleEn: "Underworld Judgment: Scales of Heart",
-            region: "📍 埃及 | Egypt", era: "⏳ 前3000年 | 3000 BC", 
-            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>亡魂需在冥王前接受审判。阿努比斯取出死者的心脏，放在天秤一端，另一端是象征真理的羽毛。
-<span class='en-text'>The deceased faces judgment before Osiris. Anubis weighs the heart against the Feather of Truth (Maat).</span>
-<span class='section-title'>文明意义 <span>Significance</span></span>心脏轻于羽毛者进入永生。确立了人类历史上最早基于道德行为的审判观。
-<span class='en-text'>A heart lighter than the feather grants eternal life, establishing the earliest moral-based judgment in history.</span>`
-        },
-        maya: { 
-            title: "羽蛇神：时间循环", 
-            titleEn: "Kukulkan: Cycle of Time",
-            region: "📍 中美洲 | Central America", era: "⏳ 250-900年 | 250-900 AD", 
-            description: `<span class='section-title'>传说核心 <span>Core Content</span></span>羽蛇神是文明的带来者。玛雅人认为宇宙不是线性的，而是齿轮一样循环。
-<span class='en-text'>Kukulkan brought civilization. Mayans believed time was not linear but functioned like circular gears.</span>
-<span class='section-title'>文明启示 <span>Insights</span></span>反映了古文明对自然的敬畏，以及在时间洪流中寻求确定性的孤独尝试。
-<span class='en-text'>Reflects ancient reverence for nature and a lonely attempt to find certainty within the flow of time.</span>`
-        },
-        india: { 
-            title: "摩诃婆罗多：轮回史诗", 
-            titleEn: "Mahabharata: Epic of Samsara",
-            region: "📍 印度 | India", era: "⏳ 前4世纪 | 4th Century BC", 
-            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>世界最长的史诗，描述了家族血亲之战。三大主神介入人间，探讨了正义、欲望与业力。
-<span class='en-text'>The world's longest epic detailing a kinship war, where gods intervene to discuss justice, desire, and karma.</span>
-<span class='section-title'>哲学深度 <span>Philosophy</span></span>奠定了“业力”与“轮回”的思想。教导人们应在行动中放下结果，回归正道。
-<span class='en-text'>Established the concepts of Karma and Reincarnation, teaching one to act without attachment to the results.</span>`
-        },
-        japan: { 
-            title: "天岩户：万物有灵", 
-            titleEn: "Amano-Iwato: Animism",
-            region: "📍 日本 | Japan", era: "⏳ 8世纪 | 8th Century AD", 
-            description: `<span class='section-title'>核心传说 <span>Core Content</span></span>太阳女神天照躲入山洞，世界陷入黑暗。众神起舞诱其重现。
-<span class='en-text'>The Sun Goddess Amaterasu hid in a cave, plunging the world into darkness. Gods danced to lure her back out.</span>
-<span class='section-title'>文化色彩 <span>Insights</span></span>体现了神道教中“八百万神明”的观念——大自然的一草一木皆有神灵寄托。
-<span class='en-text'>Emphasizes Shinto's "Eight Million Kami"—the belief that every element of nature houses a spirit.</span>`
-        },
-        meso: { 
-            title: "吉尔伽美什：追寻永生", 
-            titleEn: "Gilgamesh: Quest for Immortality",
-            region: "📍 中东 | Mesopotamia", era: "⏳ 前21世纪 | 2100 BC", 
-            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>英雄王追寻永生失败后，明白永生在于亲手建立的伟大城池和不朽功勋。
-<span class='en-text'>After failing to find immortality, the Hero-King realized that true eternal life lies in his great city and deeds.</span>
-<span class='section-title'>文明回响 <span>Insights</span></span>已知人类最早的文学杰作。揭示了人类文明中英雄虽强，却无法逾越生死。
-<span class='en-text'>The earliest known literary masterpiece, revealing the human struggle between heroic power and mortality.</span>`
-        },
-        celtic: { 
-            title: "达努神族：迷雾仙踪", 
-            titleEn: "Tuatha Dé Danann: Fairy Trails",
-            region: "📍 爱尔兰 | Ireland", era: "⏳ 铁器时代 | Iron Age", 
-            description: `<span class='section-title'>核心传说 <span>Core Content</span></span>超自然神族降临爱尔兰。战败后缩小身形，隐居于地底仙丘。
-<span class='en-text'>A supernatural tribe landed in Ireland. After defeat, they shrank and hid in underground fairy mounds.</span>
-<span class='section-title'>后世影响 <span>Influence</span></span>欧洲奇幻文化的根源。迷雾中的神祇演变成了后世传说中的精灵和巫师。
-<span class='en-text'>The root of European fantasy; these misty gods evolved into the elves and wizards of later folklore.</span>`
-        },
-        aztec: { 
-            title: "第五太阳纪：血之供养", 
-            titleEn: "Fifth Sun: Blood Sacrifice",
-            region: "📍 墨西哥 | Mexico", era: "⏳ 14-16世纪 | 14-16th Century", 
-            description: `<span class='section-title'>传说核心 <span>Core Content</span></span>相信世界已经历过四个纪元毁灭。必须提供祭祀能量，否则黑暗将永久降临。
-<span class='en-text'>Believing four worlds were destroyed, they offered sacrifices to prevent the "Fifth Sun" from falling into darkness.</span>
-<span class='section-title'>文明逻辑 <span>Insights</span></span>反映了对宇宙动力的原始理解——存续必须通过高昂的代价换取。
-<span class='en-text'>Reflects an understanding of cosmic dynamics: survival must be paid for at a high price.</span>`
-        },
-        inca: { 
-            title: "帕查库特克：太阳后裔", 
-            titleEn: "Sons of the Sun",
-            region: "📍 秘鲁 | Peru", era: "⏳ 13-16世纪 | 13-16th Century", 
-            description: `<span class='section-title'>核心传说 <span>Core Content</span></span>印加王自命太阳子孙。在海拔三千米山巅通过巨石建筑复刻星空秩序。
-<span class='en-text'>The Inca King claimed to be the Son of the Sun, building stone cities at 3,000m to mirror cosmic order.</span>
-<span class='section-title'>文化遗迹 <span>Insights</span></span>高度集权的基石。实现了王权与自然法则的完美对齐。
-<span class='en-text'>The foundation of centralized power, aligning royal authority with the laws of nature.</span>`
-        },
-        aboriginal: { 
-            title: "梦幻时代：歌之径", 
-            titleEn: "Dreamtime: Songlines",
-            region: "📍 澳大利亚 | Australia", era: "⏳ 6万年前 | 60,000 Years Ago", 
-            description: `<span class='section-title'>核心概念 <span>Core Content</span></span>祖先神灵歌唱，歌声所及之处诞生岩石河流。每一首歌都是一本地图册。
-<span class='en-text'>Ancestral spirits sang geographical features into existence. Every song is an atlas for navigation.</span>
-<span class='section-title'>生存智慧 <span>Insights</span></span>文化记忆与地理空间结合的最紧密例证。
-<span class='en-text'>The closest example of merging cultural memory with geographical space.</span>`
-        },
-        polynesia: { 
-            title: "毛伊：垂钓岛屿", 
-            titleEn: "Maui: Fishing the Islands",
-            region: "📍 太平洋 | Polynesia", era: "⏳ 史前 | Prehistoric", 
-            description: `<span class='section-title'>核心内容 <span>Core Content</span></span>半神毛伊利用魔法鱼钩从海底钓起群岛，并偷走火种。
-<span class='en-text'>The demigod Maui fished islands up from the sea floor and stole the secret of fire.</span>
-<span class='section-title'>文化精神 <span>Insights</span></span>反映了南极民族惊人的航海精神。体现了对大海既恐惧又亲昵的情感。
-<span class='en-text'>Reflects the voyaging spirit and the complex emotional bond with the vast ocean.</span>`
-        },
-        yoruba: { 
-            title: "奥里莎：西非万神", 
-            titleEn: "Orishas: Pantheon of West Africa",
-            region: "📍 尼日利亚 | Nigeria", era: "⏳ 中世纪 | Middle Ages", 
-            description: `<span class='section-title'>核心体系 <span>Core Content</span></span>神灵拥有强烈个性。这种基因传向美洲，形成了现代灵魂乐、爵士乐的精神根源。
-<span class='en-text'>Gods possess strong personalities. These beliefs spread to the Americas, forming the roots of Jazz and Soul.</span>
-<span class='section-title'>文明流转 <span>Insights</span></span>跨越海域的信仰文化输出。
-<span class='en-text'>A powerful cultural output of faith across vast oceanic distances.</span>`
-        },
-        persia: { 
-            title: "琐罗亚斯德：光明黑暗", 
-            titleEn: "Zoroastrianism: Light and Dark",
-            region: "📍 伊朗 | Iran", era: "⏳ 前10世纪 | 10th Century BC", 
-            description: `<span class='section-title'>核心教义 <span>Core Content</span></span>整个宇宙是善神与恶神间永恒决战。人类自由意志决定宇宙平衡。
-<span class='en-text'>The universe is a battlefield between good and evil. Human free will determines cosmic balance.</span>
-<span class='section-title'>历史意义 <span>Insights</span></span>确立了末日审判、天堂地狱概念。启发了后世一神教文明。
-<span class='en-text'>Established concepts of judgment and afterlife, inspiring later monotheistic civilizations.</span>`
-        },
-        slavic: { 
-            title: "佩伦之怒：橡树雷霆", 
-            titleEn: "Perun: Thunder of the Oak",
-            region: "📍 东欧 | Eastern Europe", era: "⏳ 6-10世纪 | 6-10th Century", 
-            description: `<span class='section-title'>核心神话 <span>Core Content</span></span>雷神佩伦居住在世界树橡树顶端。打雷被视为正追击恶魔。
-<span class='en-text'>Perun resides atop the World Oak. Thunder is the sound of him hunting demons.</span>
-<span class='section-title'>文化底蕴 <span>Insights</span></span>植根于原始森林文明。是东欧民族血脉中正直性格的底色。
-<span class='en-text'>Rooted in forest civilization, representing the honest and fierce character of Slavic nations.</span>`
-        },
-        iroquois: { 
-            title: "海龟岛：背负大陆", 
-            titleEn: "Turtle Island",
-            region: "📍 北美 | North America", era: "⏳ 前殖民 | Pre-Columbian", 
-            description: `<span class='section-title'>传说内容 <span>Core Content</span></span>女神坠落，麝鼠将泥土涂在海龟背上，扩张成了北美大陆。
-<span class='en-text'>A sky goddess fell, and a turtle carried her; mud on its back grew into North America.</span>
-<span class='section-title'>文明契约 <span>Insights</span></span>强调人不是大地主人，而是寄宿房客。确立了早期生态共生哲学。
-<span class='en-text'>Humans are not masters but guests on Earth. Established early ecological symbiosis.</span>`
-        },
-        inuit: { 
-            title: "塞德娜：深海女神", 
-            titleEn: "Sedna: Sea Goddess",
-            region: "📍 北极圈 | Arctic", era: "⏳ 史前 | Prehistoric", 
-            description: `<span class='section-title'>传说内容 <span>Core Content</span></span>少女指头化作海豹与鲸鱼。她现在是深海主宰。
-<span class='en-text'>A girl's fingers turned into seals and whales. She now rules the ocean depths.</span>
-<span class='section-title'>生存启示 <span>Insights</span></span>在极寒环境下，资源提取必须伴随感恩。
-<span class='en-text'>In extreme environments, resource extraction must be accompanied by deep gratitude.</span>`
-        },
-        seasia: { 
-            title: "那伽：水的守护", 
-            titleEn: "Naga: Water Guardian",
-            region: "📍 东南亚 | SE Asia", era: "⏳ 史前 | Prehistoric", 
-            description: `<span class='section-title'>传说内容 <span>Core Content</span></span>湄公河畔的多头蛇神，掌控季风雨露。是连接人间与灵界的彩虹桥。
-<span class='en-text'>Multi-headed serpent gods rule the Mekong, controlling rain and serving as a bridge to the spirit realm.</span>
-<span class='section-title'>文化纽带 <span>Insights</span></span>稻作文明生命线。东南亚土地上最坚韧的繁荣图腾。
-<span class='en-text'>The lifeline of rice civilizations and a resilient totem of prosperity in Southeast Asia.</span>`
+    <script>
+        const fruitData = {
+            // 已更新为您提供的指定图片链接
+            durian: {
+                name: "榴莲", en: "Durian",
+                img: "https://i.epochtimes.com/assets/uploads/2023/05/id14005352-shutterstock_1796168182.jpg",
+                origin: "东南亚 (马来西亚、泰国)", originEn: "Southeast Asia (Malaysia, Thailand)",
+                desc: "气味强烈，外壳布满尖刺，果肉如奶油般丝滑，风味浓郁。",
+                descEn: "Known for its pungent odor and thorn-covered rind. Creamy and rich flesh.",
+                value: "被奉为“水果之王”。是热带雨林气候的地理象征。",
+                valueEn: "Revered as the 'King of Fruits' and a symbol of the rainforest climate."
+            },
+            mangosteen: {
+                name: "山竹", en: "Mangosteen",
+                img: "https://zhiwudao.com/wp-content/uploads/2025/03/2025032309201138.jpg",
+                origin: "东南亚 (泰国、马来西亚)", originEn: "Southeast Asia (Thailand, Malaysia)",
+                desc: "雪白嫩滑的果肉包裹在紫色厚皮内，酸甜适口。常与榴莲配食以平衡热气。",
+                descEn: "Sweet, tangy white segments inside a purple rind. Often paired with durian.",
+                value: "被称为“水果皇后”。生长环境要求极高，仅限湿润热带。",
+                valueEn: "Known as the 'Queen of Fruits'. Thrives only in humid tropical regions."
+            },
+            lychee: {
+                name: "荔枝", en: "Lychee",
+                img: "https://img.ltn.com.tw/Upload/health/page/800/2023/06/16/php8i6Bfj.jpg",
+                origin: "中国南方", originEn: "Southern China",
+                desc: "果皮红如丹砂，肉质晶莹。杨贵妃曾有“一骑红尘妃子笑”之说。",
+                descEn: "Red bumpy skin and translucent, sweet flesh. A prized royal tribute in ancient China.",
+                value: "中国亚热带水果代表。栽培历史超两千年，象征吉祥。",
+                valueEn: "A hallmark of Chinese fruit history, symbolizing wealth and fortune."
+            },
+            persimmon: {
+                name: "柿子", en: "Persimmon",
+                img: "https://p6.itc.cn/images01/20230925/ea4d486f4fdb40e69a632e10a05d68ad.jpeg",
+                origin: "东亚 (日本、中国)", originEn: "East Asia (Japan, China)",
+                desc: "秋季视觉象征。果皮金红，脱涩后口感绵甜如蜜。",
+                descEn: "A symbol of autumn. Deep orange skin with sweet, rich flesh when ripe.",
+                value: "在东亚文化中具有极高审美价值。常制成柿饼过冬。",
+                valueEn: "Highly aesthetic in East Asia, often preserved as dried fruit for winter."
+            },
+            mango: {
+                name: "芒果", en: "Mango",
+                img: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=800",
+                origin: "印度、东南亚", originEn: "India, Southeast Asia",
+                desc: "热带之王。果肉鲜黄多汁，香气馥郁，是印度的国果。",
+                descEn: "King of tropical fruits. Juicy yellow flesh and intense aroma. India's national fruit.",
+                value: "印度拥有百余品种。频繁出现在南亚宗教典籍中。",
+                valueEn: "Boasts hundreds of varieties and appears frequently in religious texts."
+            },
+            kiwi: {
+                name: "奇异果", en: "Kiwi Fruit",
+                img: "https://www.pujiangmihoutao.com/pic/xxl201.jpg",
+                origin: "新西兰 (原产中国)", originEn: "New Zealand (Native to China)",
+                desc: "富含维C，果肉翠绿。20世纪初由中国引入新西兰并发扬光大。",
+                descEn: "High in Vitamin C with vibrant green flesh. Brought from China to NZ in the early 20th century.",
+                value: "新西兰农业现代化标志。全球顶级农业品牌案例。",
+                valueEn: "An icon of modern agriculture and top global branding."
+            },
+            avocado: {
+                name: "牛油果", en: "Avocado",
+                img: "https://www.foravo.com/uploads/allimg/190628/1-1Z62Q62103260.png",
+                origin: "墨西哥、中美洲", originEn: "Mexico, Central America",
+                desc: "口感细腻如奶油。富含健康不饱和脂肪，是超级食物引领者。",
+                descEn: "Rich in healthy fats with a smooth, buttery texture. A superfood star.",
+                value: "被誉为墨西哥的“绿色黄金”。是拉美菜肴的核心。",
+                valueEn: "Known as Mexico's 'Green Gold'. Staple of Latin American cuisine."
+            },
+            pineapple: {
+                name: "菠萝", en: "Pineapple",
+                img: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=800",
+                origin: "巴西、哥斯达黎加", originEn: "Brazil, Costa Rica",
+                desc: "热带风情代名词。带鳞片外壳，金黄果肉中含凤梨酵素。",
+                descEn: "Icon of the tropics. Scaly exterior with golden, enzyme-rich flesh.",
+                value: "大航海时代传遍全球。哥斯达黎加是目前最大出口国。",
+                valueEn: "Spread globally during the Age of Discovery. A vital export crop."
+            },
+            blueberry: {
+                name: "蓝莓", en: "Blueberry",
+                img: "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800",
+                origin: "北美 (加拿大、美国)", originEn: "North America",
+                desc: "深蓝色浆果，富含花青素。顶级天然抗氧化食物。",
+                descEn: "Deep blue berries packed with antioxidants. A premier superfood.",
+                value: "北美拥有最成熟商业化体系。深刻影响现代健康饮食。",
+                valueEn: "North America has the most mature commercial cultivation system."
+            },
+            cranberry: {
+                name: "蔓越莓", en: "Cranberry",
+                img: "https://buybc.gov.bc.ca/app/uploads/sites/386/2024/03/Cranberries_133847855.png",
+                origin: "北美 (加拿大、美国北部)", originEn: "Northern USA, Canada",
+                desc: "红宝石般色泽，口味极酸。北美感恩节传统食物。",
+                descEn: "Ruby-like and very tart. A staple of North American Thanksgiving.",
+                value: "独特“水收”方式采摘，形成红色海洋。具有极高药用价值。",
+                valueEn: "Harvested via 'wet' method, creating stunning crimson bogs."
+            },
+            olive: {
+                name: "油橄榄", en: "Olive",
+                img: "http://gs.people.com.cn/NMediaFile/2025/0909/LOCAL1757404601574DO9FTNQSP7.jpg",
+                origin: "希腊、地中海沿岸", originEn: "Greece, Mediterranean",
+                desc: "地中海之魂。用于榨取“液体黄金”橄榄油，象征和平。",
+                descEn: "The soul of the Mediterranean diet. Used for 'Liquid Gold' oil.",
+                value: "典型地中海气候产物。栽培史塑造了欧洲烹饪文明基础。",
+                valueEn: "A gift of the Mediterranean climate, shaping European cuisine."
+            },
+            lemon: {
+                name: "柠檬", en: "Lemon",
+                img: "https://images.unsplash.com/photo-1590502593747-42a996133562?w=800",
+                origin: "意大利西西里", originEn: "Sicily, Italy",
+                desc: "极高酸度富含维C。是西餐调味和夏日饮品的灵魂。",
+                descEn: "High acidity and rich in Vit C. Essential for Mediterranean seasoning.",
+                value: "西西里柠檬因充足阳光闻名，是高品质柠檬代名词。",
+                valueEn: "Sicilian lemons are world-renowned due to the intense sun."
+            },
+            grape: {
+                name: "葡萄", en: "Grape",
+                img: "https://www.newsmarket.com.tw/files/2023/07/%E5%B7%A8%E5%B3%B0%E8%91%A1%E8%90%844%E3%80%82%EF%BC%88%E5%9C%96%E7%89%87%E6%8F%90%E4%BE%9B%EF%BC%8F%E8%91%89%E6%96%87%E5%BD%AC%EF%BC%89.jpg",
+                origin: "法国、中亚、东亚", originEn: "France, Central Asia, East Asia",
+                desc: "酿酒之母。人类数千年酒神文化与社交文明的源头。",
+                descEn: "The mother of wine, impacting global Dionysian culture.",
+                value: "全球栽培历史最悠久的水果之一。品种繁多，分布广泛。",
+                valueEn: "One of the oldest fruits. Diverse varieties, widely distributed."
+            },
+            apple: {
+                name: "苹果", en: "Apple",
+                img: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800",
+                origin: "中亚 (哈萨克斯坦)", originEn: "Central Asia",
+                desc: "温带水果典型。脆爽多汁，现育有数千适应各地的品种。",
+                descEn: "The quintessential temperate fruit. Thousands of varieties exist.",
+                value: "祖先为天山野苹果。人类最早驯化的水果，象征健康。",
+                valueEn: "Descended from wild Tianshan apples; among the earliest cultivated."
+            },
+            date: {
+                name: "海枣", en: "Date Palm",
+                img: "https://thumbs.dreamstime.com/b/%E7%BA%A2%E6%9E%A3%E6%9E%9C%E7%94%9C%E9%A3%9F%E5%93%81%E5%81%A5%E5%BA%B7%E6%A3%95%E6%A6%88%E6%A0%91%E6%96%B0%E7%94%9F%E5%AD%A3-%E7%BA%A2%E6%9E%A3%E6%9E%9C%E7%94%9C%E9%A3%9F%E5%93%81%E5%81%A5%E5%BA%B7%E6%A3%95%E6%A6%88%E6%A0%91%E6%96%B0%E5%AD%A3%E8%8A%82%E8%8A%B1%E5%9B%AD%E8%83%8C%E6%99%AF%E5%A2%99%E7%BA%B8-192518928.jpg",
+                origin: "中东、北非", originEn: "Middle East, North Africa",
+                desc: "“沙漠面包”。极高含糖量与能量密度，是商旅生存支柱。",
+                descEn: "Bread of the Desert. High sugar, vital for caravan survival in arid regions.",
+                value: "阿拉伯文明生命之源。在伊斯兰文化中地位神圣且古老。",
+                valueEn: "Source of life for Arab civilization. Sacred in Islamic culture."
+            },
+            watermelon: {
+                name: "西瓜", en: "Watermelon",
+                img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=800",
+                origin: "南部非洲", originEn: "Southern Africa",
+                desc: "消暑极品，含水量超90%。由干旱荒漠苦瓜进化而来。",
+                descEn: "The ultimate summer fruit. Over 90% water; from arid desert ancestors.",
+                value: "通过丝绸之路传播，是大自然提供的完美解渴方案。",
+                valueEn: "Spread via the Silk Road. Nature's perfect thirst-quencher."
+            },
+            banana: {
+                name: "香蕉", en: "Banana",
+                img: "https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=800",
+                origin: "东南亚、西非", originEn: "Southeast Asia, West Africa",
+                desc: "全球贸易量最大。方便剥皮，富含钾，运动员首选。",
+                descEn: "Most traded fruit globally. Convenient and high in potassium.",
+                value: "热带基础口粮。全球食品供应链的基石出口作物。",
+                valueEn: "A dietary staple in the tropics and a cornerstone of global supply."
+            },
+            fig: {
+                name: "无花果", en: "Fig",
+                img: "https://www.watchinese.com/files/article/2020/10/216/216p92_02.jpg",
+                origin: "土耳其、地中海", originEn: "Turkey, Mediterranean",
+                desc: "地中海古老文明活化石。花开果内，口感软糯绵甜。",
+                descEn: "Living fossil of Mediterranean culture. Flowers bloom inside the fruit.",
+                value: "在诸多古代典籍均有记载。土耳其是目前最大生产国。",
+                valueEn: "Recorded in many ancient texts. Turkey is currently the top producer."
+            },
+            acai: {
+                name: "巴西莓", en: "Acai Berry",
+                img: "https://www.newsmarket.com.tw/files/2026/06/11-205957_0.jpg",
+                origin: "亚马逊雨林", originEn: "Amazon Rainforest, Brazil",
+                desc: "生长在棕榈树上的暗紫色浆果。抗氧化能力自然界顶级。",
+                descEn: "Dark purple palm berries with elite antioxidant levels.",
+                value: "亚马逊传统主食。现席卷全球，成为能量补给代名词。",
+                valueEn: "Traditional Amazon staple now a global health food superstar."
+            },
+            pitaya: {
+                name: "火龙果", en: "Dragon Fruit",
+                img: "https://p4.itc.cn/images01/20210406/f8f47be29c15442992bf68f379fa27f2.png",
+                origin: "越南、中美洲", originEn: "Vietnam, Central America",
+                desc: "外观华丽如龙鳞。清甜爽口，富含纤维与矿物质。",
+                descEn: "Stunning scale-like skin. Translucent flesh; refreshing taste.",
+                value: "典型热带攀缘仙人掌。越南将其成功推向全球市场。",
+                valueEn: "A tropical cactus climber. Vietnam successfully globalized it."
+            }
+        };
+
+        let currentActivePin = null;
+
+        function showFruit(id, el) {
+            if (currentActivePin) currentActivePin.classList.remove('active');
+            el.classList.add('active');
+            currentActivePin = el;
+
+            const data = fruitData[id];
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('fruitDetail').style.display = 'block';
+            
+            document.getElementById('fName').innerText = data.name;
+            document.getElementById('fEnName').innerText = data.en;
+            document.getElementById('fImg').src = data.img;
+            document.getElementById('fOrigin').innerText = data.origin;
+            document.getElementById('fOriginEn').innerText = data.originEn;
+            document.getElementById('fDesc').innerText = data.desc;
+            document.getElementById('fDescEn').innerText = data.descEn;
+            document.getElementById('fValue').innerText = data.value;
+            document.getElementById('fValueEn').innerText = data.valueEn;
+
+            const detail = document.getElementById('fruitDetail');
+            detail.style.opacity = 0;
+            setTimeout(() => {
+                detail.style.transition = '0.5s ease';
+                detail.style.opacity = 1;
+            }, 10);
         }
-    };
 
-    function showLegend(id, el) {
-        document.querySelectorAll('.pin').forEach(p => p.classList.remove('active'));
-        el.classList.add('active');
-
-        const data = legendData[id];
-        const placeholder = document.getElementById('placeholder');
-        const content = document.getElementById('legendContent');
-
-        placeholder.style.display = 'none';
-        content.style.display = 'block';
-        
-        document.getElementById('title').innerText = data.title;
-        document.getElementById('titleEn').innerText = data.titleEn;
-        document.getElementById('region').innerHTML = "<i>" + data.region + "</i>";
-        document.getElementById('era').innerHTML = "<i>" + data.era + "</i>";
-        document.getElementById('description').innerHTML = data.description;
-        
-        content.style.animation = 'none';
-        content.offsetHeight; 
-        content.style.animation = 'fadeIn 0.6s forwards';
-        
-        document.getElementById('detailPanel').scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script>
-
-<style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-</style>
-
+        function zoomImage() {
+            const imgSrc = document.getElementById('fImg').src;
+            if(!imgSrc) return;
+            const modal = document.getElementById('imgModal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = imgSrc;
+            modal.style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
