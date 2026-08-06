@@ -3,240 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>五星巴西：足球王国的传奇 - Five-Star Brazil: Legends of the Football Kingdom</title>
+    <title>以色列：从古代王国到现代创新 - Israel: From Ancient Kingdom to Modern Innovation</title>
     <style>
         :root {
-            --brazil-green: #006400; /* 深绿色 */
-            --brazil-yellow: #FFDF00; /* 巴西黄 */
-            --brazil-blue: #002776; /* 巴西蓝 */
-            --bg-light: #f4fbf4;
+            --israel-blue: #0038b8;
+            --israel-white: #ffffff;
+            --text-dark: #333333;
+            --light-gray: #f0f4f8;
         }
 
         body {
-            font-family: 'Segoe UI', "Microsoft YaHei", sans-serif;
+            font-family: 'Optima', 'Segoe UI', Tahoma, "Microsoft YaHei", sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-light);
-            color: #333;
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+            line-height: 1.8;
         }
 
-        /* 页头：巴西国旗背景 */
+        /* 顶部：蓝白横条纹国旗风格 */
         header {
-            background: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.7)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/960px-Flag_of_Brazil.svg.png?utm_source=zh.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail');
-            background-size: cover;
-            background-position: center;
-            color: var(--brazil-yellow);
-            padding: 80px 20px;
+            background-color: var(--israel-white);
+            border-top: 25px solid var(--israel-blue);
+            border-bottom: 25px solid var(--israel-blue);
+            padding: 60px 20px;
             text-align: center;
-            border-bottom: 6px solid var(--brazil-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        header h1 { font-size: 3em; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        header p { font-size: 1.2em; margin-top: 10px; }
+        .star-of-david {
+            font-size: 80px;
+            color: var(--israel-blue);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        header h1 {
+            margin: 10px 0;
+            font-size: 2.8em;
+            color: var(--israel-blue);
+            letter-spacing: 3px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #555;
+            font-weight: 300;
+        }
 
         .container {
             max-width: 1100px;
-            margin: -40px auto 40px;
-            padding: 30px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
             background: white;
+            padding: 40px;
+            margin-bottom: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-left: 8px solid var(--israel-blue);
         }
 
         h2 {
-            color: var(--brazil-green);
-            border-left: 6px solid var(--brazil-yellow);
-            padding-left: 15px;
-            margin-top: 40px;
+            color: var(--israel-blue);
+            margin-top: 0;
             font-size: 1.8em;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
         }
 
-        .bilingual-intro {
+        /* 历史地图板块 */
+        .history-map-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .map-wrapper {
+            text-align: center;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .map-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .map-caption {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 15px;
+            padding: 8px;
+            background: #f0f4ff;
+            border-radius: 4px;
+        }
+
+        /* 中英双语排版 */
+        .bilingual-box {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
+            margin-top: 20px;
         }
 
-        .zh { line-height: 1.8; font-size: 1.05em; }
-        .en { line-height: 1.6; color: #666; font-style: italic; border-left: 1px solid #ddd; padding-left: 20px; }
+        .zh { font-weight: 500; font-size: 1.05em; text-align: justify; }
+        .en { color: #666; font-style: italic; font-size: 0.95em; border-left: 2px solid #eee; padding-left: 20px; }
 
-        /* 奖杯展示区域 */
-        .trophy-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 40px 0;
-            gap: 20px;
-        }
-
-        .trophy-box {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(145deg, #ffffff, #e6f0e6);
-            border-radius: 20px;
-            box-shadow: 5px 5px 15px #d1d9d1;
-        }
-
-        .trophy-box img {
-            height: 280px;
-            object-fit: contain;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
-            transition: transform 0.3s;
-        }
-
-        .trophy-box img:hover { transform: scale(1.05); }
-
-        /* 球星卡片网格 */
-        .player-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-            gap: 30px;
+        /* 时间轴样式 */
+        .milestone {
             margin-top: 30px;
+            padding-left: 20px;
+            border-left: 2px solid #ddd;
+            position: relative;
         }
 
-        .player-card {
-            display: flex;
-            background: #fff;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border: 1px solid #eee;
-            transition: 0.3s;
+        .milestone::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--israel-blue);
+            border-radius: 50%;
         }
 
-        .player-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,100,0,0.15); }
-
-        .player-img {
-            width: 200px;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .player-desc {
-            padding: 20px;
-            flex: 1;
-        }
-
-        .player-desc h3 { margin-top: 0; color: var(--brazil-green); border-bottom: 2px solid var(--brazil-yellow); display: inline-block; }
-        .player-desc p { margin: 10px 0; font-size: 0.95em; }
-
-        footer {
-            background: var(--brazil-green);
+        .year-tag {
+            background: var(--israel-blue);
             color: white;
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
+            padding: 2px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            display: inline-block;
         }
 
-        @media (max-width: 768px) {
-            .bilingual-intro, .player-grid { grid-template-columns: 1fr; }
-            .player-card { flex-direction: column; }
-            .player-img { width: 100%; height: 300px; }
-            .en { border-left: none; border-top: 1px solid #ddd; padding-top: 15px; padding-left: 0; }
+        /* 底部：使用指定的国旗链接 */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--israel-blue);
+            color: white;
+            margin-top: 80px;
+        }
+
+        .footer-flag {
+            width: 120px; /* SVG 格式建议设置明确宽度 */
+            height: auto;
+            border: 2px solid white;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 850px) {
+            .history-map-grid, .bilingual-box { grid-template-columns: 1fr; }
+            .en { border-left: none; border-top: 1px solid #eee; padding-top: 15px; padding-left: 0; }
+            .map-wrapper { order: -1; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>巴西：桑巴足球的永恒荣耀</h1>
-    <p>Brazil: The Eternal Glory of Samba Football</p>
+    <div class="star-of-david">✡</div>
+    <h1>以色列：复兴与创新之旅</h1>
+    <p>Israel: A Journey of Revival and Innovation</p>
 </header>
 
 <div class="container">
-    
-    <!-- 简介部分 -->
+
+    <!-- 第一部分：古代王国与地图 -->
     <section>
-        <h2>世界杯五星传奇 / The Five-Star World Cup Legend</h2>
-        <div class="bilingual-intro">
+        <h2>历史渊源与古代版图 / Historical Roots</h2>
+        <div class="history-map-grid">
+            <div class="map-wrapper">
+                <!-- 古代以色列王国地图 -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Kingdom_of_Israel_1020_map_zh-hans.svg/500px-Kingdom_of_Israel_1020_map_zh-hans.svg.png?utm_source=zh.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Ancient Israel Map">
+                <div class="map-caption">
+                    <strong>公元前1020年的以色列王国</strong><br>
+                    Kingdom of Israel, circa 1020 BC
+                </div>
+            </div>
+
+            <div>
+                <div class="bilingual-box" style="grid-template-columns: 1fr;">
+                    <div class="zh">
+                        犹太民族与以色列土地的联系可追溯到3000年前。如地图所示，在公元前11世纪，扫罗王和大卫王建立了统一的以色列王国。这一时期不仅是犹太文明的鼎盛时期，也确立了耶路撒冷作为民族精神核心的地位。
+                    </div>
+                    <div class="en">
+                        The connection between the Jewish people and the Land of Israel dates back over 3,000 years. As shown in the map, the united Kingdom of Israel was established in the 11th century BC under Kings Saul and David, establishing Jerusalem as the spiritual heart of the nation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第二部分：现代建国历程 -->
+    <section>
+        <h2>发展里程碑 / Historical Milestones</h2>
+        
+        <div class="milestone">
+            <span class="year-tag">1948</span>
+            <div class="bilingual-box">
+                <div class="zh">
+                    <strong>独立与主权：</strong> 1948年5月14日，以色列正式宣布建国。这是犹太民族在历经两千年流散后的复兴，开启了现代国家建设的新纪元。
+                </div>
+                <div class="en">
+                    <strong>Independence:</strong> On May 14, 1948, Israel proclaimed independence, marking the revival of Jewish sovereignty after 2,000 years of diaspora.
+                </div>
+            </div>
+        </div>
+
+        <div class="milestone">
+            <span class="year-tag">1960s - 1980s</span>
+            <div class="bilingual-box">
+                <div class="zh">
+                    <strong>沙漠中的奇迹：</strong> 尽管自然资源匮乏，以色列通过发展滴灌技术、海水淡化和集体农庄（基布兹），在荒漠中实现了农业现代化。
+                </div>
+                <div class="en">
+                    <strong>Miracles in the Desert:</strong> Despite scarce resources, Israel achieved agricultural modernization through drip irrigation, desalination, and the Kibbutz movement.
+                </div>
+            </div>
+        </div>
+
+        <div class="milestone">
+            <span class="year-tag">21世纪 - 至今</span>
+            <div class="bilingual-box">
+                <div class="zh">
+                    <strong>创业之国：</strong> 以色列已转型为全球顶尖的高科技中心。它在纳斯达克上市的公司数量居世界前列，是网络安全和医疗创新的先锋。
+                </div>
+                <div class="en">
+                    <strong>Start-up Nation:</strong> Israel has evolved into a global tech hub, boasting one of the highest concentrations of startups and NASDAQ-listed companies in the world.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第三部分：核心价值观 -->
+    <section>
+        <h2>民族精神 / The Spirit of Resilience</h2>
+        <div class="bilingual-box">
             <div class="zh">
-                <p>巴西国家男子足球队由巴西足球联盟负责管辖，代表巴西参加国际A级足球赛事。巴西队被誉为世界上最知名及最成功的国家足球队之一。他们曾五次夺得世界杯冠军（1958, 1962, 1970, 1994, 2002），是夺冠次数最多的球队，因此被称为“五星巴西”。</p>
+                以色列的发展史是一部逆境求生的奋斗史。从希伯来语的重新复活到尖端科技的爆发，其核心动力源于对教育的极度重视和不断挑战极限的创新精神。
             </div>
             <div class="en">
-                <p>The Brazil national football team is governed by the Brazilian Football Confederation and represents Brazil in international competitions. It is one of the most successful national teams in the world, having won the FIFA World Cup a record five times (1958, 1962, 1970, 1994, and 2002), earning them the nickname "Pentacampeões."</p>
+                The history of Israel is a saga of resilience. From the revival of the Hebrew language to the explosion of cutting-edge technology, its core driver is a profound commitment to education and an unrelenting spirit of innovation.
             </div>
         </div>
     </section>
 
-    <!-- 奖杯展示部分 -->
-    <section>
-        <h2>至高无上的荣耀 / The Supreme Trophies</h2>
-        <div class="trophy-container">
-            <!-- 雷米特杯 -->
-            <div class="trophy-box">
-                <img src="https://bkimg.cdn.bcebos.com/pic/30ecd5efff979d0badafd579?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080" alt="Jules Rimet Trophy">
-                <div class="zh"><h3>胜利女神杯 (雷米特杯)</h3><p>巴西在1970年第三次夺得世界杯后，获准永久保留此奖杯。</p></div>
-                <div class="en"><h3>Jules Rimet Trophy</h3><p>After winning their third World Cup in 1970, Brazil was allowed to keep the original trophy permanently.</p></div>
-            </div>
-            <!-- 大力神杯 -->
-            <div class="trophy-box">
-                <img src="https://photo.16pic.com/00/11/55/16pic_1155397_b.jpg" alt="FIFA World Cup Trophy">
-                <div class="zh"><h3>大力神杯</h3><p>1974年启用的新奖杯。巴西队在1994年和2002年两度捧起这座金杯。</p></div>
-                <div class="en"><h3>FIFA World Cup Trophy</h3><p>Introduced in 1974, Brazil has lifted this current trophy twice in 1994 and 2002.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 球星介绍部分 -->
-    <section>
-        <h2>巴西足球巨星 / Brazilian Football Superstars</h2>
-        <div class="player-grid">
-            
-            <!-- 贝利 -->
-            <div class="player-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Th2wRkIgZ-MhC56yLs4Xy6qxAsg__kOIVv08S5Cp71kgfv6VNipA5A0&s=10" alt="Pelé" class="player-img">
-                <div class="player-desc">
-                    <h3>贝利 / Pelé</h3>
-                    <p class="zh"><strong>“球王”</strong>。历史上唯一一位三夺世界杯冠军的球员。他象征着巴西足球的灵魂。</p>
-                    <p class="en"><strong>"The King"</strong>. The only player to win three World Cups. He symbolizes the soul of Brazilian football.</p>
-                </div>
-            </div>
-
-            <!-- 罗纳尔多 -->
-            <div class="player-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YCDFItMMxrsRiHHjicrD_BeWwJ2pxa8crw53XxTOXNbKrK9-scJD4hE&s=10" alt="Ronaldo" class="player-img">
-                <div class="player-desc">
-                    <h3>罗纳尔多 / Ronaldo</h3>
-                    <p class="zh"><strong>“外星人”</strong>。2002年世界杯的最佳射手，凭借惊人的爆发力和技术统治了一个时代。</p>
-                    <p class="en"><strong>"The Phenomenon"</strong>. Top scorer of the 2002 World Cup, dominated an era with his incredible power and skill.</p>
-                </div>
-            </div>
-
-            <!-- 罗纳尔迪尼奥 -->
-            <div class="player-card">
-                <img src="https://imgsrv2.voi.id/80S0bx_zl6QqajgI8c4lV1rowny0FEf8TNptORvPtWE/auto/1200/675/sm/1/bG9jYWw6Ly8vcHVibGlzaGVycy9mM2NmMzYwZS02MWEyLTQ1NTYtYTExZS1mMzU0YmZlZWMwOGEvMjAyMDA0MDgxNzI1LW1haW4uY3JvcHBlZF8xNTg2MzQxNTE2LmpwZw.jpg" alt="Ronaldinho" class="player-img">
-                <div class="player-desc">
-                    <h3>罗纳尔迪尼奥 / Ronaldinho</h3>
-                    <p class="zh"><strong>“足球精灵”</strong>。他在场上展现了无与伦比的创造力和桑巴韵律，让足球变成了艺术。</p>
-                    <p class="en"><strong>"The Gaucho"</strong>. Showcased unparalleled creativity and Samba rhythm, turning football into an art form.</p>
-                </div>
-            </div>
-
-            <!-- 内马尔 -->
-            <div class="player-card">
-                <img src="https://res.newszu.com/hwzx/image/title_img/20231116/1700122537620.png" alt="Neymar" class="player-img">
-                <div class="player-desc">
-                    <h3>内马尔 / Neymar Jr</h3>
-                    <p class="zh"><strong>现代核心</strong>。巴西国家队历史得分王，当代最华丽的进攻天才之一。</p>
-                    <p class="en"><strong>Modern Icon</strong>. The all-time leading scorer for the Brazilian national team and a brilliant attacking genius.</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
 </div>
 
 <footer>
-    <p>巴西足球：永恒的黄色闪电 - Brazil Football: The Eternal Yellow Flash</p>
-    <p>© 2024 桑巴传奇展示馆 / Samba Legends Gallery</p>
+    <!-- 修正后的国旗链接 -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" alt="Israel Flag" class="footer-flag">
+    <p>© 以色列历史与成就专题 - Special Feature on Israel's History</p>
+    <p>古老土地上的现代辉煌 / Modern Splendor on Ancient Land</p>
 </footer>
 
 </body>
