@@ -3,181 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>太阳系探测档案 | Solar System Deep Atlas</title>
+    <title>中华本草：名贵药材图鉴 | Herb Atlas of China</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <style>
         :root {
-            --space-blue: #020617;
-            --neon-blue: #38bdf8;
-            --star-gold: #fbbf24;
-            --text-gray: #cbd5e1;
-            --panel-bg: rgba(15, 23, 42, 0.95);
+            --herb-green: #2d4635; 
+            --paper-color: #fcfaf2; 
+            --gold: #b8860b;
+            --accent-red: #8b0000; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Noto Sans SC', 'Poppins', sans-serif; 
+            font-family: 'Noto Serif SC', serif; 
             line-height: 1.6; 
-            color: var(--text-gray); 
-            background-color: var(--space-blue); 
+            color: #333; 
+            background-color: #e5e5e5; 
+            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
             overflow: hidden;
         }
 
-        /* 顶部导航 */
         header { 
-            background-color: rgba(2, 6, 23, 0.85); 
-            backdrop-filter: blur(15px); 
-            border-bottom: 1px solid rgba(56, 189, 248, 0.3);
-            position: fixed; 
-            width: 100%; 
-            z-index: 1000; 
+            background-color: var(--herb-green); 
+            border-bottom: 3px solid var(--gold);
+            position: fixed; width: 100%; z-index: 1000; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         nav { 
-            max-width: 1600px; 
-            margin: 0 auto; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 15px 30px; 
+            max-width: 1600px; margin: 0 auto; 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 10px 30px; 
         }
-        .logo { display: flex; align-items: center; text-decoration: none; }
-        .logo-icon { color: var(--neon-blue); font-size: 26px; margin-right: 12px; }
-        .logo-text { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; }
-        .logo-text span { color: var(--neon-blue); font-size: 14px; margin-left: 10px; }
+        .logo-text { font-size: 26px; font-weight: 700; color: var(--paper-color); font-family: 'Ma Shan Zheng', cursive; }
+        .logo-text span { font-size: 14px; font-family: 'Noto Serif SC'; margin-left: 10px; opacity: 0.8; font-weight: 400; }
 
-        /* 主体布局 */
         .main-explorer {
             display: grid;
-            grid-template-columns: 1.8fr 1fr;
+            grid-template-columns: 1.6fr 1fr;
             gap: 25px;
             padding: 100px 30px 30px;
-            max-width: 1800px;
-            margin: 0 auto;
+            max-width: 1800px; margin: 0 auto;
             height: 100vh;
         }
 
-        /* 宇宙星图区 */
+        /* 地图区：使用您指定的木质地图链接 */
         .map-container {
             position: relative;
-            background-image: url('https://m1.aboluowang.com/uploadfile/2025/0531/20250531152456187.webp');
+            background-color: #d2b48c;
+            background-image: url('https://i.etsystatic.com/21069375/r/il/b09bf1/3788054865/il_794xN.3788054865_fms1.jpg');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: center;
-            border-radius: 20px;
-            border: 2px solid rgba(56, 189, 248, 0.4);
-            box-shadow: 0 0 50px rgba(0,0,0,1);
+            border-radius: 15px;
+            border: 8px solid #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             overflow: hidden;
         }
 
-        /* 坐标点位 */
         .pin {
             position: absolute;
-            width: 18px;
-            height: 18px;
-            background: #fff;
-            border: 3px solid var(--neon-blue);
+            width: 18px; height: 18px;
+            background: var(--accent-red);
+            border: 2px solid white;
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
             z-index: 10;
             transition: 0.3s;
-            box-shadow: 0 0 15px var(--neon-blue);
+            box-shadow: 0 0 15px var(--accent-red);
         }
         .pin::after {
-            content: '';
-            position: absolute;
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            background: var(--neon-blue);
+            content: ''; position: absolute; width: 100%; height: 100%;
+            border-radius: 50%; background: var(--accent-red);
             animation: pulse 2.5s infinite;
         }
         .pin:hover, .pin.active {
-            background: var(--star-gold);
-            border-color: #fff;
-            transform: translate(-50%, -50%) scale(1.6);
-            box-shadow: 0 0 30px var(--star-gold);
+            background: var(--gold);
+            transform: translate(-50%, -50%) scale(1.8);
+            box-shadow: 0 0 25px var(--gold);
             z-index: 100;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(4); opacity: 0; }
+            100% { transform: scale(3.5); opacity: 0; }
         }
 
-        /* --- 严格确定的精准坐标 (L/T) --- */
-        .p-sun      { top: 50%; left: 4%; }
-        .p-mercury  { top: 50%; left: 10%; }
-        .p-venus    { top: 50%; left: 17%; }
-        .p-earth    { top: 50%; left: 25%; }
-        .p-moon     { top: 40%; left: 25%; }
-        .p-mars     { top: 50%; left: 32%; }
-        .p-jupiter  { top: 50%; left: 45%; }
-        .p-saturn   { top: 50%; left: 65%; }
-        .p-uranus   { top: 50%; left: 80%; }
-        .p-neptune  { top: 50%; left: 92%; }
-        .p-pluto    { top: 50%; left: 100%; }
+        /* 基于您提供的图片比例精调坐标 */
+        .p-ginseng    { top: 20%; left: 83%; } /* 吉林人参 */
+        .p-cordyceps  { top: 58%; left: 34%; } /* 西藏冬虫夏草 */
+        .p-goji       { top: 38%; left: 56%; } /* 宁夏枸杞 */
+        .p-notoginseng{ top: 78%; left: 56%; } /* 云南三七 */
+        .p-dendrobium { top: 68%; left: 81%; } /* 浙江铁皮石斛 */
+        .p-saffron    { top: 58%; left: 24%; } /* 西藏藏红花 */
+        .p-cistanche  { top: 28%; left: 45%; } /* 内蒙古肉苁蓉 */
+        .p-angelica   { top: 52%; left: 51%; } /* 甘肃当归 */
+        .p-ganoderma  { top: 56%; left: 74%; } /* 安徽灵芝 */
+        .p-peony      { top: 48%; left: 73%; } /* 山东/安徽白芍 */
 
-        /* 详情面板 */
         .info-panel {
-            background: var(--panel-bg);
-            border-radius: 20px;
+            background: var(--paper-color);
+            border-radius: 12px;
             padding: 35px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: inset 0 0 50px rgba(184, 134, 11, 0.1), 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid var(--gold);
             overflow-y: auto;
-            backdrop-filter: blur(10px);
         }
 
-        .astro-header { 
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 1px solid rgba(56, 189, 248, 0.3); 
-            padding-bottom: 20px; 
-            margin-bottom: 25px; 
+        .herb-header { 
+            display: flex; justify-content: space-between; align-items: flex-start;
+            border-bottom: 2px solid var(--herb-green); padding-bottom: 20px; margin-bottom: 25px; 
         }
-        .astro-header-text h2 { font-size: 36px; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
-        .astro-header-text h3 { font-size: 18px; color: var(--neon-blue); font-weight: 400; font-style: italic; }
+        .herb-header-text h2 { font-size: 32px; color: var(--herb-green); font-family: 'Ma Shan Zheng'; }
+        .herb-header-text h3 { font-size: 16px; color: var(--accent-red); font-style: italic; }
         
-        .astro-thumbnail-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            border: 2px solid var(--neon-blue);
-            cursor: zoom-in;
-            background: #000;
+        .herb-img-container {
+            border: 4px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px; overflow: hidden; cursor: zoom-in; background: #fff;
         }
-        .astro-thumbnail {
-            width: 120px; height: 120px;
-            object-fit: cover; display: block; transition: 0.5s;
-        }
+        .herb-img { width: 140px; height: 140px; object-fit: contain; display: block; transition: 0.5s; }
+        .herb-img-container:hover .herb-img { transform: scale(1.1); }
 
         .content-section { margin-bottom: 25px; }
         .content-section h4 { 
-            color: var(--star-gold); 
-            margin-bottom: 8px; 
-            border-left: 5px solid var(--neon-blue); 
-            padding-left: 12px; 
-            font-size: 1.1rem;
+            color: var(--herb-green); margin-bottom: 8px; 
+            border-left: 5px solid var(--accent-red); padding-left: 12px; font-size: 1.1rem;
         }
-        .content-section p { font-size: 16px; color: #e2e8f0; text-align: justify; }
-        .en-text { display: block; font-size: 14px; color: #94a3b8; font-style: italic; margin-top: 8px; line-height: 1.4; }
+        .content-section p { font-size: 16px; color: #444; text-align: justify; }
+        .en-text { display: block; font-size: 14px; color: #777; font-style: italic; margin-top: 6px; }
 
         .placeholder { text-align: center; margin-top: 40%; opacity: 0.5; }
 
         #imgModal {
             display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); justify-content: center; align-items: center; cursor: zoom-out;
+            background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out;
         }
-        #imgModal img { max-width: 90%; max-height: 90%; border: 2px solid var(--neon-blue); box-shadow: 0 0 50px var(--neon-blue); }
+        #imgModal img { max-width: 90%; max-height: 90%; border: 5px solid var(--paper-color); border-radius: 5px; }
 
-        .info-panel::-webkit-scrollbar { width: 5px; }
-        .info-panel::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .info-panel::-webkit-scrollbar { width: 6px; }
+        .info-panel::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
         @media (max-width: 1024px) {
             .main-explorer { grid-template-columns: 1fr; height: auto; }
-            .map-container { height: 400px; }
+            .map-container { height: 500px; }
         }
     </style>
 </head>
@@ -185,61 +154,56 @@
 
     <header>
         <nav>
-            <a href="#" class="logo">
-                <div class="logo-icon"><i class="fas fa-atom"></i></div>
-                <div class="logo-text">太阳系探测档案 <span>Solar System Deep Archives</span></div>
-            </a>
-            <div style="font-size: 14px; color: var(--neon-blue); font-family: 'Orbitron';">Mission Status: Deep Space Analysis</div>
+            <div class="logo-text">中华本草名贵药材图鉴 <span>Herbal Atlas of China</span></div>
+            <div style="font-size: 14px; color: var(--paper-color); font-style: italic;">神农尝百草，本草载千秋</div>
         </nav>
     </header>
 
     <main class="main-explorer">
         <div class="map-container">
-            <!-- 严格坐标点位 -->
-            <div class="pin p-sun" onclick="showAstro('sun', this)"></div>
-            <div class="pin p-mercury" onclick="showAstro('mercury', this)"></div>
-            <div class="pin p-venus" onclick="showAstro('venus', this)"></div>
-            <div class="pin p-earth" onclick="showAstro('earth', this)"></div>
-            <div class="pin p-moon" onclick="showAstro('moon', this)"></div>
-            <div class="pin p-mars" onclick="showAstro('mars', this)"></div>
-            <div class="pin p-jupiter" onclick="showAstro('jupiter', this)"></div>
-            <div class="pin p-saturn" onclick="showAstro('saturn', this)"></div>
-            <div class="pin p-uranus" onclick="showAstro('uranus', this)"></div>
-            <div class="pin p-neptune" onclick="showAstro('neptune', this)"></div>
-            <div class="pin p-pluto" onclick="showAstro('pluto', this)"></div>
+            <div class="pin p-ginseng" onclick="showHerb('ginseng', this)"></div>
+            <div class="pin p-cordyceps" onclick="showHerb('cordyceps', this)"></div>
+            <div class="pin p-goji" onclick="showHerb('goji', this)"></div>
+            <div class="pin p-notoginseng" onclick="showHerb('notoginseng', this)"></div>
+            <div class="pin p-dendrobium" onclick="showHerb('dendrobium', this)"></div>
+            <div class="pin p-saffron" onclick="showHerb('saffron', this)"></div>
+            <div class="pin p-cistanche" onclick="showHerb('cistanche', this)"></div>
+            <div class="pin p-angelica" onclick="showHerb('angelica', this)"></div>
+            <div class="pin p-ganoderma" onclick="showHerb('ganoderma', this)"></div>
+            <div class="pin p-peony" onclick="showHerb('peony', this)"></div>
         </div>
 
         <div class="info-panel" id="infoPanel">
             <div class="placeholder" id="placeholder">
-                <i class="fas fa-satellite-dish fa-4x" style="color:var(--neon-blue); margin-bottom:20px"></i>
-                <p>正在接收星际信号... 请点击目标解锁档案<br><i>Waiting for signal... Select a celestial body.</i></p>
+                <i class="fas fa-seedling fa-4x" style="color:var(--herb-green); margin-bottom:20px"></i>
+                <p>点击地图上的朱砂光点解锁本草档案<br><i>Click points to explore herbal archives</i></p>
             </div>
-            <div id="astroDetail" style="display:none">
-                <div class="astro-header">
-                    <div class="astro-header-text">
-                        <h2 id="aName"></h2>
-                        <h3 id="aEnName"></h3>
+            <div id="herbDetail" style="display:none">
+                <div class="herb-header">
+                    <div class="herb-header-text">
+                        <h2 id="hName"></h2>
+                        <h3 id="hEnName"></h3>
                     </div>
-                    <div class="astro-thumbnail-container" onclick="zoomImage()">
-                        <!-- 增加了 referrerpolicy 以确保维基百科链接加载正常 -->
-                        <img id="aImg" src="" alt="Celestial" class="astro-thumbnail" referrerpolicy="no-referrer">
+                    <div class="herb-img-container" onclick="zoomImage()">
+                        <!-- referrerpolicy="no-referrer" 用于解决防盗链图片加载问题 -->
+                        <img id="hImg" src="" alt="Herb" class="herb-img" referrerpolicy="no-referrer">
                     </div>
                 </div>
-                <div class="astro-content">
+                <div class="herb-content">
                     <div class="content-section">
-                        <h4>观测数据 / Parameters</h4>
-                        <p id="aData"></p>
-                        <span class="en-text" id="aDataEn"></span>
+                        <h4>产地 Origin</h4>
+                        <p id="hOrigin"></p>
+                        <span class="en-text" id="hOriginEn"></span>
                     </div>
                     <div class="content-section">
-                        <h4>核心档案 / Deep Archive</h4>
-                        <p id="aDesc"></p>
-                        <span class="en-text" id="aDescEn"></span>
+                        <h4>形态特征 Appearance</h4>
+                        <p id="hDesc"></p>
+                        <span class="en-text" id="hDescEn"></span>
                     </div>
                     <div class="content-section">
-                        <h4>科学与文化意义 / Significance</h4>
-                        <p id="aValue"></p>
-                        <span class="en-text" id="aValueEn"></span>
+                        <h4>药用功效 Efficacy</h4>
+                        <p id="hValue"></p>
+                        <span class="en-text" id="hValueEn"></span>
                     </div>
                 </div>
             </div>
@@ -251,141 +215,121 @@
     </div>
 
     <script>
-        const astroData = {
-            sun: {
-                name: "太阳", en: "The Sun",
-                img: "https://images.unsplash.com/photo-1529788295308-1eace6f67388?auto=format&fit=crop&w=300&q=80",
-                data: "核心温度：1570万K | 质量：占太阳系 99.86%",
-                dataEn: "Core Temp: 15.7M K | Mass: 99.86% of Solar System",
-                desc: "太阳系中心的唯一恒星。其核心通过氢核聚变释放能量，是生命之源。",
-                descEn: "The sole star at our center. Its core fuses hydrogen into helium, releasing energy.",
-                value: "重力锚点。它不仅提供能量，更决定了行星的轨道秩序。",
-                valueEn: "The gravitational anchor and primary energy source."
+        const herbData = {
+            ginseng: {
+                name: "人参 (Ginseng)", en: "Panax Ginseng - King of Herbs",
+                img: "https://hockhuatonic.com/storage/2020/03/ginseng.png",
+                origin: "吉林长白山、辽宁（道地药材）", originEn: "Changbai Mountains, Jilin/Liaoning Province",
+                desc: "多年生草本。根部肥大，形若人形。以根入药，野生者称“野山参”，极其名贵。",
+                descEn: "A perennial herb with a fleshy root resembling a human figure. Highly prized in traditional medicine.",
+                value: "大补元气，复脉固脱，补脾益肺。被誉为“百草之王”。",
+                valueEn: "Greatly replenishes vital energy (Qi), improves circulation, and strengthens the lungs."
             },
-            mercury: {
-                name: "水星", en: "Mercury",
-                img: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=300&q=80",
-                data: "公转周期：88天 | 昼夜温差冠绝全系",
-                dataEn: "Orbit: 88 Days | Highest temp fluctuations",
-                desc: "最小且最靠近太阳的行星。没有大气层，表面布满了陨石坑。",
-                descEn: "The smallest planet. Lacking atmosphere, its surface is heavily cratered.",
-                value: "行星演化的活化石。通过它了解内太阳系的原始状态。",
-                valueEn: "Crucial for understanding early planetary formation."
+            cordyceps: {
+                name: "冬虫夏草 (Cordyceps)", en: "Cordyceps Sinensis",
+                img: "https://img.shoplineapp.com/media/image_clips/69bba4863f182861611a4723/original.png?1773905029=",
+                origin: "西藏、青海（高海拔草甸）", originEn: "Tibet and Qinghai Plateaus",
+                desc: "麦角菌科真菌寄生在蝙蝠蛾科幼虫上的复合体。冬为虫，夏为草。",
+                descEn: "A unique complex of a fungus parasitizing caterpillar larvae. It is an insect in winter and a herb in summer.",
+                value: "补肾益肺，止血化痰。对虚劳咳喘、腰膝酸痛有显著疗效。",
+                valueEn: "Tonifies the kidneys and lungs, stops bleeding, and dissolves phlegm."
             },
-            venus: {
-                name: "金星", en: "Venus",
-                img: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=300&q=80",
-                data: "表面压力：92倍地球 | 表面温度：462℃",
-                dataEn: "Pressure: 92 bar | Surface Temp: 462°C",
-                desc: "拥有极浓厚的二氧化碳大气层，失控的温室效应使其成为地狱。",
-                descEn: "Earth's twin with a runaway greenhouse effect and a crushing atmosphere.",
-                value: "气候研究的警示灯。极端温室效应的典型案例参考。",
-                valueEn: "A planetary warning for extreme climate change."
+            goji: {
+                name: "宁夏枸杞 (Goji)", en: "Wolfberry / Lycium Barbarum",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Lycium_barbarum_-_Wolfberries_China_7-05.jpg/500px-Lycium_barbarum_-_Wolfberries_China_7-05.jpg",
+                origin: "宁夏中宁（地理标志产区）", originEn: "Zhongning, Ningxia Province",
+                desc: "茄科灌木。果实鲜红色，长椭圆形。富含胡萝卜素及抗氧化成分。",
+                descEn: "A shrub with bright red, oblong berries. Renowned globally as a superfood.",
+                value: "滋补肝肾，益精明目。用于视力减退、虚劳精亏。",
+                valueEn: "Nourishes the liver and kidneys, and enhances vision."
             },
-            earth: {
-                name: "地球", en: "Earth",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nasa_blue_marble.jpg/960px-Nasa_blue_marble.jpg",
-                data: "表面覆盖：71% 液态水 | 唯一已知生命星球",
-                dataEn: "Surface: 71% Water | Only known life-bearing planet",
-                desc: "完美的磁场、含氧大气和丰富的液态水，构成了生命避风港。",
-                descEn: "Oxygen-rich air, magnetic protection, and liquid water sustain life.",
-                value: "文明的家园。人类在浩瀚宇宙中唯一的母星。",
-                valueEn: "The cradle of civilization and our only home."
+            notoginseng: {
+                name: "三七 (San Qi)", en: "Panax Notoginseng",
+                img: "https://bowuguan.bucm.edu.cn/images/content/2016-05/20160527115203328281.jpg",
+                origin: "云南文山、广西", originEn: "Wenshan, Yunnan Province",
+                desc: "多年生草本。根呈圆锥形。因生长期长，价值昂贵，古称“金不换”。",
+                descEn: "A perennial herb with cone-shaped roots. Highly valued for its blood-healing properties.",
+                value: "散瘀止血，消肿定痛。是云南白药的主要成分。",
+                valueEn: "Dispels blood stasis, stops bleeding, and reduces swelling and pain."
             },
-            moon: {
-                name: "月球", en: "The Moon",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Full_Moon_Luc_Viatour.jpg/960px-Full_Moon_Luc_Viatour.jpg",
-                data: "距离地球：38.4万公里 | 自转：受潮汐锁定",
-                dataEn: "Distance: 384,400km | Rotation: Tidally Locked",
-                desc: "地球唯一的天然卫星。它稳定了地轴偏角，引起海洋潮汐。",
-                descEn: "Our only natural satellite. It stabilizes Earth's tilt and controls tides.",
-                value: "深空前哨。人类第一个登陆的地外星球，未来的深空跳板。",
-                valueEn: "The lunar outpost. The first extraterrestrial world walked upon by humans."
+            dendrobium: {
+                name: "铁皮石斛 (Dendrobium)", en: "Dendrobium Officinale",
+                img: "https://5b0988e595225.cdn.sohucs.com/images/20180613/30a3147011e04aafb98c2648ee902f91.jpeg",
+                origin: "浙江、安徽、云南（岩石峭壁）", originEn: "Zhejiang, Anhui, and Yunnan Provinces",
+                desc: "兰科植物。茎圆柱形。生长在阴湿的岩石缝隙，被誉为“救命仙草”。",
+                descEn: "An orchid that grows on damp cliffs. Known as a 'life-saving immortal herb'.",
+                value: "益胃生津，滋阴清热。用于口干烦渴、胃阴不足。",
+                valueEn: "Benefits the stomach and promotes fluid production; clears heat and nourishes Yin."
             },
-            mars: {
-                name: "火星", en: "Mars",
-                img: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=300&q=80",
-                data: "最高山峰：奥林匹斯山 | 探测器数量：全系最多",
-                dataEn: "Highest Peak: Olympus Mons | Most Explored Planet",
-                desc: "红色荒漠世界。科学界认为其过去曾拥有温暖湿润的环境。",
-                descEn: "A red desert world. Evidence suggests liquid water flowed in its past.",
-                value: "第二家园。寻找地外生命和建立星际移民的核心目标。",
-                valueEn: "The prime target for future human colonization."
+            saffron: {
+                name: "西藏红花 (Saffron)", en: "Crocus Sativus / Saffron",
+                img: "https://copyright.bdstatic.com/vcg/creative/9c136d016086daba8fd576131910e609.jpg",
+                origin: "西藏、上海（引种）", originEn: "Tibet, Shanghai (Cultivated)",
+                desc: "鸢尾科球根花卉。药用部位为干燥的花柱及柱头。产量极低。",
+                descEn: "A bulbous flower where only the dried stigmas are used. Extremely labor-intensive.",
+                value: "活血化瘀，凉血解毒，解郁安神。调理气血之圣药。",
+                valueEn: "Promotes blood circulation, clears toxins, and relieves depression."
             },
-            jupiter: {
-                name: "木星", en: "Jupiter",
-                img: "https://images.unsplash.com/photo-1630839437035-dac17da580d0?auto=format&fit=crop&w=300&q=80",
-                data: "卫星数量：95颗 | 大红斑：持续300余年的风暴",
-                dataEn: "Moons: 95 | Great Red Spot: 300+ year storm",
-                desc: "巨大的引力清理了威胁天体。大红斑是比地球还大的风暴。",
-                descEn: "The solar system's vacuum cleaner, protecting the inner planets.",
-                value: "众神之王。木卫二被认为存在地下海洋生命。",
-                valueEn: "The King of Gods; its moon Europa may harbor life."
+            cistanche: {
+                name: "肉苁蓉 (Cistanche)", en: "Desert Cistanche",
+                img: "https://www.chemicalbook.com//SupplyImg1/2024-07-18/202407190807425211047283677.png",
+                origin: "内蒙古、新疆（干旱沙漠）", originEn: "Inner Mongolia and Xinjiang Deserts",
+                desc: "寄生植物。寄生在梭梭树根部，被誉为“沙漠人参”。",
+                descEn: "A parasitic herb growing on the roots of desert trees. Known as 'Desert Ginseng'.",
+                value: "补肾阳，益精血，润肠通便。对体虚便秘有良效。",
+                valueEn: "Tonifies kidney Yang, benefits essence and blood, and moistens intestines."
             },
-            saturn: {
-                name: "土星", en: "Saturn",
-                img: "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=300&q=80",
-                data: "光环跨度：28万公里 | 平均密度：小于水",
-                dataEn: "Ring Width: 280,000km | Density: Less than water",
-                desc: "以宏伟的光环闻名。最扁平的行星，由氢和氦组成。",
-                descEn: "Famous for its magnificent icy rings. A gas giant mostly made of hydrogen.",
-                value: "空间美学极致。光环研究对理解行星形成至关重要。",
-                valueEn: "A masterpiece of mechanics and planetary evolution."
+            angelica: {
+                name: "当归 (Dang Gui)", en: "Angelica Sinensis",
+                img: "https://zyj.beijing.gov.cn/sy/whkp/202108/W020210816762836489736.jpg",
+                origin: "甘肃岷县（道地药材产区）", originEn: "Minxian, Gansu Province",
+                desc: "伞形科多年生草本。根部有特异浓郁香气。中医称为“妇科圣药”。",
+                descEn: "A perennial herb with highly aromatic roots, fundamental in traditional therapy.",
+                value: "补血活血，调经止痛，润肠通便。调理血虚血瘀。",
+                valueEn: "Nourishes and activates blood, regulates menstruation, and relieves pain."
             },
-            uranus: {
-                name: "天王星", en: "Uranus",
-                img: "https://images.unsplash.com/photo-1614732484003-ef9881555dc3?auto=format&fit=crop&w=300&q=80",
-                data: "轴倾角：98度 | 表面温度：最低 -224℃",
-                dataEn: "Axial Tilt: 98° | Temp: Lowest -224°C",
-                desc: "蔚蓝色冰巨星。轴倾角过大使其仿佛在轨道上侧躺滚动。",
-                descEn: "A blue ice giant that rolls along its orbit on its side.",
-                value: "倾斜的异类。其磁场挑战理论，是研究远日行星的关键。",
-                valueEn: "A vital subject for studying outer planetary systems."
+            ganoderma: {
+                name: "灵芝 (Lingzhi)", en: "Ganoderma Lucidum / Reishi",
+                img: "https://upload.wikimedia.org/wikipedia/commons/8/81/Ganoderma_lucidum_01.jpg",
+                origin: "安徽大别山、山东、福建", originEn: "Anhui, Shandong, and Fujian Mountains",
+                desc: "多孔菌科真菌。菌盖呈木质，具漆样光泽。象征长寿吉祥。",
+                descEn: "A woody mushroom with a glossy cap. A traditional symbol of longevity.",
+                value: "补气安神，止咳平喘。用于心神不宁、失眠惊悸、虚劳短气。",
+                valueEn: "Nourishes Qi, calms the mind, and relieves coughs and asthma."
             },
-            neptune: {
-                name: "海王星", en: "Neptune",
-                img: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=300&q=80",
-                data: "最高风速：2100km/h | 发现方式：数学推算",
-                dataEn: "Wind Speed: 2,100km/h | Found via Calculation",
-                desc: "深蓝色星球。拥有全系风速最高、最活跃的大气环流。",
-                descEn: "The deep blue world. Home to the strongest supersonic winds.",
-                value: "数学逻辑的胜利。第一个未经观测先计算出的行星。",
-                valueEn: "First planet discovered via math rather than observation."
-            },
-            pluto: {
-                name: "冥王星", en: "Pluto",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Pluto-01_Stern_03_Pluto_Color_TXT.jpg/960px-Pluto-01_Stern_03_Pluto_Color_TXT.jpg",
-                data: "分类：矮行星 | 地貌：拥有巨大心形冰原",
-                dataEn: "Class: Dwarf Planet | Feature: Heart-shaped ice plains",
-                desc: "位于柯伊伯带。2015年新视野号揭示了它表面惊人的复杂地理。",
-                descEn: "Located in the Kuiper Belt. Features complex nitrogen-ice mountains.",
-                value: "冥界之王。理解外太阳系及边缘天体演化的窗口。",
-                valueEn: "A window into the evolution of icy Kuiper Belt objects."
+            peony: {
+                name: "白芍 (Bai Shao)", en: "White Peony Root",
+                img: "https://static.wixstatic.com/media/fd67df_8ccb76b7dad440ad81427a689d5804f7~mv2.webp",
+                origin: "安徽亳州、浙江、四川", originEn: "Bozhou, Anhui Province",
+                desc: "芍药科多年生草本。药用其根部，质地坚实，切面平坦。",
+                descEn: "A perennial herb where the firm, processed roots are used medicinally.",
+                value: "养血调经，敛阴止汗，柔肝止痛。用于月经不调、自汗盗汗。",
+                valueEn: "Nourishes blood, regulates menstruation, and softens the liver."
             }
         };
 
         let currentActivePin = null;
 
-        function showAstro(id, el) {
+        function showHerb(id, el) {
             if (currentActivePin) currentActivePin.classList.remove('active');
             el.classList.add('active');
             currentActivePin = el;
 
-            const data = astroData[id];
+            const data = herbData[id];
             document.getElementById('placeholder').style.display = 'none';
-            document.getElementById('astroDetail').style.display = 'block';
+            document.getElementById('herbDetail').style.display = 'block';
             
-            document.getElementById('aName').innerText = data.name;
-            document.getElementById('aEnName').innerText = data.en;
-            document.getElementById('aImg').src = data.img;
-            document.getElementById('aData').innerText = data.data;
-            document.getElementById('aDataEn').innerText = data.dataEn;
-            document.getElementById('aDesc').innerText = data.desc;
-            document.getElementById('aDescEn').innerText = data.descEn;
-            document.getElementById('aValue').innerText = data.value;
-            document.getElementById('aValueEn').innerText = data.valueEn;
+            document.getElementById('hName').innerText = data.name;
+            document.getElementById('hEnName').innerText = data.en;
+            document.getElementById('hImg').src = data.img;
+            document.getElementById('hOrigin').innerText = data.origin;
+            document.getElementById('hOriginEn').innerText = data.originEn;
+            document.getElementById('hDesc').innerText = data.desc;
+            document.getElementById('hDescEn').innerText = data.descEn;
+            document.getElementById('hValue').innerText = data.value;
+            document.getElementById('hValueEn').innerText = data.valueEn;
 
-            const detail = document.getElementById('astroDetail');
+            const detail = document.getElementById('herbDetail');
             detail.style.opacity = 0;
             setTimeout(() => {
                 detail.style.transition = '0.5s ease';
@@ -394,7 +338,7 @@
         }
 
         function zoomImage() {
-            const imgSrc = document.getElementById('aImg').src;
+            const imgSrc = document.getElementById('hImg').src;
             const modal = document.getElementById('imgModal');
             const modalImg = document.getElementById('modalImg');
             modalImg.src = imgSrc;
