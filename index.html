@@ -3,150 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中华本草：名贵药材图鉴 | Herb Atlas of China</title>
+    <title>全球AI大模型图鉴 | Global AI Model Atlas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --herb-green: #2d4635; 
-            --paper-color: #fcfaf2; 
-            --gold: #b8860b;
-            --accent-red: #8b0000; 
+            --ai-blue: #0ea5e9;
+            --ai-purple: #a855f7;
+            --tech-cyan: #22d3ee;
+            --bg-dark: #020617;
+            --panel-bg: rgba(15, 23, 42, 0.9);
+            --text-main: #f1f5f9;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Noto Serif SC', serif; 
+            font-family: 'Noto Sans SC', sans-serif; 
             line-height: 1.6; 
-            color: #333; 
-            background-color: #e5e5e5; 
-            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
+            color: var(--text-main); 
+            background-color: var(--bg-dark); 
             overflow: hidden;
         }
 
+        /* 顶部导航 */
         header { 
-            background-color: var(--herb-green); 
-            border-bottom: 3px solid var(--gold);
+            background-color: rgba(2, 6, 23, 0.8); 
+            backdrop-filter: blur(15px); 
+            border-bottom: 1px solid rgba(14, 165, 233, 0.3);
             position: fixed; width: 100%; z-index: 1000; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         nav { 
             max-width: 1600px; margin: 0 auto; 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 10px 30px; 
+            padding: 15px 30px; 
         }
-        .logo-text { font-size: 26px; font-weight: 700; color: var(--paper-color); font-family: 'Ma Shan Zheng', cursive; }
-        .logo-text span { font-size: 14px; font-family: 'Noto Serif SC'; margin-left: 10px; opacity: 0.8; font-weight: 400; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-icon { color: var(--ai-blue); font-size: 28px; margin-right: 12px; }
+        .logo-text { font-size: 24px; font-weight: 700; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
+        .logo-text span { color: var(--ai-blue); font-size: 14px; margin-left: 10px; opacity: 0.8; }
 
+        /* 主体布局 */
         .main-explorer {
             display: grid;
-            grid-template-columns: 1.6fr 1fr;
+            grid-template-columns: 1.8fr 1.2fr;
             gap: 25px;
             padding: 100px 30px 30px;
             max-width: 1800px; margin: 0 auto;
             height: 100vh;
         }
 
-        /* 地图区：使用您指定的木质地图链接 */
+        /* 地图显示区 */
         .map-container {
             position: relative;
-            background-color: #d2b48c;
-            background-image: url('https://i.etsystatic.com/21069375/r/il/b09bf1/3788054865/il_794xN.3788054865_fms1.jpg');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop'); /* 科技感地球底图 */
+            background-size: cover;
             background-position: center;
-            border-radius: 15px;
-            border: 8px solid #fff;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            border: 2px solid rgba(14, 165, 233, 0.4);
+            box-shadow: 0 0 50px rgba(0,0,0,1), inset 0 0 100px rgba(14, 165, 233, 0.1);
             overflow: hidden;
         }
+        .map-container::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.4); pointer-events: none;
+        }
 
+        /* 坐标光点 */
         .pin {
             position: absolute;
-            width: 18px; height: 18px;
-            background: var(--accent-red);
-            border: 2px solid white;
+            width: 20px; height: 20px;
+            background: #fff;
+            border: 4px solid var(--ai-blue);
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
             z-index: 10;
             transition: 0.3s;
-            box-shadow: 0 0 15px var(--accent-red);
+            box-shadow: 0 0 20px var(--ai-blue);
         }
         .pin::after {
             content: ''; position: absolute; width: 100%; height: 100%;
-            border-radius: 50%; background: var(--accent-red);
+            border-radius: 50%; background: var(--ai-blue);
             animation: pulse 2.5s infinite;
         }
         .pin:hover, .pin.active {
-            background: var(--gold);
-            transform: translate(-50%, -50%) scale(1.8);
-            box-shadow: 0 0 25px var(--gold);
+            background: var(--tech-cyan);
+            border-color: #fff;
+            transform: translate(-50%, -50%) scale(1.5);
+            box-shadow: 0 0 35px var(--tech-cyan);
             z-index: 100;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(3.5); opacity: 0; }
+            100% { transform: scale(4); opacity: 0; }
         }
 
-        /* 基于您提供的图片比例精调坐标 */
-        .p-ginseng    { top: 20%; left: 83%; } /* 吉林人参 */
-        .p-cordyceps  { top: 58%; left: 34%; } /* 西藏冬虫夏草 */
-        .p-goji       { top: 38%; left: 56%; } /* 宁夏枸杞 */
-        .p-notoginseng{ top: 78%; left: 56%; } /* 云南三七 */
-        .p-dendrobium { top: 68%; left: 81%; } /* 浙江铁皮石斛 */
-        .p-saffron    { top: 58%; left: 24%; } /* 西藏藏红花 */
-        .p-cistanche  { top: 28%; left: 45%; } /* 内蒙古肉苁蓉 */
-        .p-angelica   { top: 52%; left: 51%; } /* 甘肃当归 */
-        .p-ganoderma  { top: 56%; left: 74%; } /* 安徽灵芝 */
-        .p-peony      { top: 48%; left: 73%; } /* 山东/安徽白芍 */
+        /* 各国坐标点位 (适配底图) */
+        .p-usa    { top: 38%; left: 18%; }
+        .p-china  { top: 42%; left: 78%; }
+        .p-france { top: 32%; left: 48%; }
+        .p-uae    { top: 48%; left: 58%; }
+        .p-uk     { top: 28%; left: 46%; }
+        .p-korea  { top: 42%; left: 85%; }
+        .p-canada { top: 28%; left: 15%; }
 
+        /* 详情面板 */
         .info-panel {
-            background: var(--paper-color);
-            border-radius: 12px;
+            background: var(--panel-bg);
+            border-radius: 20px;
             padding: 35px;
-            box-shadow: inset 0 0 50px rgba(184, 134, 11, 0.1), 0 10px 30px rgba(0,0,0,0.1);
-            border: 2px solid var(--gold);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(14, 165, 233, 0.2);
             overflow-y: auto;
+            backdrop-filter: blur(15px);
         }
 
-        .herb-header { 
+        .ai-header { 
             display: flex; justify-content: space-between; align-items: flex-start;
-            border-bottom: 2px solid var(--herb-green); padding-bottom: 20px; margin-bottom: 25px; 
+            border-bottom: 1px solid rgba(14, 165, 233, 0.3); 
+            padding-bottom: 20px; margin-bottom: 25px; 
         }
-        .herb-header-text h2 { font-size: 32px; color: var(--herb-green); font-family: 'Ma Shan Zheng'; }
-        .herb-header-text h3 { font-size: 16px; color: var(--accent-red); font-style: italic; }
+        .ai-header-text h2 { font-size: 32px; color: #fff; font-family: 'Orbitron', sans-serif; }
+        .ai-header-text h3 { font-size: 16px; color: var(--ai-blue); font-weight: 400; font-style: italic; }
         
-        .herb-img-container {
-            border: 4px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 8px; overflow: hidden; cursor: zoom-in; background: #fff;
+        .ai-thumbnail {
+            width: 100px; height: 100px;
+            border-radius: 15px; border: 2px solid var(--ai-blue);
+            object-fit: cover;
         }
-        .herb-img { width: 140px; height: 140px; object-fit: contain; display: block; transition: 0.5s; }
-        .herb-img-container:hover .herb-img { transform: scale(1.1); }
 
         .content-section { margin-bottom: 25px; }
         .content-section h4 { 
-            color: var(--herb-green); margin-bottom: 8px; 
-            border-left: 5px solid var(--accent-red); padding-left: 12px; font-size: 1.1rem;
+            color: var(--tech-cyan); margin-bottom: 8px; 
+            border-left: 5px solid var(--ai-blue); padding-left: 12px; 
+            font-size: 1.1rem; text-transform: uppercase;
         }
-        .content-section p { font-size: 16px; color: #444; text-align: justify; }
-        .en-text { display: block; font-size: 14px; color: #777; font-style: italic; margin-top: 6px; }
+        .content-section p { font-size: 16px; color: #e2e8f0; text-align: justify; margin-bottom: 10px; }
+        .en-text { display: block; font-size: 14px; color: #94a3b8; font-style: italic; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 5px; }
 
         .placeholder { text-align: center; margin-top: 40%; opacity: 0.5; }
+        .placeholder i { font-size: 50px; color: var(--ai-blue); margin-bottom: 20px; }
 
-        #imgModal {
-            display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out;
-        }
-        #imgModal img { max-width: 90%; max-height: 90%; border: 5px solid var(--paper-color); border-radius: 5px; }
-
-        .info-panel::-webkit-scrollbar { width: 6px; }
-        .info-panel::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        .info-panel::-webkit-scrollbar { width: 5px; }
+        .info-panel::-webkit-scrollbar-thumb { background: var(--ai-blue); border-radius: 10px; }
 
         @media (max-width: 1024px) {
             .main-explorer { grid-template-columns: 1fr; height: auto; }
-            .map-container { height: 500px; }
+            .map-container { height: 400px; }
         }
     </style>
 </head>
@@ -154,195 +158,160 @@
 
     <header>
         <nav>
-            <div class="logo-text">中华本草名贵药材图鉴 <span>Herbal Atlas of China</span></div>
-            <div style="font-size: 14px; color: var(--paper-color); font-style: italic;">神农尝百草，本草载千秋</div>
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fas fa-brain"></i></div>
+                <div class="logo-text">AI大模型图鉴 <span>Global Model Atlas</span></div>
+            </a>
+            <div style="font-size: 14px; color: var(--ai-blue); font-family: 'Orbitron';">INTELLIGENCE STATUS: EVOLVING</div>
         </nav>
     </header>
 
     <main class="main-explorer">
         <div class="map-container">
-            <div class="pin p-ginseng" onclick="showHerb('ginseng', this)"></div>
-            <div class="pin p-cordyceps" onclick="showHerb('cordyceps', this)"></div>
-            <div class="pin p-goji" onclick="showHerb('goji', this)"></div>
-            <div class="pin p-notoginseng" onclick="showHerb('notoginseng', this)"></div>
-            <div class="pin p-dendrobium" onclick="showHerb('dendrobium', this)"></div>
-            <div class="pin p-saffron" onclick="showHerb('saffron', this)"></div>
-            <div class="pin p-cistanche" onclick="showHerb('cistanche', this)"></div>
-            <div class="pin p-angelica" onclick="showHerb('angelica', this)"></div>
-            <div class="pin p-ganoderma" onclick="showHerb('ganoderma', this)"></div>
-            <div class="pin p-peony" onclick="showHerb('peony', this)"></div>
+            <!-- 产地光点 -->
+            <div class="pin p-usa" onclick="showAI('usa', this)"></div>
+            <div class="pin p-china" onclick="showAI('china', this)"></div>
+            <div class="pin p-france" onclick="showAI('france', this)"></div>
+            <div class="pin p-uae" onclick="showAI('uae', this)"></div>
+            <div class="pin p-uk" onclick="showAI('uk', this)"></div>
+            <div class="pin p-korea" onclick="showAI('korea', this)"></div>
+            <div class="pin p-canada" onclick="showAI('canada', this)"></div>
         </div>
 
         <div class="info-panel" id="infoPanel">
             <div class="placeholder" id="placeholder">
-                <i class="fas fa-seedling fa-4x" style="color:var(--herb-green); margin-bottom:20px"></i>
-                <p>点击地图上的朱砂光点解锁本草档案<br><i>Click points to explore herbal archives</i></p>
+                <i class="fas fa-microchip"></i>
+                <p>点击全球AI枢纽点位获取深度档案<br><i>Click satellite points to retrieve AI intelligence reports</i></p>
             </div>
-            <div id="herbDetail" style="display:none">
-                <div class="herb-header">
-                    <div class="herb-header-text">
-                        <h2 id="hName"></h2>
-                        <h3 id="hEnName"></h3>
+            <div id="aiDetail" style="display:none">
+                <div class="ai-header">
+                    <div class="ai-header-text">
+                        <h2 id="aCountry"></h2>
+                        <h3 id="aEnCountry"></h3>
                     </div>
-                    <div class="herb-img-container" onclick="zoomImage()">
-                        <!-- referrerpolicy="no-referrer" 用于解决防盗链图片加载问题 -->
-                        <img id="hImg" src="" alt="Herb" class="herb-img" referrerpolicy="no-referrer">
-                    </div>
+                    <img id="aImg" src="" alt="AI Tech" class="ai-thumbnail">
                 </div>
-                <div class="herb-content">
+                <div class="ai-content">
                     <div class="content-section">
-                        <h4>产地 Origin</h4>
-                        <p id="hOrigin"></p>
-                        <span class="en-text" id="hOriginEn"></span>
+                        <h4>核心大模型 / Core LLMs</h4>
+                        <p id="aModels" style="color: var(--tech-cyan); font-weight: bold; font-family: 'Orbitron';"></p>
                     </div>
                     <div class="content-section">
-                        <h4>形态特征 Appearance</h4>
-                        <p id="hDesc"></p>
-                        <span class="en-text" id="hDescEn"></span>
+                        <h4>技术特点 / Technical Profile</h4>
+                        <p id="aDesc"></p>
+                        <span class="en-text" id="aDescEn"></span>
                     </div>
                     <div class="content-section">
-                        <h4>药用功效 Efficacy</h4>
-                        <p id="hValue"></p>
-                        <span class="en-text" id="hValueEn"></span>
+                        <h4>产业格局 / Industrial Landscape</h4>
+                        <p id="aValue"></p>
+                        <span class="en-text" id="aValueEn"></span>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <div id="imgModal" onclick="this.style.display='none'">
-        <img id="modalImg" src="" referrerpolicy="no-referrer">
-    </div>
-
     <script>
-        const herbData = {
-            ginseng: {
-                name: "人参 (Ginseng)", en: "Panax Ginseng - King of Herbs",
-                img: "https://hockhuatonic.com/storage/2020/03/ginseng.png",
-                origin: "吉林长白山、辽宁（道地药材）", originEn: "Changbai Mountains, Jilin/Liaoning Province",
-                desc: "多年生草本。根部肥大，形若人形。以根入药，野生者称“野山参”，极其名贵。",
-                descEn: "A perennial herb with a fleshy root resembling a human figure. Highly prized in traditional medicine.",
-                value: "大补元气，复脉固脱，补脾益肺。被誉为“百草之王”。",
-                valueEn: "Greatly replenishes vital energy (Qi), improves circulation, and strengthens the lungs."
+        const aiData = {
+            usa: {
+                country: "美国", en: "United States - Global AI Epicenter",
+                img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400",
+                models: "GPT-4 (OpenAI), Gemini (Google), Claude (Anthropic), Llama 3 (Meta)",
+                desc: "美国是全球AI浪潮的引领者，拥有最完善的生态系统和最强大的算力支撑。其模型在逻辑推理、多模态处理和长文本理解方面处于世界顶尖水平。",
+                descEn: "The US leads the global AI wave, boasting the most mature ecosystem and computational support. Its models excel in logical reasoning, multimodal processing, and long-context understanding.",
+                value: "以硅谷为中心，汇聚了从闭源商业模型（OpenAI）到开源生态（Meta）的所有顶尖路径，定义了通用人工智能（AGI）的技术标准。",
+                valueEn: "Centered in Silicon Valley, it converges all top paths from closed-source commercial models to open-source ecosystems, defining technical standards for AGI."
             },
-            cordyceps: {
-                name: "冬虫夏草 (Cordyceps)", en: "Cordyceps Sinensis",
-                img: "https://img.shoplineapp.com/media/image_clips/69bba4863f182861611a4723/original.png?1773905029=",
-                origin: "西藏、青海（高海拔草甸）", originEn: "Tibet and Qinghai Plateaus",
-                desc: "麦角菌科真菌寄生在蝙蝠蛾科幼虫上的复合体。冬为虫，夏为草。",
-                descEn: "A unique complex of a fungus parasitizing caterpillar larvae. It is an insect in winter and a herb in summer.",
-                value: "补肾益肺，止血化痰。对虚劳咳喘、腰膝酸痛有显著疗效。",
-                valueEn: "Tonifies the kidneys and lungs, stops bleeding, and dissolves phlegm."
+            china: {
+                country: "中国", en: "China - AI Innovation Powerhouse",
+                img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400",
+                models: "DeepSeek-V3, Ernie Bot (Baidu), Qwen (Alibaba), GLM (Zhipu AI)",
+                desc: "中国拥有全球第二大模型群。特别是在模型推理效率（如DeepSeek）和垂直行业应用方面展现出极强的竞争力。中文语境处理能力世界第一。",
+                descEn: "China hosts the world's second-largest group of LLMs, showing high competitiveness in inference efficiency (e.g., DeepSeek) and vertical industrial applications. It leads the world in Chinese linguistic processing.",
+                value: "呈现“百模大战”态势，互联网巨头与独角兽公司并进，在AI赋能制造业、金融和政务领域具有独特的数据规模优势。",
+                valueEn: "Characterized by the 'War of a Hundred Models,' where tech giants and unicorns advance together, leveraging massive data advantages in manufacturing, finance, and governance."
             },
-            goji: {
-                name: "宁夏枸杞 (Goji)", en: "Wolfberry / Lycium Barbarum",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Lycium_barbarum_-_Wolfberries_China_7-05.jpg/500px-Lycium_barbarum_-_Wolfberries_China_7-05.jpg",
-                origin: "宁夏中宁（地理标志产区）", originEn: "Zhongning, Ningxia Province",
-                desc: "茄科灌木。果实鲜红色，长椭圆形。富含胡萝卜素及抗氧化成分。",
-                descEn: "A shrub with bright red, oblong berries. Renowned globally as a superfood.",
-                value: "滋补肝肾，益精明目。用于视力减退、虚劳精亏。",
-                valueEn: "Nourishes the liver and kidneys, and enhances vision."
+            france: {
+                country: "法国", en: "France - Europe's AI Rising Star",
+                img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400",
+                models: "Mistral, Mixtral (Mistral AI), Bloom (Hugging Face)",
+                desc: "法国已成为欧洲AI研究的中心。Mistral AI凭借其高效的稀疏混合专家（MoE）架构，在开源界和模型效能比上赢得了全球声誉。",
+                descEn: "France has emerged as Europe's hub for AI research. Mistral AI gained global acclaim for its efficient Mixture-of-Experts (MoE) architecture and high performance-to-cost ratio.",
+                value: "强调主权AI与开源透明，在欧盟AI法案框架下，积极推动独立于美国技术的欧洲路径。",
+                valueEn: "Emphasizes sovereign AI and open-source transparency, actively pushing for a European path independent of US technology under the EU AI Act framework."
             },
-            notoginseng: {
-                name: "三七 (San Qi)", en: "Panax Notoginseng",
-                img: "https://bowuguan.bucm.edu.cn/images/content/2016-05/20160527115203328281.jpg",
-                origin: "云南文山、广西", originEn: "Wenshan, Yunnan Province",
-                desc: "多年生草本。根呈圆锥形。因生长期长，价值昂贵，古称“金不换”。",
-                descEn: "A perennial herb with cone-shaped roots. Highly valued for its blood-healing properties.",
-                value: "散瘀止血，消肿定痛。是云南白药的主要成分。",
-                valueEn: "Dispels blood stasis, stops bleeding, and reduces swelling and pain."
+            uae: {
+                country: "阿联酋", en: "UAE - The Desert's Digital Intelligence",
+                img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400",
+                models: "Falcon (TII), Jais (G42)",
+                desc: "阿联酋通过国家级投入，由技术创新研究院（TII）开发的Falcon系列一度登顶全球开源模型榜单。Jais是全球性能最强的阿拉伯语大模型。",
+                descEn: "Through state-level investment, the UAE's Falcon series developed by TII topped global open-source leaderboards. Jais is the world's highest-performing Arabic LLM.",
+                value: "展现了中东地区从能源经济向AI驱动转型的决心，致力于打造跨语言、跨文化的区域性智能中枢。",
+                valueEn: "Demonstrates the Middle East's resolve to pivot from an energy economy to an AI-driven one, aiming to build a regional intelligence hub."
             },
-            dendrobium: {
-                name: "铁皮石斛 (Dendrobium)", en: "Dendrobium Officinale",
-                img: "https://5b0988e595225.cdn.sohucs.com/images/20180613/30a3147011e04aafb98c2648ee902f91.jpeg",
-                origin: "浙江、安徽、云南（岩石峭壁）", originEn: "Zhejiang, Anhui, and Yunnan Provinces",
-                desc: "兰科植物。茎圆柱形。生长在阴湿的岩石缝隙，被誉为“救命仙草”。",
-                descEn: "An orchid that grows on damp cliffs. Known as a 'life-saving immortal herb'.",
-                value: "益胃生津，滋阴清热。用于口干烦渴、胃阴不足。",
-                valueEn: "Benefits the stomach and promotes fluid production; clears heat and nourishes Yin."
+            uk: {
+                country: "英国", en: "United Kingdom - The Scientific Cradle",
+                img: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400",
+                models: "Gemini (DeepMind-UK Origin), Stable Diffusion (Stability AI)",
+                desc: "虽然DeepMind已被谷歌收购，但其总部仍在伦敦。英国在模型底层的算法逻辑（如强化学习）和生成式扩散模型方面有极深积累。",
+                descEn: "While DeepMind is now part of Google, its HQ remains in London. The UK has deep expertise in underlying algorithms (like Reinforcement Learning) and generative diffusion models.",
+                value: "依托牛津、剑桥等顶尖学术背景，英国在AI安全监管和前沿科研（如DeepMind的蛋白质折叠预测）领域全球领先。",
+                valueEn: "Relying on Oxford and Cambridge, the UK leads globally in AI safety regulation and cutting-edge research like DeepMind's protein folding predictions."
             },
-            saffron: {
-                name: "西藏红花 (Saffron)", en: "Crocus Sativus / Saffron",
-                img: "https://copyright.bdstatic.com/vcg/creative/9c136d016086daba8fd576131910e609.jpg",
-                origin: "西藏、上海（引种）", originEn: "Tibet, Shanghai (Cultivated)",
-                desc: "鸢尾科球根花卉。药用部位为干燥的花柱及柱头。产量极低。",
-                descEn: "A bulbous flower where only the dried stigmas are used. Extremely labor-intensive.",
-                value: "活血化瘀，凉血解毒，解郁安神。调理气血之圣药。",
-                valueEn: "Promotes blood circulation, clears toxins, and relieves depression."
+            korea: {
+                country: "韩国", en: "South Korea - Hyper-Localized AI",
+                img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400",
+                models: "HyperCLOVA X (Naver), Exaone (LG)",
+                desc: "韩国在高度本地化的AI应用上极具特色。Naver开发的HyperCLOVA X深入理解韩国文化、法律与社交语境，并在硬件算力上与三星紧密结合。",
+                descEn: "South Korea excels in highly localized AI applications. Naver's HyperCLOVA X deeply understands Korean culture, law, and social context, integrating tightly with Samsung hardware.",
+                value: "拥有从半导体芯片（HBM内存）到模型层再到应用层的完整垂直产业链，是全球AI硬件生态的关键一环。",
+                valueEn: "With a complete vertical chain from chips (HBM memory) to models and applications, it is a key link in the global AI hardware ecosystem."
             },
-            cistanche: {
-                name: "肉苁蓉 (Cistanche)", en: "Desert Cistanche",
-                img: "https://www.chemicalbook.com//SupplyImg1/2024-07-18/202407190807425211047283677.png",
-                origin: "内蒙古、新疆（干旱沙漠）", originEn: "Inner Mongolia and Xinjiang Deserts",
-                desc: "寄生植物。寄生在梭梭树根部，被誉为“沙漠人参”。",
-                descEn: "A parasitic herb growing on the roots of desert trees. Known as 'Desert Ginseng'.",
-                value: "补肾阳，益精血，润肠通便。对体虚便秘有良效。",
-                valueEn: "Tonifies kidney Yang, benefits essence and blood, and moistens intestines."
-            },
-            angelica: {
-                name: "当归 (Dang Gui)", en: "Angelica Sinensis",
-                img: "https://zyj.beijing.gov.cn/sy/whkp/202108/W020210816762836489736.jpg",
-                origin: "甘肃岷县（道地药材产区）", originEn: "Minxian, Gansu Province",
-                desc: "伞形科多年生草本。根部有特异浓郁香气。中医称为“妇科圣药”。",
-                descEn: "A perennial herb with highly aromatic roots, fundamental in traditional therapy.",
-                value: "补血活血，调经止痛，润肠通便。调理血虚血瘀。",
-                valueEn: "Nourishes and activates blood, regulates menstruation, and relieves pain."
-            },
-            ganoderma: {
-                name: "灵芝 (Lingzhi)", en: "Ganoderma Lucidum / Reishi",
-                img: "https://upload.wikimedia.org/wikipedia/commons/8/81/Ganoderma_lucidum_01.jpg",
-                origin: "安徽大别山、山东、福建", originEn: "Anhui, Shandong, and Fujian Mountains",
-                desc: "多孔菌科真菌。菌盖呈木质，具漆样光泽。象征长寿吉祥。",
-                descEn: "A woody mushroom with a glossy cap. A traditional symbol of longevity.",
-                value: "补气安神，止咳平喘。用于心神不宁、失眠惊悸、虚劳短气。",
-                valueEn: "Nourishes Qi, calms the mind, and relieves coughs and asthma."
-            },
-            peony: {
-                name: "白芍 (Bai Shao)", en: "White Peony Root",
-                img: "https://static.wixstatic.com/media/fd67df_8ccb76b7dad440ad81427a689d5804f7~mv2.webp",
-                origin: "安徽亳州、浙江、四川", originEn: "Bozhou, Anhui Province",
-                desc: "芍药科多年生草本。药用其根部，质地坚实，切面平坦。",
-                descEn: "A perennial herb where the firm, processed roots are used medicinally.",
-                value: "养血调经，敛阴止汗，柔肝止痛。用于月经不调、自汗盗汗。",
-                valueEn: "Nourishes blood, regulates menstruation, and softens the liver."
+            canada: {
+                country: "加拿大", en: "Canada - Deep Learning Birthplace",
+                img: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=400",
+                models: "Command (Cohere)",
+                desc: "作为“深度学习教父”们成名的地方，加拿大在AI人才储备和底层框架上贡献巨大。Cohere专注于为企业提供高性能、可定制的对话式AI。",
+                descEn: "As the birthplace of the 'Godfathers of Deep Learning,' Canada contributes massively to AI talent and core frameworks. Cohere focuses on customizable conversational AI for enterprise.",
+                value: "虽然商业化规模略逊于美国，但在AI伦理、基础科研和B端企业级应用方面保持着独特的学术高度。",
+                valueEn: "While its commercial scale is smaller than the US, it maintains a unique academic height in AI ethics, basic research, and B2B enterprise applications."
             }
         };
 
         let currentActivePin = null;
 
-        function showHerb(id, el) {
+        function showAI(id, el) {
+            // 更新 Pin 样式
             if (currentActivePin) currentActivePin.classList.remove('active');
             el.classList.add('active');
             currentActivePin = el;
 
-            const data = herbData[id];
-            document.getElementById('placeholder').style.display = 'none';
-            document.getElementById('herbDetail').style.display = 'block';
+            const data = aiData[id];
             
-            document.getElementById('hName').innerText = data.name;
-            document.getElementById('hEnName').innerText = data.en;
-            document.getElementById('hImg').src = data.img;
-            document.getElementById('hOrigin').innerText = data.origin;
-            document.getElementById('hOriginEn').innerText = data.originEn;
-            document.getElementById('hDesc').innerText = data.desc;
-            document.getElementById('hDescEn').innerText = data.descEn;
-            document.getElementById('hValue').innerText = data.value;
-            document.getElementById('hValueEn').innerText = data.valueEn;
+            // 更新内容
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('aiDetail').style.display = 'block';
+            
+            document.getElementById('aCountry').innerText = data.country;
+            document.getElementById('aEnCountry').innerText = data.en;
+            document.getElementById('aImg').src = data.img;
+            document.getElementById('aModels').innerText = data.models;
+            document.getElementById('aDesc').innerText = data.desc;
+            document.getElementById('aDescEn').innerText = data.descEn;
+            document.getElementById('aValue').innerText = data.value;
+            document.getElementById('aValueEn').innerText = data.valueEn;
 
-            const detail = document.getElementById('herbDetail');
+            // 简单淡入动画
+            const detail = document.getElementById('aiDetail');
             detail.style.opacity = 0;
+            detail.style.transform = "translateX(20px)";
             setTimeout(() => {
-                detail.style.transition = '0.5s ease';
+                detail.style.transition = '0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                 detail.style.opacity = 1;
+                detail.style.transform = "translateX(0)";
             }, 10);
-        }
-
-        function zoomImage() {
-            const imgSrc = document.getElementById('hImg').src;
-            const modal = document.getElementById('imgModal');
-            const modalImg = document.getElementById('modalImg');
-            modalImg.src = imgSrc;
-            modal.style.display = 'flex';
+            
+            document.getElementById('infoPanel').scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
